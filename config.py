@@ -1,3 +1,4 @@
+import logging
 import os
 
 
@@ -19,7 +20,7 @@ class Development(BaseConfig):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # 默认日志等级
-    # LOG_LEVEL = logging.DEBUG
+    LOG_LEVEL = logging.DEBUG
 
 
 class TestingConfig(BaseConfig):
@@ -33,6 +34,8 @@ class ProductionConfig(BaseConfig):
 
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:123456@127.0.0.1:3306/JAB_Project"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # 默认日志等级
+    LOG_LEVEL = logging.ERROR
 
 
 config = {
