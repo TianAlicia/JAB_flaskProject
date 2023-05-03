@@ -15,7 +15,7 @@ class BaseConfig:
 class Development(BaseConfig):
     """开发配置"""
 
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@127.0.0.1:3306/JAB_Project"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:123456@127.0.0.1:3306/JAB_Project"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # 默认日志等级
@@ -31,7 +31,7 @@ class TestingConfig(BaseConfig):
 class ProductionConfig(BaseConfig):
     """生成环境配置"""
 
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:root@127.0.0.1:3306/JAB_Project"
+    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:123456@127.0.0.1:3306/JAB_Project"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
