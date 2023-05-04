@@ -1,6 +1,7 @@
 from flask import Flask
 
-# from com.utils import setup_log
+import JAB.oms
+from com.utils import setup_log
 from config import config
 from extensions import db, migrate
 from JAB.views import register_blueprint
@@ -18,3 +19,10 @@ def create_app(config_name):
     register_blueprint(app)
 
     return app
+
+
+"""
+数据库建模：
+    需求文档---->  用户，文章，评论，分类，
+
+"""
