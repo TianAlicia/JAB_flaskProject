@@ -40,7 +40,7 @@
                class="code layui-input layui-input-inline"
                autocomplete="off"/>
         <!--点击发送短信-->
-        <div class="layui-form-mid layui-word-aux"><a href="javascript:;" class="send_sms">Codigo vertificacion</a>
+        <div class="layui-form-mid layui-word-aux"><a href="javascript:;" class="send_sms">Codigo de vertificacion</a>
         </div>
     </div>
     <div class="layui-form-item">
@@ -85,7 +85,7 @@
 
     }   //'jquery'
 
-    layui.use  (  ['form', 'layer'], function() {
+    layui.use  (  ['form', 'layer','jquery'], function() {
         let $ = layui.jquery;
         // let form = layui.form;
         // 请求后端生成图片验证码
@@ -137,12 +137,40 @@
                         } else {
                             num -= 1;
                             // {#设置 a 标签显示的内容#}
-                            $('.send_sms').html(num + '秒');
+                            $('.send_sms').html(num + 'S');
                         }
                     }, 1000);
                 }
             });
         });
+    // 获取输入框和按钮的 DOM 元素
+var codeInput = document.querySelector('input[name="invitation_code"]');
+var registerButton = document.querySelector('button[lay-filter="register"]');
+
+// 注册按钮点击事件的处理程序
+registerButton.addEventListener('click', function(event) {
+  event.preventDefault(); // 阻止按钮默认的提交行为
+
+  // 检查输入框的值是否为 "1234"
+  if (codeInput.value === "1234") {
+    // 提交成功，跳转到 "/login"
+
+    window.location.href = "/login";
+  } else {
+    // 提示错误信息
+    alert("Codigo Mal，reescribe:");
+  }
+});
+
+
+
+
+
+
+
+
+
+
     });
 
 </script>
