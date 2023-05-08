@@ -23,11 +23,16 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <input name="nickname" type="text" lay-verify="required" placeholder="Usuario:" value="" hover class="layui-input"
+        <input name="nickname" type="text" lay-verify="required" placeholder="Usuario:" value="" hover
+               class="layui-input"
                autocomplete="off"/>
     </div>
     <div class="layui-form-item">
         <input name="password" type="password" lay-verify="required" placeholder="Contraseña :" value="" hover
+               class="layui-input"/>
+    </div>
+    <div class="layui-form-item">
+        <input name="mobile" type="password" lay-verify="required" placeholder="mobile :" value="" hover
                class="layui-input"/>
     </div>
     <div class="layui-form-item">
@@ -71,32 +76,34 @@
             d += performance.now(); //use high-precision timer if available
         }
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
-            function(c) {
+            function (c) {
                 var r = (d + Math.random() * 16) % 16 | 0;
                 d = Math.floor(d / 16);
                 return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
             });
         return uuid;
     }
+
     //
     function generateChapter() {
         image_code_uuid = generateUUID();
         // console.log(generateUUID())
+        document.getElementById('captchaImage').src = '/get_captcha?image_code_uuid=' + image_code_uuid;
 
     }   //'jquery'
 
-    layui.use  (  ['form', 'layer','jquery'], function() {
+    layui.use(['form', 'layer', 'jquery'], function () {
         let $ = layui.jquery;
-        // let form = layui.form;
+        let form = layui.form;
         // 请求后端生成图片验证码
         generateChapter();
         document.getElementById('captchaImage').src = '/get_captcha?image_code_uuid=' + image_code_uuid;
         // 点击图片,生成新的验证码
-        $('#captchaImage').click(function() {
+        $('#captchaImage').click(function () {
             generateChapter();
         });
-    //    点击发送短信验证码
-   // 1 获得邮箱号，校验
+        //    点击发送短信验证码
+        // 1 获得邮箱号，校验
 //    2 发送请求
         $('.send_sms').click(function () {
             // {#发送收集短信#}
@@ -143,33 +150,108 @@
                 }
             });
         });
-    // 获取输入框和按钮的 DOM 元素
-var codeInput = document.querySelector('input[name="invitation_code"]');
-var registerButton = document.querySelector('button[lay-filter="register"]');
+
+
+        // 获取输入框和按钮的 DOM 元素
+// var codeInput = document.querySelector('input[name="invitation_code"]');
+// var registerButton = document.querySelector('button[lay-filter="register"]');
+//
+// // 注册按钮点击事件的处理程序
+// registerButton.addEventListener('click', function(event) {
+//   event.preventDefault(); // 阻止按钮默认的提交行为
+//
+//   // 检查输入框的值是否为 "1234"
+//   if (codeInput.value === "1234") {
+//     // 提交成功，跳转到 "/login"
+//
+//     window.location.href = "/login";
+//   } else {
+//     // 提示错误信息
+//     alert("Codigo Mal，reescribe:");
+//   }
+
+        // async function register(data) {
+        //           const options = {
+        //               method: 'POST',
+        //               headers: {
+        //                   'Content-Type': 'application/json',
+        //               },
+        //               body: JSON.stringify(data),
+        //           }
+        //           const response = await fetch('/register', options)
+        //           return await response.json()
+        //       }
+        //
+        //       // 监听登录表单的提交事件
+        //       form.on('submit(register)', async function (data) {
+        //           const result = await register(data.field)
+        //           if (result.status === 'success') {
+        //               window.location.href = '/login'
+        //           } else {
+        //               layui.layer.msg(result.message)
+        //               update_captcha_image()
+        //           }
+        //           return false
+        //       })
+// });
+// 获取输入框和按钮的 DOM 元素
+        var codeInput = document.querySelector('input[name="invitation_code"]');
+        var registerButton = document.querySelector('button[lay-filter="register"]');
 
 // 注册按钮点击事件的处理程序
-registerButton.addEventListener('click', function(event) {
-  event.preventDefault(); // 阻止按钮默认的提交行为
+        registerButton.addEventListener('click', function (event) {
+            event.preventDefault(); // 阻止按钮默认的提交行为
 
-  // 检查输入框的值是否为 "1234"
-  if (codeInput.value === "1234") {
-    // 提交成功，跳转到 "/login"
+            // 检查输入框的值是否为 "1234"
+            if (codeInput.value === "1234") {
+                // 注册操作
+                register();
+            } else {
+                // 提示错误信息
+                alert("Codigo错误，请重新输入。");
+            }
+        });
 
-    window.location.href = "/login";
-  } else {
-    // 提示错误信息
-    alert("Codigo Mal，reescribe:");
-  }
-});
+        async function register() {
+            // 获取表单输入的值
+            var nom = document.querySelector('input[name="nickname"]').value;
+            var password = document.querySelector('input[name="password"]').value;
+            var email = document.querySelector('input[name="Email"]').value;
+            var mobile = document.querySelector('input[name="mobile"]').value;
 
+            // 创建包含数据的对象
+            var data = {
+                mobile: mobile,
+                nom: nom,
+                password: password,
+                email: email
+            };
 
+            // 发送 POST 请求到后端
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
 
+            // 等待响应并返回结果
+            return await response.json();
+        }
 
-
-
-
-
-
+// 表单提交事件处理程序
+//
+        form.on('submit(register)', async function (data) {
+            const result = await register(data.field)
+            if (result.status === 'success') {
+                window.location.href = '/login'
+            } else {
+                layui.layer.msg(result.message)
+                update_captcha_image()
+            }
+            return false
+        })
 
     });
 

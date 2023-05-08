@@ -1,30 +1,30 @@
 layui.use(function() {
   let form = layui.form;
   let $ = layui.jquery;
-  let captchaPath = '/auth/getCaptcha';
+  let captchaPath = '/get_captcha';
   let imageCodeId = '';
 
   // 点击按钮更新验证码
   $('#captchaImage').click(function() {
     // 浏览器要发起图片验证码请求/image_code?imageCodeId=xxxxx
     imageCodeId = generateUUID();
-    document.getElementById('captchaImage').src = captchaPath + '?image_code=' +
+    document.getElementById('captchaImage').src = captchaPath + '?image_code_uuid=' +
         imageCodeId;
   });
 
   // 定时器，定时更新验证码
   setInterval(function() {
     imageCodeId = generateUUID();
-    document.getElementById('captchaImage').src = captchaPath + '?image_code=' +
+    document.getElementById('captchaImage').src = captchaPath + '?image_code_uuid=' +
         imageCodeId;
   }, 50 * 1000);
 
   imageCodeId = generateUUID();
-  document.getElementById('captchaImage').src = captchaPath + '?image_code=' +
+  document.getElementById('captchaImage').src = captchaPath + '?image_code_uuid=' +
       imageCodeId;
 
   async function login(data) {
-    data['image_code'] = imageCodeId;
+    data['captcha_code_uuid'] = imageCodeId;
     data['next'] = getUrlParam('next');
     const options = {
       method: 'POST',

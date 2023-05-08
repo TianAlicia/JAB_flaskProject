@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from flask_login import UserMixin
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from extensions import db
 
@@ -42,20 +43,35 @@ class UserORM(db.Model, UserMixin):
     """关系部分"""
 
     # 当前用户所发布的新闻
-    article_list = db.relationship("ArticleModel", backref="user", lazy="dynamic")
+    article_list = db.relationship("ArticleORM", backref="user", lazy="dynamic")
 
     # 当前用户收藏的所有新闻
     collection_article_list = db.relationship(
-        "ArticleModel", secondary="bbs_user_collection", lazy="dynamic"
+        "ArticleORM", secondary="bbs_user_collection", lazy="dynamic"
     )  # 用户收藏的新闻
     # dynamic如果不调用属性, 就不会进行动态查询
 
     # 用户所有的粉丝，添加了反向引用 followed ，代表用户都关注了哪些人
     followers = db.relationship(
-        "UserModel",
+        "UserORM",
         secondary=tb_user_follows,
         primaryjoin=id == tb_user_follows.c.followed_id,
         secondaryjoin=id == tb_user_follows.c.follower_id,
         backref=db.backref("followed", lazy="dynamic"),
         lazy="dynamic",
     )
+
+    @property
+    def password(self):
+        raise AttributeError("password is not a readable attribute")
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+    def sava_to_db(self):
+        db.session.add(self)
+        db.session.commit()

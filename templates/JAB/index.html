@@ -25,8 +25,13 @@
             </ul>
             <!--登录注册栏-->
             <div class="login-btn">
-              <a href="/login" class="login-btn">Log in </a>/
+                {% if current_user.is_active %}
+                <a href="/logout" >Log out </a>
+
+                  {% else %}
+                 <a href="/login" class="login-btn">Log in </a>/
                 <a href="/register" class="register-btn">register </a>
+                  {% endif %}
             </div>
         </div>
     </div>
