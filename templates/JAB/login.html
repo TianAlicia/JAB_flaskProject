@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>JAP--LOGIN</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+</head>
+<body>
+<form class="layui-form" action="javascript:void(0);">
+    <div class="layui-form-item">
+        <img class="logo" src="/static/images/admin/logo.png"/>
+        <div class="title">JAP</div>
+        <div class="desc">
+           --- JAP ESPACIO DE -- LOG IN ---
+
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <input name="mobile" type="text" placeholder="Mobil : 18675867241" value="18675867241" hover
+               class="layui-input"/>
+    </div>
+    <div class="layui-form-item">
+        <input name="password" type="password" placeholder="Contraseña : 123456 " value="123456" hover class="layui-input"/>
+    </div>
+    <div class="layui-form-item">
+        <input placeholder="Codigo de vertificacion : " name="captcha" lay-verify="required"
+               hover class="code layui-input layui-input-inline"/>
+        <img src="/static/images/admin/getCaptcha.png" class="codeImage" id="captchaImage"/>
+    </div>
+    <div class="layui-form-item">
+        <button class="layui-btn" lay-submit lay-filter="login">
+            Entra
+        </button>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-form-mid layui-word-aux">
+            No tiene cuenta？ <a href="/register" style="color: #59b7a7;">registre</a>
+        </div>
+    </div>
+</form>
+
+<script src="/static/layui/layui.js"></script>
+<!--<script src="/static/js/bbs/login.js"></script>-->
+</body>
+</html>
