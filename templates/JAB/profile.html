@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ gettext('El meu Perfil') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/layui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/iconfont.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename= 'images/logo.png') }}">
+</head>
+<body>
+<div class="layui-header header container">
+    <div class="layui-container row">
+        <div class="header-demo col">
+            <!-- 头部 logo -->
+            <a href="{{ url_for('index') }}" class="logo">
+                <img src="{{ url_for('static', filename= 'images/logo-social.png') }}" alt="">
+            </a>
+            <!-- 中间分类栏 -->
+            <ul class="menu col" style="width: 75%;">
+                <li data-cid="1"><a href="{{ url_for('chat') }}">{{ gettext('Xat') }}</a></li>
+                <div class="search search-bar">
+                    <form action=""><input class="input-class" placeholder="Cerca..." type="text"><button
+                            class="iconfont icon-sousuo"></button></form></a>
+                </div>
+            </ul>
+            <!--登录注册栏-->
+            <div class="login-btn col">
+                <a href="{{ url_for('log_in') }}" class="login_btn">{{ gettext('Login /') }}</a>
+                <a href="{{ url_for('register') }}" class="register_btn">{{ gettext('Registre') }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--中间内容部分-->
+<div class="layui-container profile-all">
+    <!--新闻列表-->
+    <div class="layui-row" style="margin-top: 20px">
+        <div class="layui-col-md4">
+            <div class="profile-menu">
+                <div class="profile-picture">
+                    <img src="{{ url_for('static', filename= 'images/cat.jpg') }}" alt="author_pfp">
+                </div>
+                <div class="profile-name">{{ gettext('Nom d'usuari') }}: 18675867241</div>
+
+                <ul class="profile-detail">
+                    <li>{{ gettext('Sexe') }}: {{ gettext('Dona') }} </li>
+                    <li>{{ gettext('A.A') }}: {{ gettext('Nothing here') }} </li>
+                </ul>
+
+                <div class="focus-profile">
+                    <a href="{{ url_for('profile')}}" class="focused"
+                       data-userid="1"
+                       style="display: none"
+                    >
+                        <span class="out">{{ gettext('Segueix') }}</span>
+                        <span class="over">{{ gettext('Deixa de seguir') }}</span>
+                    </a>
+
+                    <a href="{{ url_for('create') }}" class="focus"
+                       data-userid="1"
+                       style="display: inline-block"
+                    >{{ gettext('Publica') }}</a>
+                </div>
+
+            </div>
+        </div>
+        <div class="layui-col-md8">
+            <div class="profile-card">
+                <h3>Els teus articles</h3>
+                <ul class="profile-articles">
+                    <li><a href="#"> a,b,c SDFEUAGJISDVKSAHURBDFK</a><span class="time-profile">2018-1-17</span></li>
+                    <li><a href="#"> a,b,c SDFEUAGJISDVKSAHURBDFK</a><span class="time-profile">2018-1-17</span></li>
+                    <li><a href="#"> a,b,c SDFEUAGJISDVKSAHURBDFK</a><span class="time-profile">2018-1-17</span></li>
+                    <li><a href="#"> a,b,c SDFEUAGJISDVKSAHURBDFK</a><span class="time-profile">2018-1-17</span></li>
+                    <li><a href="#"> a,b,c SDFEUAGJISDVKSAHURBDFK</a><span class="time-profile">2018-1-17</span></li>
+                    <li><a href="#"> a,b,c SDFEUAGJISDVKSAHURBDFK</a><span class="time-profile">2018-1-17</span></li>
+                </ul>
+                <div class="profile-pagination">
+                    <div id="test1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-footer footer">
+    <div class="footer_links">
+        <a href="">{{ gettext('Sobre JAB') }}</a>
+        <span>|</span>
+        <a href="">{{ gettext('Contacte') }}</a>
+        <span>|</span>
+        <a href="">{{ gettext('Web') }}</a>
+    </div>
+    <p class="copyright">
+        CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+        {{ gettext('Telèfon') }}:010-****888 xICP*******8x
+    </p>
+</div>
+
+<script src="layui/layui.js"></script>
+<script>
+  layui.use(function() {
+    let $ = layui.$;
+    var lay_page = layui.laypage;
+
+    lay_page.render({
+      elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+	, count: 50, //数据总数，从服务端得到
+	next:"next",
+        prev:"prev",
+	
+    });
+  });
+</script>
+</body>
+</html>

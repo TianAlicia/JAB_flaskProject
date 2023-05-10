@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>{{ gettext('Xat') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/layui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/iconfont.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/chat.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename= 'images/logo.png') }}">
+  </head>
+  <body>
+    <script src="{{ url_for('static', filename= 'js/jquery.min.js') }}"></script>
+    <div class="layui-header header container">
+      <div class="layui-container row">
+        <div class="header-demo col">
+          <!-- 头部 logo -->
+          <a href="{{ url_for('index') }}" class="logo">
+            <img src="{{ url_for('static', filename= 'images/logo-social.png') }}" alt="">
+          </a>
+          <!-- 中间分类栏 -->
+          <ul class="menu col" style="width: 75%;">
+            <li data-cid="1"><a href="{{ url_for('chat') }}">{{ gettext('Xat') }}</a></li>
+            <div class="search search-bar">
+              <form action=""><input class="input-class" placeholder="Cerca..." type="text"><button
+                  class="iconfont icon-sousuo"></button></form></a>
+            </div>
+          </ul>
+          <!--登录注册栏-->
+          <div class="login-btn col">
+            <a href="{{ url_for('log_in') }}" class="login_btn">{{ gettext('Login /') }}</a>
+            <a href="{{ url_for('register') }}" class="register_btn">{{ gettext('Registre') }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+ <div class="container">
+      <div class="row clearfix">
+        <div class="col-lg-12">
+          <div class="card chat-app">
+            <div id="plist" class="people-list">
+              <div class="search search-bar">
+                <form action=""><input type="text" class="input-class" placeholder="Cerca usuaris..." type="text"><button class="fa fa-search" style="height: 25px; width: 25px;"></button></form></a>
+              </div>
+              <ul class="list-unstyled chat-list mt-2 mb-0">
+                <li class="clearfix">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                  <div class="about">
+                    <div class="name">Martínez Garcia</div>
+                    <div class="status"> <i class="fa fa-circle offline"></i> {{ gettext('Ha marxat fa') }} 4 min </div>                                            
+                  </div>
+                </li>
+                <li class="clearfix active">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                  <div class="about">
+                    <div class="name">Pérez Fernández</div>
+                    <div class="status"> <i class="fa fa-circle online"></i> {{ gettext('Connectat') }}Connectat </div>
+                  </div>
+                </li>
+                <li class="clearfix">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                  <div class="about">
+                    <div class="name">Torres Soler</div>
+                    <div class="status"> <i class="fa fa-circle online"></i> {{ gettext('Connectat') }}Connectat </div>
+                  </div>
+                </li>                                    
+                <li class="clearfix">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                  <div class="about">
+                    <div class="name">García López</div>
+                    <div class="status"> <i class="fa fa-circle offline"></i> {{ gettext('Ha marxat fa') }}7 h </div>
+                  </div>
+                </li>
+                <li class="clearfix">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
+                  <div class="about">
+                    <div class="name">Castells Roca</div>
+                    <div class="status"> <i class="fa fa-circle online"></i> {{ gettext('Connectat') }}Connectat </div>
+                  </div>
+                </li>
+                <li class="clearfix">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                  <div class="about">
+                    <div class="name">Bosch Sánchez</div>
+                    <div class="status"> <i class="fa fa-circle offline"></i> {{ gettext('Desconnectat el') }} 28/Feb </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="chat">
+              <div class="chat-header clearfix">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                    </a>
+                    <div class="chat-about">
+                      <h6 class="m-b-0">Pérez Fernández</h6>
+                      <small>{{ gettext('Vist per última vegada') }}: {{ gettext('fa') }}2{{ gettext('hores') }}</small>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 hidden-sm text-right">
+                    <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
+                    <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
+                    <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                    <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+                  </div>
+                </div>
+              </div>
+              <div class="chat-history">
+                <ul class="m-b-0">
+                  <li class="clearfix">
+                    <div class="message-data float-right">
+                      <span class="message-data-time">10:10 AM, Avui</span>
+                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                    </div>
+                    <br><br><br>
+                    <div class="message other-message float-right"> Hola Pèrez, com estàs? Com va el projecte? </div>
+                  </li>
+                  <li class="clearfix">
+                    <div class="message-data">
+                      <span class="message-data-time">10:12 AM, Avui</span>
+                    </div>
+                    <div class="message my-message">Ens estem reunint avui?</div>                                    
+                  </li>                               
+                  <li class="clearfix">
+                    <div class="message-data">
+                      <span class="message-data-time">10:15 AM, Avui</span>
+                    </div>
+                    <div class="message my-message">El projecte ja ha estat acabat i tinc resultats per mostrar-te.</div>
+                  </li>
+                </ul>
+              </div>
+              <div class="search search-bar">
+                  <form action=""><input type="text" class="input-class" placeholder="Escriu missatge aquí..." type="text"><button class="fa fa-send" style="height: 50px; width: 50px;"></button></form></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="layui-footer footer">
+      <div class="footer_links">
+        <a href="">{{ gettext('Sobre JAB') }}</a>
+        <span>|</span>
+        <a href="">{{ gettext('Contacte') }}</a>
+        <span>|</span>
+        <a href="">{{ gettext('Web') }}</a>
+      </div>
+      <p class="copyright">
+        CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+        {{ gettext('Telèfon') }}:010-****888 xICP*******8x
+      </p>
+    </div>
+
+  </body>
+</html>
