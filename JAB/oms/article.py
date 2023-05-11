@@ -29,3 +29,25 @@ class ArticleORM(db.Model):
 
     # 当前新闻的所有评论
     comment_list = db.relationship("CommentORM", lazy="dynamic")
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self, title=None, content=None, index_image_url=None, category_id=None, update_time=None):
+        if title:
+            self.title = title
+        if content:
+            self.content = content
+        if index_image_url:
+            self.index_image_url = index_image_url
+        if category_id:
+            self.category_id = category_id
+        if update_time:
+            self.update_time = update_time
+
+        db.session.commit()

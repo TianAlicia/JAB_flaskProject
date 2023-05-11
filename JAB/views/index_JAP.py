@@ -1,5 +1,7 @@
 import re
 from random import randint
+from datetime import datetime
+from extensions import db
 
 from flask import (
     Blueprint,
@@ -8,22 +10,139 @@ from flask import (
     redirect,
     render_template,
     request,
+    url_for,
+    
 )
 from flask_login import login_user, logout_user
+from flask_babel import Babel, gettext
 
-from com.gen_captcha import get_captcha_image
-
-# from com.sms import send_sms
 from extensions import redis_store
 from JAB.oms import ArticleORM, CategoryORM, UserORM
+from com.gen_captcha import get_captcha_image
 
 index_JAP = Blueprint("index", __name__)
 
+# LANGUAGES = {
+#     'cat': 'Català',
+#     'es': 'Español',
+#     'en': 'English'
+# }
+
+# babel = Babel()
+
+# @babel.localeselector
+# def get_locale():
+#     return request.accept_languages.best_match(LANGUAGES.keys())
+
+# babel.init_app(index_JAP)
+
+def get_post(post_id):
+    post = ArticleORM.query.filter_by(id=post_id).first()
+    if not post:
+        return None
+    return post
 
 @index_JAP.route("/")
 def hello_world():
-    return render_template("JAB/index.html")
+    posts = ArticleORM.query.all()
+    return render_template("JAB/index.html", posts=posts)
 
+@index_JAP.route("/logo-social.ico")
+def favicon():
+    return current_app.send_static_file("logo-social.ico")
+
+@index_JAP.route("/login", methods=["POST", "GET"])
+def login_view():
+    if request.method == "GET":
+        return render_template("JAB/login.html")
+
+    username = request.json.get("username")
+    password = request.json.get("password")
+
+    captcha_code = request.json.get("captcha_code")
+    captcha_code_uuid = request.json.get("captcha_code_uuid")
+    # Check parameters
+    captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
+    if not captcha_code or not captcha_code2:
+        return {"status": "fail", "message": gettext("Invalid captcha code.")}
+
+    if captcha_code != captcha_code2:
+        return {"status": "fail", "message": gettext("Invalid captcha code.")}
+    if not username or not password:
+        return {"status": "fail", "message": gettext("Please enter all required fields.")}
+
+    user = UserORM.query.filter_by(nick_name=username).first()
+    if not user:
+        return {"status": "fail", "message": gettext("Username does not exist.")}
+    if not user.check_password(password):
+        return {"status": "fail", "message": gettext("Password incorrect.")}
+    login_user(user)
+    return {"status": "success", "message": gettext("Login successfully.")}
+
+
+@index_JAP.route("/register", methods=["POST", "GET"])
+def register_view():
+    if request.method == "GET":
+        return render_template("JAB/register.html")
+
+    data = request.get_json()
+    Email = data.get("Email")
+    mobile = data.get("mobile")
+    nickname = data.get("nom")
+    password = data.get("password")
+    if not Email or not nickname or not password:
+        return {"status": "fail", "message": gettext("Please enter all required fields.")}
+    user = UserORM()
+    user.email = Email
+    user.mobile = mobile
+    user.nick_name = nickname
+    user.password = password
+    user.save_to_db()
+    return {"status": "success", "message": gettext("Registered successfully.")}
+
+
+@index_JAP.route("/get_captcha")
+def get_captcha_view():
+    uuid = request.args.get("image_code_uuid")
+    img, text = get_captcha_image()
+    # Save text to redis
+    redis_store.store_chapter_image(uuid, text)
+    # Return the image to the browser
+    resp = make_response
+
+
+index_JAP = Blueprint("index", __name__)
+
+# babel = Babel()
+
+# # pybabel extract -F babel.cfg -o messages.pot --input-dirs=.
+# # pybabel init -i messages.pot -d translations -l en
+# # pybabel compile -d translations
+
+# LANGUAGES = {
+# 	'cat' : 'Català',
+# 	'es'  : 'Español',
+# 	'en'  : 'English'
+# }
+
+# def get_locale():
+#     return request.accept_languages.best_match(LANGUAGES.keys())
+
+# babel.init_app(index_JAP, locale_selector=get_locale)
+
+def get_post(post_id):
+    """
+    Retrieve a post from the database given its ID.
+    """
+    post: ArticleORM = ArticleORM.query.filter_by(id=post_id).first()
+    if not post:
+        return None
+    return post
+
+@index_JAP.route("/")
+def hello_world():
+    posts = ArticleORM.query.all()
+    return render_template("JAB/index.html", posts=posts)
 
 @index_JAP.route("/logo-social.ico")
 def favicon():
@@ -78,7 +197,7 @@ def register_view():
     user.mobile = mobile
     user.nick_name = nickname
     user.password = password
-    user.sava_to_db()
+    user.save_to_db()
     return {"status": "sucess", "message": "registre correcto"}
 
 
@@ -118,4 +237,76 @@ def sms_code_view():
 @index_JAP.route("/logout")
 def logout_view():
     logout_user()
-    return redirect("/")
+    return redirect('/')
+
+@index_JAP.route('/profile')
+def profile():
+    return render_template("JAB/profile.html")
+
+@index_JAP.route('/404')
+def f404():
+    return render_template("JAB/404.html")
+
+@index_JAP.route("/chat")
+def xat():
+    return render_template("JAB/chat.html")
+
+@index_JAP.route('/create', methods=('GET', 'POST'))
+def create():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        image_url = request.form['image_url']
+        category_id = request.form['category_id']
+
+        if title:
+            now = datetime.now()
+            
+            post: ArticleORM = ArticleORM()
+            post.title = title
+            post.content = content
+            post.index_image_url = image_url
+            post.user_id = 1
+            post.category_id = category_id
+            post.create_time = now
+            post.update_time = now
+
+            post.save_to_db()
+
+            return redirect('/')
+    
+    return render_template("JAB/create.html")
+
+@index_JAP.route('/<int:post_id>')
+def post(post_id):
+    post = get_post(post_id)
+    return render_template("JAB/post.html", post=post)
+
+@index_JAP.route('/<int:id>/edit', methods=('GET', 'POST'))
+def edit(id):
+
+    post = get_post(id)
+    
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        image_url = request.form['index_image_url']
+        category_id = request.form['category_id']
+
+        if post:
+            now = datetime.now()
+
+            post.update(title=title, content = content, index_image_url = image_url, category_id = category_id, update_time = now)
+
+            return redirect('/')
+    
+    return render_template("JAB/edit.html", post=post)
+
+
+@index_JAP.route('/<int:id>/delete', methods=('POST',))
+def delete(id):
+    post = get_post(id)
+    if post:
+        post.delete_to_db()
+
+    return redirect('/')

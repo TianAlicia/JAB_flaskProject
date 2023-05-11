@@ -2,34 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ gettext('Crea un post') }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/layui.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/global.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/iconfont.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename= 'images/logo.png') }}">
+    <title>Crea un post</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/global.css">
+    <link rel="stylesheet" href="/static/iconfont/iconfont.css">
+    <link rel="shortcut icon" href="/static/images/logo.png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-<div class="layui-header header container">
-    <div class="layui-container row">
-        <div class="header-demo col">
+<div class="layui-header header">
+    <div class="layui-container">
+        <div class="header-demo">
             <!-- 头部 logo -->
-            <a href="{{ url_for('index') }}" class="logo">
-                <img src="{{ url_for('static', filename= 'images/logo-social.png') }}" alt="">
+            <a href="/" class="logo">
+                <img src="/static/images/logo-social.png" alt="">
             </a>
             <!-- 中间分类栏 -->
-            <ul class="menu col" style="width: 75%;">
-                <li data-cid="1"><a href="{{ url_for('chat') }}">{{ gettext('Xat') }}</a></li>
-                <div class="search search-bar">
-                    <form action=""><input class="input-class" placeholder="Cerca..." type="text"><button
-                            class="iconfont icon-sousuo"></button></form></a>
-                </div>
+            <ul class="menu">
+                <li data-cid="1"><a href="javascript:;">foto</a></li>
+                <li data-cid="2"><a href="javascript:;">Mascota</a></li>
+                <li data-cid="3"><a href="javascript:;">Video</a></li>
+                <div class="search">
+                    <form action="" style="line-height: 60px"><input type="text"><button class="iconfont icon-sousuo"></button></form></a></div>
             </ul>
             <!--登录注册栏-->
-            <div class="login-btn col">
-                <a href="{{ url_for('log_in') }}" class="login_btn">{{ gettext('Login /') }}</a>
-                <a href="{{ url_for('register') }}" class="register_btn">{{ gettext('Registre') }}</a>
+            <div class="login-btn">
+                {% if current_user.is_active %}
+                <a href="/logout" >Log out </a>
+
+                    {% else %}
+                    <a href="/login" class="login-btn">Log in </a>/
+                <a href="/register" class="register-btn">register </a>
+                    {% endif %}
             </div>
         </div>
     </div>
@@ -40,30 +45,38 @@
 
     <form method="POST">
         <div class="form-group">
-            <label for="title">{{ gettext('Títol') }}</label>
+            <label for="title">Títol</label>
             <input type="text" name="title" placeholder="Títol del post" class="form-control" value="{{ request.form['title'] }}"></input>
         </div>
         <div class="form-group">
-            <label for="content">{{ gettext('Contingut') }}</label>
+            <label for="content">Contingut</label>
             <textarea name="content" placeholder="Contingut del post" class="form-control">{{ request.form['content'] }}</textarea>
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">{{ gettext('Crea') }}</button>
+            <label for="index_image_url">URL de la foto</label>
+            <textarea name="index_image_url" placeholder="URL de la foto" class="form-control">{{ request.form['index_image_url'] or https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.upc.edu%2Fes&psig=AOvVaw3QLObl8SUJu45qH8Im-BS5&ust=1683915756790000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKj2kJbx7f4CFQAAAAAdAAAAABAD}}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="category_id">URL de la foto</label>
+            <textarea name="category_id" placeholder="URL de la foto" class="form-control">{{ request.form['category_id'] or 0 }}</textarea>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Crea</button>
         </div>
     </form>
 {% endblock %}
 
 <div class="layui-footer footer">
     <div class="footer_links">
-        <a href="">{{ gettext('Sobre JAB') }}</a>
+        <a href="">Sobre JAB</a>
         <span>|</span>
-        <a href="">{{ gettext('Contacte') }}</a>
+        <a href="">Contacte</a>
         <span>|</span>
-        <a href="">{{ gettext('Web') }}</a>
+        <a href="">Web</a>
     </div>
     <p class="copyright">
         CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
-        {{ gettext('Telèfon') }}:010-****888 xICP*******8x
+        Telèfon:010-****888 xICP*******8x
     </p>
 </div>
 </body>
