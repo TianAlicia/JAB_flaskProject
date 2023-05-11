@@ -45,20 +45,20 @@ def login_view():
     # 校验参数
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code or not captcha_code2:
-        return {"status": "fail", "message": "验证码错误"}
+        return {"status": "fail", "message": "Codigo vertical mal"}
 
     if captcha_code != captcha_code2:
-        return {"status": "fail", "message": "验证码错误"}
+        return {"status": "fail", "message": "Codigo vertical mal"}
     if not username or not password:
-        return {"status": "fail", "message": "请填写完整信息"}
+        return {"status": "fail", "message": "informacion completa"}
 
     user: UserORM = UserORM.query.filter_by(nick_name=username).first()
     if not user:
-        return {"status": "fail", "message": "用户名不存在"}
+        return {"status": "fail", "message": "Usuario no exiteix"}
     if not user.check_password(password):
-        return {"status": "fail", "message": "密码错误"}
+        return {"status": "fail", "message": "Contrasenya mal"}
     login_user(user)
-    return {"status": "success", "message": "登录成功"}
+    return {"status": "success", "message": "log in!!!!!"}
 
 
 @index_JAP.route("/register", methods=["POST", "GET"])
@@ -66,20 +66,31 @@ def register_view():
     if request.method == "GET":
         return render_template("JAB/register.html")
     data = request.get_json()
-    Email = data.get("Email")
+    Email = str(data.get("Email"))
+
+    # if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', Email):
+    #     return {"status": "fail", "message": "pone email correcto"}
+
     mobile = data.get("mobile")
+    # if not re.match(r'^6\d{8}$', mobile):
+    #     return {"status": "fail", "message": "pone telefono correcto"}
+
+    # if not re.match( r'^6\d{8}$', int(mobile)):
+    #     return {"status": "fail", "message":"pone telefono correcto"}
+
     nickname = data.get("nom")
+
     password = data.get("password")
     # print(password)
-    # if not Email or not nickname or not password:
-    #     return {"status": "fail", "message":"pone informacion completada"}
+    if not Email or not nickname or not password:
+        return {"status": "fail", "message": "pone informacion completada"}
     user: UserORM = UserORM()
     user.email = Email
     user.mobile = mobile
     user.nick_name = nickname
     user.password = password
     user.sava_to_db()
-    return {"status": "sucess", "message": "registre correcto"}
+    return {"status": "success", "message": "registre correcto"}
 
 
 @index_JAP.route("/get_captcha")
@@ -109,9 +120,9 @@ def sms_code_view():
     # 检查验证码是否正确
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code2:
-        return {"status": "fail", "message": "验证码不存在"}
+        return {"status": "fail", "message": "Codigo no exiteix"}
     if captcha_code != captcha_code2:
-        return {"status": "fail", "message": "验证码输入错误"}
+        return {"status": "fail", "message": "Codigo mal"}
     return {"status": "sucess", "message": "envia correcto, codig:1234"}
 
 
