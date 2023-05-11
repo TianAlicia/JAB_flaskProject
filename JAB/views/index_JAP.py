@@ -267,7 +267,7 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         content = request.form['content']
-        image_url = request.form['image_url']
+        image_url = request.form['index_image_url']
         category_id = request.form['category_id']
 
         if title:
