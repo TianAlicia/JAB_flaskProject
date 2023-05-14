@@ -13,7 +13,7 @@ from flask import (
     url_for,
     
 )
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 from flask_babel import Babel, gettext
 
 from extensions import redis_store
@@ -208,7 +208,7 @@ def register_view():
     user.mobile = mobile
     user.nick_name = nickname
     user.password = password
-    user.sava_to_db()
+    user.save_to_db()
     return {"status": "success", "message": "registre correcto"}
 
 
@@ -239,20 +239,43 @@ def sms_code_view():
     # 检查验证码是否正确
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code2:
-        return {"status": "fail", "message": "Codigo no exiteix"}
+        return {"status": "fail", "message": "Codi no existent"}
     if captcha_code != captcha_code2:
-        return {"status": "fail", "message": "Codigo mal"}
-    return {"status": "sucess", "message": "envia correcto, codig:1234"}
+        return {"status": "fail", "message": "Codi erroni"}
+    return {"status": "sucess", "message": "Enviament satisfactori, Codi: 1234"}
 
+@index_JAP.route('/check_mobile')
+def check_mobile():
+    mobile = request.args.get('mobile')
+
+    # Query the database for the given mobile number
+    user = UserORM.query.filter_by(mobile=mobile).first()
+
+    if user:
+        return {'status': 'fail', 'message': 'Mòvil ja existent'}
+    else:
+        return {'status': 'success'}
+
+@index_JAP.route('/check_name')
+def check_name():
+    nom = request.args.get('nom')
+
+    # Query the database for the given name
+    user = UserORM.query.filter_by(nick_name=nom).first()
+
+    if user:
+        return {'status': 'fail', 'message': 'Nom ja existent'}
+    else:
+        return {'status': 'success'}
 
 @index_JAP.route("/logout")
 def logout_view():
     logout_user()
     return redirect('/')
 
-@index_JAP.route('/profile')
+@index_JAP.route("/profile", methods=('GET',))
 def profile():
-    return render_template("JAB/profile.html")
+    return render_template("JAB/profile.html", user=current_user)
 
 @index_JAP.route('/404')
 def f404():

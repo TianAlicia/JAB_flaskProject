@@ -19,7 +19,7 @@ class ArticleORM(db.Model):
     reason = db.Column(db.String(256))  # 未通过原因，status = -1 的时候使用
 
     category_id = db.Column(db.Integer, db.ForeignKey("bbs_category.id"))  # 分类的 id
-    # 当前新闻的作者 id
+
     user_id = db.Column(db.Integer, db.ForeignKey("bbs_user.id"))
 
     create_time = db.Column(db.DateTime, default=datetime.now)  # 记录的创建时间

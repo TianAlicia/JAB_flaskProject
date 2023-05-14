@@ -1,65 +1,63 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>JAB--LOGIN</title>
+    <title>JAB -- Login</title>
+    <link rel="stylesheet" href="/static/css/admin.css">
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/css/global.css">
     <link rel="stylesheet" href="/static/iconfont/iconfont.css">
-    <link rel="stylesheet" href="/static/css/admin.css">
     <link rel="shortcut icon" href="/static/images/logo.png">
 </head>
 <body>
-<div class="layui-header header">
-    <div class="layui-container">
-        <div class="header-demo">
-            <!-- 头部 logo -->
-            <a href="/" class="logo">
-                <img src="/static/images/logo-social.png" alt="">
-            </a>
-            <!-- 中间分类栏 -->
-            <ul class="menu">
-                <li data-cid="1"><a href="javascript:;">foto</a></li>
-                <li data-cid="2"><a href="javascript:;">Mascota</a></li>
-                <li data-cid="3"><a href="javascript:;">Video</a></li>
-                <div class="search">
-                    <form action="" style="line-height: 60px"><input type="text"><button class="iconfont icon-sousuo"></button></form></a></div>
-            </ul>
-        </div>
-    </div>
-</div>
+
 <form class="layui-form" action="javascript:void(0);">
     <div class="layui-form-item">
-        <img class="logo" src="/static/images/admin/logo.png"/>
+        <a href="/">
+            <img class="logo" src="/static/images/admin/logo.png" alt="Logo JAB">
+        </a>
         <div class="title">JAB</div>
         <div class="desc">
-           --- JAB ESPACIO DE -- LOG IN ---
 
         </div>
     </div>
     <div class="layui-form-item">
-        <input name="username" type="text" placeholder="username : yuu" value="yuu" hover
-               class="layui-input"/>
+        <input name="username" type="text" placeholder="Nom d'usuari: " hover class="layui-input"/>
     </div>
     <div class="layui-form-item">
-        <input name="password" type="password" placeholder="Contraseña : yuu " value="yuu" hover class="layui-input"/>
+        <input name="password" type="password" placeholder="Contrasenya:  " hover class="layui-input"/>
     </div>
     <div class="layui-form-item">
-        <input placeholder="Codigo de vertificacion : " name="captcha_code" lay-verify="required"
+        <input placeholder="Codi de verificació: " name="captcha_code" lay-verify="required"
                hover class="code layui-input layui-input-inline"/>
         <img src="/static/images/admin/getCaptcha.png" class="codeImage" id="captchaImage"/>
     </div>
     <div class="layui-form-item">
         <button class="layui-btn" lay-submit lay-filter="login">
-            Entra
+            Login
         </button>
     </div>
     <div class="layui-form-item">
         <div class="layui-form-mid layui-word-aux">
-            No tiene cuenta？ <a href="/register" style="color: #59b7a7;">registre</a>
+            No tens un compte? <a href="/register" style="color: #59b7a7;">Registrar-se</a>
         </div>
     </div>
 </form>
+
+<div class="layui-footer footer" style="margin-top: 2rem;">
+    <div class="footer_links">
+        <a href="">Sobre JAB</a>
+        <span>|</span>
+        <a href="">Contacte</a>
+        <span>|</span>
+        <a href="">Web</a>
+    </div>
+    <p class="copyright">
+        CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+        Telèfon:010-****888 xICP*******8x
+    </p>
+</div>
+
 
 <script src="/static/layui/layui.js"></script>
 <script src="/static/js/bbs/login.js"></script>
