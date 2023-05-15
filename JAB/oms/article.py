@@ -9,6 +9,8 @@ class ArticleORM(db.Model):
     __tablename__ = "bbs_article"
 
     id = db.Column(db.Integer, primary_key=True)  # 新闻编号
+    author = db.Column(db.String(64), nullable=False)
+    author_pfp = db.Column(db.String(256))
     title = db.Column(db.String(256), nullable=False)  # 新闻标题
     source = db.Column(db.String(64), default="")  # 新闻来源
     digest = db.Column(db.String(512), default="")  # 新闻摘要
@@ -38,7 +40,11 @@ class ArticleORM(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def update(self, title=None, content=None, index_image_url=None, category_id=None, update_time=None):
+    def update(self, author=None, author_pfp=None, title=None, content=None, index_image_url=None, category_id=None, update_time=None):
+        if author:
+            self.author = author
+        if author_pfp:
+            self.author_pfp = author_pfp
         if title:
             self.title = title
         if content:

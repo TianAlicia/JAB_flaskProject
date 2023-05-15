@@ -57,10 +57,10 @@
                         <a href="{{ url_for('index.post', post_id=post['id']) }}" class="trucate news_title">{{ post['title'] }}</a>
                         <div class="author_info">
                             <div class="author">
-                                <img src="{{ post['author_pfp'] }}" alt="author_profile_picture">
+                                <img src="{{ post['author_pfp'] }}" style="width:18px" alt="author_profile_picture">
                                 <a href="#">{{ post['author'] }}</a>
                             </div>
-                            <div class="time">{{ post['create_time'] }}</div>
+                            <div class="time">{{ post['update_time'] }}</div>
                             <div style="margin-left: 3rem;">
                                 <a href="{{ url_for('index.edit', id=post['id']) }}">
                                     <span class="badge badge-warning">Edita</span>

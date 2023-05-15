@@ -46,7 +46,7 @@
             <div class="layui-col-md9">
                 <div class="post-content">
                     <h2 class="post-title">{% block title %} {{ post['title'] }} {% endblock %}</h2>
-                    <p class="post-author">Autor: <img class="author-image" src="/static/images/user_pic.png" alt="author_photo"><span class="author-name">{{ post['author'] }}</span></p>
+                    <p class="post-author">Autor: <img class="author-image" src="{{ post['author_pfp'] }}" alt="author_photo"><span class="author-name">{{ post['author'] }}</span></p>
                     <span class="post-date">Data d'actualització: {{ post['update_time'] }}</span>
                     <img class="post-image" src="{{ post['index_image_url'] }}" alt="post_photo">
                     <p>{{ post['content'] }}</p>

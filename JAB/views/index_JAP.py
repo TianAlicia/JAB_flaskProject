@@ -288,6 +288,8 @@ def xat():
 @index_JAP.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
+        author = request.form['author']
+        author_pfp = request.form['author_php']
         title = request.form['title']
         content = request.form['content']
         image_url = request.form['index_image_url']
@@ -297,6 +299,8 @@ def create():
             now = datetime.now()
             
             post: ArticleORM = ArticleORM()
+            post.author = author
+            post.author_pfp = author_pfp
             post.title = title
             post.content = content
             post.index_image_url = image_url
@@ -322,6 +326,8 @@ def edit(id):
     post = get_post(id)
     
     if request.method == 'POST':
+        author = request.form['author']
+        author_pfp = request.form['author_php']
         title = request.form['title']
         content = request.form['content']
         image_url = request.form['index_image_url']
@@ -330,7 +336,7 @@ def edit(id):
         if post:
             now = datetime.now()
 
-            post.update(title=title, content = content, index_image_url = image_url, category_id = category_id, update_time = now)
+            post.update(author = author, author_pfp = author_pfp, title=title, content = content, index_image_url = image_url, category_id = category_id, update_time = now)
 
             return redirect('/')
     
