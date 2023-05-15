@@ -38,13 +38,13 @@
         <div class="layui-col-md4">
             <div class="profile-menu">
                 <div class="profile-picture">
-                    <img src="{{ url_for('static', filename= user.profile_picture) }}" alt="author_pfp">
+                    <img src="{{ current_user.avatar_url }}" alt="author_pfp">
                 </div>
-                <div class="profile-name">Nom d'usuari: {{ user.username }}</div>
+                <div class="profile-name">Nom d'usuari: {{ current_user.nick_name }}</div>
 
                 <ul class="profile-detail">
-                    <li>Sexe: {{ user.gender }} </li>
-                    <li>A.A: {{ user.about_me }} </li>
+                    <li>Sexe: {{ current_user.gender }} </li>
+                    <li>A.A: {{ current_user.signature }} </li>
                 </ul>
 
                 <div class="focus-profile">
