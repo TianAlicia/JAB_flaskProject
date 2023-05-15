@@ -30,8 +30,9 @@
             <!--登录注册栏-->
             <div class="login-btn">
                 {% if current_user.is_active %}
-                <a href="/logout" >Log out </a>
-
+                <a href="/profile" class="logo">
+                <img src="{{ current_user.avatar_url }}" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
+                </a>
                   {% else %}
                  <a href="/login" class="login-btn">Log in </a>/
                  <a href="/register" class="register-btn">register </a>
@@ -45,6 +46,8 @@
     <h1>{% block title %} Edita el post "{{ post['title'] }}" {% endblock %}</h1>
 
     <form method="POST">
+        <input type="hidden" name="nick_name" value="{{ current_user.nick_name }}">
+        <input type="hidden" name="avatar_url" value="{{ current_user.avatar_url }}">
         <div class="edit-form-group">
             <label for="title">Títol</label>
             <div id="edit-post-page">

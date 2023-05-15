@@ -33,14 +33,13 @@ class UserORM(db.Model, UserMixin):
     password_hash = db.Column(db.String(128), nullable=False)  # 加密的密码
     mobile = db.Column(db.String(11), unique=True, nullable=False)  # 手机号
     email = db.Column(db.String(50))  # 游戏地址
-    avatar_url = db.Column(db.String(256))  # 用户头像路径
+    avatar_url = db.Column(db.String(256), default='/static/images/worm.jpg')  # 用户头像路径
     last_login = db.Column(db.DateTime, default=datetime.now)  # 最后一次登录时间
     is_admin = db.Column(db.Boolean, default=False)
     signature = db.Column(db.String(512))  # 用户签名
 
-    gender = db.Column(db.Enum("MAN", "WOMAN"), default="MAN")  # 男  # 女
+    gender = db.Column(db.Enum("Home", "Dona"), default="Home")  # 男  # 女
 
-    """关系部分"""
 
     # 当前用户所发布的新闻
     article_list = db.relationship("ArticleORM", backref="user", lazy="dynamic")

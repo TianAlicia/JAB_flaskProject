@@ -11,6 +11,7 @@ from flask import (
     render_template,
     request,
     url_for,
+    session,
     
 )
 from flask_login import login_user, logout_user, current_user
@@ -97,6 +98,7 @@ def register_view():
     user.mobile = mobile
     user.nick_name = nickname
     user.password = password
+    user.avatar_url = '/static/images/worm.jpg'
     user.save_to_db()
     return {"status": "success", "message": gettext("Registered successfully.")}
 
@@ -164,20 +166,20 @@ def login_view():
     # 校验参数
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code or not captcha_code2:
-        return {"status": "fail", "message": "Codigo vertical mal"}
+        return {"status": "fail", "message": "Captcha erroni"}
 
     if captcha_code != captcha_code2:
-        return {"status": "fail", "message": "Codigo vertical mal"}
+        return {"status": "fail", "message": "Captcha erroni"}
     if not username or not password:
-        return {"status": "fail", "message": "informacion completa"}
+        return {"status": "fail", "message": "Falten dades"}
 
     user: UserORM = UserORM.query.filter_by(nick_name=username).first()
     if not user:
-        return {"status": "fail", "message": "Usuario no exiteix"}
+        return {"status": "fail", "message": "Usuari no existent"}
     if not user.check_password(password):
-        return {"status": "fail", "message": "Contrasenya mal"}
+        return {"status": "fail", "message": "Contrasenya errònia"}
     login_user(user)
-    return {"status": "success", "message": "log in!!!!!"}
+    return {"status": "success", "message": "Login correcte!"}
 
 
 @index_JAP.route("/register", methods=["POST", "GET"])
@@ -288,24 +290,19 @@ def xat():
 @index_JAP.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
-        author = request.form['author']
-        author_pfp = request.form['author_php']
+        
         title = request.form['title']
-        content = request.form['content']
-        image_url = request.form['index_image_url']
-        category_id = request.form['category_id']
 
         if title:
             now = datetime.now()
             
             post: ArticleORM = ArticleORM()
-            post.author = author
-            post.author_pfp = author_pfp
             post.title = title
-            post.content = content
-            post.index_image_url = image_url
-            post.user_id = 1
-            post.category_id = category_id
+            post.content = request.form['content']
+            post.author = request.form['nick_name']
+            post.author_pfp = request.form['avatar_url']
+            post.index_image_url = request.form['index_image_url']
+            post.category_id = request.form['category_id']
             post.create_time = now
             post.update_time = now
 
@@ -313,7 +310,7 @@ def create():
 
             return redirect('/')
     
-    return render_template("JAB/create.html")
+    return render_template("JAB/create.html", user=current_user)
 
 @index_JAP.route('/<int:post_id>')
 def post(post_id):
@@ -326,13 +323,12 @@ def edit(id):
     post = get_post(id)
     
     if request.method == 'POST':
-        author = request.form['author']
-        author_pfp = request.form['author_php']
+        author = request.form['nick_name']
+        author_pfp = request.form['avatar_url']
         title = request.form['title']
         content = request.form['content']
         image_url = request.form['index_image_url']
         category_id = request.form['category_id']
-
         if post:
             now = datetime.now()
 

@@ -30,8 +30,9 @@
             <!--登录注册栏-->
             <div class="login-btn">
                 {% if current_user.is_active %}
-                <a href="/logout" >Log out </a>
-
+                <a href="/profile" class="logo">
+                <img src="{{ current_user.avatar_url }}" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
+                </a>
                   {% else %}
                  <a href="/login" class="login-btn">Log in </a>/
                  <a href="/register" class="register-btn">register </a>
@@ -45,6 +46,8 @@
     <h1>{% block title %} Crea un Post {% endblock %}</h1>
 
     <form method="POST">
+        <input type="hidden" name="nick_name" value="{{ current_user.nick_name }}">
+        <input type="hidden" name="avatar_url" value="{{ current_user.avatar_url }}">
         <div class="edit-form-group">
             <label for="title">Títol</label>
             <div id="edit-post-page">
@@ -57,11 +60,11 @@
         </div>
         <div class="edit-form-group">
             <label for="index_image_url">URL de la foto</label>
-            <textarea name="index_image_url" placeholder="URL de la foto" class="edit-form-control">{{ request.form['index_image_url'] }}https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.upc.edu%2Fes&psig=AOvVaw3QLObl8SUJu45qH8Im-BS5&ust=1683915756790000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKj2kJbx7f4CFQAAAAAdAAAAABAD</textarea>
+            <textarea name="index_image_url" placeholder="URL de la foto" class="edit-form-control">{{ request.form['index_image_url'] }}https://live.staticflickr.com/65535/49014247267_48e17fa3f9_b.jpg</textarea>
         </div>
         <div class="edit-form-group">
-            <label for="category_id">URL de la foto</label>
-            <textarea name="category_id" placeholder="URL de la foto" class="edit-form-control">{{ request.form['category_id'] }}0</textarea>
+            <label for="category_id">Categoria del post</label>
+            <textarea name="category_id" placeholder="Categoria del post" class="edit-form-control">{{ request.form['category_id'] }}0</textarea>
         </div>
         <div class="edit-form-group">
             <button type="submit" class="edit-btn btn-primary">Crea</button>
