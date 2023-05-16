@@ -22,24 +22,11 @@
             <a href="/" class="logo">
                 <img src="/static/images/logo-social.png" alt="">
             </a>
-            <!-- 中间分类栏 -->
-            <ul class="menu">
-                <li data-cid="1"><a href="javascript:;">foto</a></li>
-                <li data-cid="2"><a href="javascript:;">Mascota</a></li>
-                <li data-cid="3"><a href="javascript:;">Video</a></li>
-                <div class="search">
-                    <form action="" style="line-height: 60px"><input type="text"><button class="iconfont icon-sousuo"></button></form></a></div>
-            </ul>
             <!--登录注册栏-->
             <div class="login-btn">
-              {% if current_user.is_active %}
               <a href="/profile" class="logo">
               <img src="{{ current_user.avatar_url }}" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
               </a>
-                {% else %}
-                  <a href="/login" class="login-btn">Log in </a>/
-                <a href="/register" class="register-btn">register </a>
-                  {% endif %}
             </div>
         </div>
     </div>
