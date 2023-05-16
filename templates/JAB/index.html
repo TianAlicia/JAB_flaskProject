@@ -29,7 +29,7 @@
             <div class="login-btn">
                 {% if current_user.is_active %}
                 <a href="/profile/{{ current_user.nick_name }}" class="logo">
-                <img src="{{ current_user.avatar_url }}" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
+                <img src="{{ current_user.avatar_url }}" onerror="this.src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
                 </a>
                   {% else %}
                 <a href="/login" class="login-btn">Log in</a> /
@@ -57,7 +57,7 @@
                         <a href="{{ url_for('index.post', post_id=post['id']) }}" class="trucate news_title">{{ post['title'] }}</a>
                         <div class="author_info">
                             <div class="author">
-                                <img src="{{ post['author_pfp'] }}" style="width:18px" alt="author_profile_picture">
+                                <img src="{{ post['author_pfp'] }}" onerror="this.src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';" style="width:18px" alt="author_profile_picture">
                                 <a href="/profile/{{ post['author'] }}">{{ post['author'] }}</a>
                             </div>
                             <div class="time">{{ post['update_time'] }}</div>
