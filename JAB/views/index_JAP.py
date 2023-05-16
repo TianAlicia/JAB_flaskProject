@@ -10,11 +10,8 @@ from flask import (
     redirect,
     render_template,
     request,
-    url_for,
-    session,
-    
 )
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from flask_babel import Babel, gettext
 
 from extensions import redis_store
@@ -22,6 +19,8 @@ from JAB.oms import ArticleORM, CategoryORM, UserORM
 from com.gen_captcha import get_captcha_image
 
 index_JAP = Blueprint("index", __name__)
+index_JAP.secret_key = 'joanaliciabernat'
+
 
 # LANGUAGES = {
 #     'cat': 'Català',
@@ -36,6 +35,14 @@ index_JAP = Blueprint("index", __name__)
 #     return request.accept_languages.best_match(LANGUAGES.keys())
 
 # babel.init_app(index_JAP)
+
+def get_user():
+    if not current_user:
+        return None 
+    
+    user = UserORM.query.filter_by(id=current_user.id).first()  # Adjust the query based on your ORM
+    
+    return user
 
 def get_post(post_id):
     post = ArticleORM.query.filter_by(id=post_id).first()
@@ -190,28 +197,28 @@ def register_view():
     Email = str(data.get("Email"))
 
     # if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', Email):
-    #     return {"status": "fail", "message": "pone email correcto"}
+    #     return {"status": "fail", "message": "Email invàlid"}
 
     mobile = data.get("mobile")
     # if not re.match(r'^6\d{8}$', mobile):
-    #     return {"status": "fail", "message": "pone telefono correcto"}
+    #     return {"status": "fail", "message": "Telèfon invàlid"}
 
     # if not re.match( r'^6\d{8}$', int(mobile)):
-    #     return {"status": "fail", "message":"pone telefono correcto"}
+    #     return {"status": "fail", "message": "Telèfon invàlid"}
 
     nickname = data.get("nom")
 
     password = data.get("password")
     # print(password)
     if not Email or not nickname or not password:
-        return {"status": "fail", "message": "pone informacion completada"}
+        return {"status": "fail", "message": "Falta informació"}
     user: UserORM = UserORM()
     user.email = Email
     user.mobile = mobile
     user.nick_name = nickname
     user.password = password
     user.save_to_db()
-    return {"status": "success", "message": "registre correcto"}
+    return {"status": "success", "message": "Registre correcte"}
 
 
 @index_JAP.route("/get_captcha")
@@ -233,12 +240,8 @@ def sms_code_view():
     captcha_code_uuid = request.json.get("captcha_code_uuid")
     Email = request.json.get("Email")
     # if not Email.find('@'):
-    #     return {
-    #     'status': 'sucess',
-    #     'message': 'email incorrecto'
-    # }
+    #     return {'status': 'fail', message': 'Email incorrecte'}
 
-    # 检查验证码是否正确
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code2:
         return {"status": "fail", "message": "Codi no existent"}
@@ -271,23 +274,30 @@ def check_name():
         return {'status': 'success'}
 
 @index_JAP.route("/logout")
+@login_required
 def logout_view():
     logout_user()
     return redirect('/')
 
-@index_JAP.route("/profile", methods=('GET',))
-def profile():
-    return render_template("JAB/profile.html", user=current_user)
+@index_JAP.route("/profile/<author>")
+def profile(author):
+    user = UserORM.query.filter_by(nick_name=author).first()
+
+    user_posts = ArticleORM.query.filter_by(author=author).all()
+
+    return render_template("JAB/profile.html", user=user, posts=user_posts)
 
 @index_JAP.route('/404')
 def f404():
     return render_template("JAB/404.html")
 
 @index_JAP.route("/chat")
+@login_required
 def xat():
     return render_template("JAB/chat.html")
 
 @index_JAP.route('/create', methods=('GET', 'POST'))
+@login_required
 def create():
     if request.method == 'POST':
         
@@ -310,7 +320,7 @@ def create():
 
             return redirect('/')
     
-    return render_template("JAB/create.html", user=current_user)
+    return render_template("JAB/create.html", user=get_user())
 
 @index_JAP.route('/<int:post_id>')
 def post(post_id):
@@ -318,6 +328,7 @@ def post(post_id):
     return render_template("JAB/post.html", post=post)
 
 @index_JAP.route('/<int:id>/edit', methods=('GET', 'POST'))
+@login_required
 def edit(id):
 
     post = get_post(id)
@@ -340,9 +351,19 @@ def edit(id):
 
 
 @index_JAP.route('/<int:id>/delete', methods=('POST',))
+@login_required
 def delete(id):
     post = get_post(id)
     if post:
         post.delete_to_db()
 
     return redirect('/')
+
+@index_JAP.errorhandler(404)
+def page_not_found(error):
+    return make_response("Page not found.", 404)
+
+@index_JAP.errorhandler(401)
+def unauthorized(error):
+    return make_response("Unauthorized.", 401)
+
