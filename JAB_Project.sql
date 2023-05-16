@@ -843,3 +843,19 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2023-05-11 11:35:15
+
+
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user1` varchar(32) NOT NULL,
+  `user2` varchar(32) NOT NULL,
+  `content` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+
+LOCK TABLES `messages` WRITE;
+INSERT INTO `messages` VALUES
+(1,"Mia Johnson","Ethan Campbell","Hola Ethan"),
+(2,"Ethan Campbell","Mia Johnson","Hola Mia"),
+UNLOCK TABLES;
