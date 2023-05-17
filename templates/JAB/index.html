@@ -22,6 +22,9 @@
                 <li data-cid="1"><a href="javascript:;">Educació</a></li>
                 <li data-cid="2"><a href="javascript:;">Tecnologia</a></li>
                 <li data-cid="3"><a href="javascript:;">Cultura</a></li>
+                {% if current_user.is_active %}
+                <li data-cid="4"><a href="/chat">Xat</a></li>
+                {% endif %}
                 <div class="search">
                     <form action="" style="line-height: 60px"><input type="text" style="width: 10rem;""><button class="iconfont icon-sousuo"></button></form></a></div>
             </ul>

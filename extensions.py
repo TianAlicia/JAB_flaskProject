@@ -1,6 +1,7 @@
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO, emit
 
 # from JAB import register_blueprint
 from com.redis_utils import RedisStore
@@ -13,6 +14,7 @@ login_manger = LoginManager()
 
 def register_plugin(app):
     from JAB.oms import UserORM
+    socketio = SocketIO(app)
 
     @login_manger.user_loader
     def load_user(user_id):
@@ -22,3 +24,5 @@ def register_plugin(app):
     migrate.init_app(app, db)
     redis_store.init_app(app)
     login_manger.init_app(app)
+    socketio.init_app(app)
+    socketio.run(app)
