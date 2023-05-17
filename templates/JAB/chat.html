@@ -1,183 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>Xat</title>
-    <link rel="stylesheet" href="/static/layui/css/layui.css">
-    <link rel="stylesheet" href="/static/css/global.css">
-    <link rel="stylesheet" href="/static/iconfont/iconfont.css">
-    <link rel="stylesheet" href="/static/css/chat.css">
-    <link rel="shortcut icon" href="/static/images/logo.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="https://cdn.socket.io/4.3.1/socket.io.min.js"></script>
-  </head>
-  <body>
+<html lang="ca">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xat</title>
+  <link rel="stylesheet" href="/static/layui/css/layui.css">
+  <link rel="stylesheet" href="/static/css/global.css">
+  <link rel="stylesheet" href="/static/iconfont/iconfont.css">
+  <link rel="stylesheet" href="/static/css/chat.css">
+  <link rel="shortcut icon" href="/static/images/logo.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/static/js/jquery.min.js"></script>
+  <script src="https://cdn.socket.io/4.3.1/socket.io.min.js"></script>
+  <script>
+    var socket = io.connect('http://' + localhost + ':' + 5000);
+
+    socket.on('connect', function () {
+      console.log('Connected to the server');
+    });
+
+    socket.on('disconnect', function () {
+      console.log('Disconnected from the server');
+    });
+
+    socket.on('message', function (data) {
+      console.log('Received message: ' + data);
+      // Handle the received message in your chat UI
+    });
+
+    function sendMessage() {
+      var message = document.getElementById('message-input').value;
+      socket.emit('message', message);
+    }
+  </script>
+</head>
+
+<body>
   <div class="layui-header header">
     <div class="layui-container">
-        <div class="header-demo">
-            <!-- 头部 logo -->
-            <a href="/" class="logo">
-                <img src="/static/images/logo-social.png" alt="">
-            </a>
-            <!--登录注册栏-->
-            <div class="login-btn">
-              <a href="/profile" class="logo">
-              <img src="{{ current_user.avatar_url }}" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
-              </a>
-            </div>
+      <div class="header-demo">
+        <a href="/" class="logo">
+          <img src="/static/images/logo-social.png" alt="">
+        </a>
+        <div class="login-btn">
+          <a href="/profile/{{ current_user.nick_name }}" class="logo">
+            <img src="{{ current_user.avatar_url }}" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
+          </a>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
- <div class="container">
-      <div class="row clearfix">
-        <div class="col-lg-12">
-          <div class="card chat-app">
-            <div id="plist" class="people-list">
-              <div class="search search-bar">
-                <form action=""><input type="text" class="input-class" placeholder="Cerca usuaris..." type="text"><button class="fa fa-search" style="height: 25px; width: 25px;"></button></form></a>
-              </div>
-              <ul class="list-unstyled chat-list mt-2 mb-0">
-                <li class="clearfix">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                  <div class="about">
-                    <div class="name">Martínez Garcia</div>
-                    <div class="status"> <i class="fa fa-circle offline"></i> Ha marxat fa 4 min </div>                                            
-                  </div>
-                </li>
-                <li class="clearfix active">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                  <div class="about">
-                    <div class="name">Pérez Fernández</div>
-                    <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
-                  </div>
-                </li>
-                <li class="clearfix">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                  <div class="about">
-                    <div class="name">Torres Soler</div>
-                    <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
-                  </div>
-                </li>                                    
-                <li class="clearfix">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                  <div class="about">
-                    <div class="name">García López</div>
-                    <div class="status"> <i class="fa fa-circle offline"></i> Ha marxat fa7 h </div>
-                  </div>
-                </li>
-                <li class="clearfix">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
-                  <div class="about">
-                    <div class="name">Castells Roca</div>
-                    <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
-                  </div>
-                </li>
-                <li class="clearfix">
-                  <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                  <div class="about">
-                    <div class="name">Bosch Sánchez</div>
-                    <div class="status"> <i class="fa fa-circle offline"></i> Desconnectat el 28/Feb </div>
-                  </div>
-                </li>
-              </ul>
+  <div class="container">
+    <div class="row clearfix">
+      <div class="col-lg-12">
+        <div class="card chat-app">
+          <div id="plist" class="people-list">
+            <div class="search search-bar">
+              <form action="">
+                <input type="text" class="input-class" placeholder="Cerca usuaris...">
+                <button class="fa fa-search" style="height: 25px; width: 25px;"></button>
+              </form>
             </div>
-            <div class="chat">
-              <div class="chat-header clearfix">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                    </a>
-                    <div class="chat-about">
-                      <h6 class="m-b-0">Pérez Fernández</h6>
-                      <small>Vist per última vegada: fa 2hores</small>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 hidden-sm text-right">
-                    <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
-                    <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
-                    <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
-                    <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+            <ul class="list-unstyled chat-list mt-2 mb-0">
+              <li class="clearfix">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                <div class="about">
+                  <div class="name">Martínez Garcia</div>
+                  <div class="status"> <i class="fa fa-circle offline"></i> Ha marxat fa 4 min </div>
+                </div>
+              </li>
+              <li class="clearfix active" style="width: 231px;">
+                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                <div class="about">
+                  <div class="name">Pérez Fernández</div>
+                  <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
+                </div>
+              </li>
+              <li class="clearfix">
+                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                <div class="about">
+                  <div class="name">Torres Soler</div>
+                  <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
+                </div>
+              </li>
+              <li class="clearfix">
+                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                <div class="about">
+                  <div class="name">García López</div>
+                  <div class="status"> <i class="fa fa-circle offline"></i> Ha marxat fa7 h </div>
+                </div>
+              </li>
+              <li class="clearfix">
+                <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
+                <div class="about">
+                  <div class="name">Castells Roca</div>
+                  <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
+                </div>
+              </li>
+              <li class="clearfix">
+                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
+                <div class="about">
+                  <div class="name">Bosch Sánchez</div>
+                  <div class="status"> <i class="fa fa-circle offline"></i> Desconnectat el 28/Feb </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="chat">
+            <div class="chat-header clearfix">
+              <div class="row">
+                <div class="col-lg-6">
+                  <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                  </a>
+                  <div class="chat-about">
+                    <h6 class="m-b-0">Pérez Fernández</h6>
+                    <small>Vist per última vegada: fa 2hores</small>
                   </div>
                 </div>
+                <div class="col-lg-6 hidden-sm text-right">
+                  <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
+                  <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>
+                  <a href="javascript:void(0);" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a>
+                  <a href="javascript:void(0);" class="btn btn-outline-warning"><i class="fa fa-question"></i></a>
+                </div>
               </div>
-              <div class="chat-history">
-                <ul class="m-b-0" id="message-list">
-                  <!-- Aquí es mostraran els missatges del xat -->
-                  
-                  <!--- Exemple missatges
-                  <li class="clearfix">
-                    <div class="message-data float-right">
-                      <span class="message-data-time">10:10 AM, Avui</span>
-                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                    </div>
-                    <br><br><br>
-                    <div class="message other-message float-right"> Hola Pèrez, com estàs? Com va el projecte? </div>
-                  </li>
-                  <li class="clearfix">
-                    <div class="message-data">
-                      <span class="message-data-time">10:12 AM, Avui</span>
-                    </div>
-                    <div class="message my-message">Ens estem reunint avui?</div>                                    
-                  </li>                               
-                  <li class="clearfix">
-                    <div class="message-data">
-                      <span class="message-data-time">10:15 AM, Avui</span>
-                    </div>
-                    <div class="message my-message">El projecte ja ha estat acabat i tinc resultats per mostrar-te.</div>
-                  </li>
-                  -->
-
-                </ul>
-              </div>
-              <div class="search search-bar">
-                  <form action=""><input type="text" class="input-class" placeholder="Escriu missatge aquí..." type="text"><button class="fa fa-send" style="height: 50px; width: 50px;"></button></form></a>
-              </div>
+            </div>
+            <div class="chat-history">
+              <ul class="m-b-0" id="message-list">
+                <!-- Messages will be displayed here -->
+              </ul>
+            </div>
+            <div class="search search-bar">
+              <form action="" id="message-form">
+                <input id="message-input" type="text" class="input-class" placeholder="Escriu missatge aquí...">
+                <button class="fa fa-send" style="height: 50px; width: 50px;" onclick="sendMessage()"></button>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Afegit el script de Socket.IO -->
+    <!-- Add Socket.IO script -->
     <script>
-      var socket = io();
+      // Connect to the SocketIO server
+      var socket = io.connect('http://127.0.0.1:5000/chat');
 
-      // Escolta l'esdeveniment 'chat message' i mostra el missatge al xat
-      socket.on('chat message', function(msg) {
+      // Receive new messages
+      socket.on('message', function (data) {
+        // Append the new message to the message list
         var messageList = document.getElementById('message-list');
-        var li = document.createElement('li');
-        li.innerText = msg;
-        messageList.appendChild(li);
+        var messageItem = document.createElement('li');
+        console.log("appended");
+        messageItem.textContent = data;
+        messageList.appendChild(messageItem);
       });
 
-      // Envia el missatge al servidor quan l'usuari envia el formulari
-      document.getElementById('message-form').addEventListener('submit', function(e) {
+      // Send message form submission
+      var form = document.getElementById('message-form');
+      form.onsubmit = function (e) {
         e.preventDefault();
-        var messageInput = document.querySelector('.input-class');
+        var messageInput = document.getElementById('message-input');
         var message = messageInput.value;
-        socket.emit('chat message', message);
+        // Send the message to the server
+        socket.emit('message', message);
         messageInput.value = '';
-      });
-    </script>
-    
-    <div class="layui-footer footer">
-      <div class="footer_links">
-        <a href="">Sobre JAB</a>
-        <span>|</span>
-        <a href="">Contacte</a>
-        <span>|</span>
-        <a href="">Web</a>
-      </div>
-      <p class="copyright">
-        CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
-        Telèfon:010-****888 xICP*******8x
-      </p>
-    </div>
 
-  </body>
+        var messageList = document.getElementById('message-list');
+        var messageItem = document.createElement('li');
+        console.log("appended");
+        a = '<div class="message other-message float-right">' + message + '</div>'
+        messageItem.textContent = a;
+        messageList.appendChild(messageItem);
+      };
+    </script>
+</body>
+
 </html>

@@ -4,6 +4,7 @@ from datetime import datetime
 from extensions import db
 
 from flask import (
+    Flask,
     Blueprint,
     current_app,
     make_response,
@@ -18,9 +19,15 @@ from extensions import redis_store
 from JAB.oms import ArticleORM, CategoryORM, UserORM
 from com.gen_captcha import get_captcha_image
 
+from flask_socketio import SocketIO, emit
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your-secret-key'
+
 index_JAP = Blueprint("index", __name__)
 index_JAP.secret_key = 'joanaliciabernat'
 
+socketio = SocketIO()
 
 # LANGUAGES = {
 #     'cat': 'Català',
@@ -291,11 +298,6 @@ def profile(author):
 def f404():
     return render_template("JAB/404.html")
 
-@index_JAP.route("/chat")
-@login_required
-def xat():
-    return render_template("JAB/chat.html")
-
 @index_JAP.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
@@ -367,3 +369,21 @@ def page_not_found(error):
 def unauthorized(error):
     return make_response("Unauthorized.", 401)
 
+@socketio.on('connect')
+def handle_connect():
+    print('Client connected')
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    print('Client disconnected')
+
+@socketio.on('message')
+def handle_message(data):
+    # Broadcast the received message to all connected clients
+    emit('message', data, broadcast=True)
+
+
+@index_JAP.route("/chat")
+@login_required
+def xat():
+    return render_template("JAB/chat.html")

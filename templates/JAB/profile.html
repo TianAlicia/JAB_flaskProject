@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <title>{{ user.nick_name | default("Usuari eliminat") }} - El meu Perfil</title>
@@ -21,13 +21,13 @@
                     {% if current_user.is_active %}
                         <a href="/logout">Logout</a>
                     {% else %}
-                        <a href="/login" class="login-btn">Log in</a> /
-                        <a href="/register" class="register-btn">Register</a>
+                        <a href="/profile/{{ current_user.nick_name }}" class="logo">
+                            <img src="{{ current_user.avatar_url }}" onerror="this.src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
+                        </a>
                     {% endif %}
                 {% else %}
-                    <a href="/profile/{{ current_user.nick_name }}" class="logo">
-                        <img src="{{ current_user.avatar_url }}" onerror="this.src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
-                    </a>
+                    <a href="/login" class="login-btn">Log in</a> /
+                    <a href="/register" class="register-btn">Registre</a>
                 {% endif %}
 
             </div>
