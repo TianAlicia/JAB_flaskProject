@@ -25,4 +25,3 @@ def register_plugin(app):
     redis_store.init_app(app)
     login_manger.init_app(app)
     socketio.init_app(app)
-    socketio.run(app)

@@ -16,18 +16,18 @@ from flask_login import login_user, logout_user, current_user, login_required
 from flask_babel import Babel, gettext
 
 from extensions import redis_store
-from JAB.oms import ArticleORM, CategoryORM, UserORM
+from JAB.oms import ArticleORM, CategoryORM, UserORM, ChatORM
 from com.gen_captcha import get_captcha_image
-
-from flask_socketio import SocketIO, emit
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key'
 
+CORS(app)
+cors = CORS(app, resources={r"/chat": {"origins": "http://localhost/*"}})
+
 index_JAP = Blueprint("index", __name__)
 index_JAP.secret_key = 'joanaliciabernat'
-
-socketio = SocketIO()
 
 # LANGUAGES = {
 #     'cat': 'Català',
@@ -369,21 +369,43 @@ def page_not_found(error):
 def unauthorized(error):
     return make_response("Unauthorized.", 401)
 
-@socketio.on('connect')
-def handle_connect():
-    print('Client connected')
-
-@socketio.on('disconnect')
-def handle_disconnect():
-    print('Client disconnected')
-
-@socketio.on('message')
-def handle_message(data):
-    # Broadcast the received message to all connected clients
-    emit('message', data, broadcast=True)
-
-
-@index_JAP.route("/chat")
+@index_JAP.route("/chat", methods=('GET', 'POST'))
 @login_required
-def xat():
-    return render_template("JAB/chat.html")
+def chat():
+    
+    if request.method == 'POST':
+
+        user1 = get_user().id
+        
+        user2 = request.json.get('user2')
+        message = request.json.get('message')
+        
+        chat = ChatORM.query.filter_by(user1=user1, user2=user2).first()
+
+        if chat is not None:
+            conversa = chat.conversa
+            conversa.append({'sender': user1, 'message': message})
+            chat.update(conversa)
+            print(chat.conversa)
+
+        else:
+            new_chat = ChatORM(user1=user1, user2=user2, conversa=[{'sender': user1, 'message': message}])
+            new_chat.save_to_db()
+
+        return {'status': 'success'}
+    
+    else:
+        user1 = get_user().id
+        chat = ChatORM.query.filter_by(user1=user1, user2=1).first()
+
+        if not chat:
+            chat = ChatORM()
+            chat.user1 = user1
+            chat.user2 = 1
+            chat.conversa = []
+
+            chat.save_to_db()
+    
+    return render_template("JAB/chat.html", conversa=chat.conversa, user=user1)
+
+    

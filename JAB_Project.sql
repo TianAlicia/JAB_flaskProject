@@ -843,3 +843,10 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2023-05-11 11:35:15
+
+DROP TABLE IF EXISTS `bbs_chat`;
+CREATE TABLE `bbs_chat` (
+  `user1` int(11) NOT NULL,
+  `user2` int(11) NOT NULL,
+  `conversa` json DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;

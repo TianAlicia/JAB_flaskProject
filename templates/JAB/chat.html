@@ -13,28 +13,37 @@
   <link rel="shortcut icon" href="/static/images/logo.png">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="/static/js/jquery.min.js"></script>
-  <script src="https://cdn.socket.io/4.3.1/socket.io.min.js"></script>
   <script>
-    var socket = io.connect('http://' + localhost + ':' + 5000);
+    $(document).ready(function() {
+  // AJAX request to send a message
+  $('#message-form').submit(function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-    socket.on('connect', function () {
-      console.log('Connected to the server');
+    var sender = null // Replace with the actual user1 ID
+    var receiver = 1; // Replace with the actual user2 ID
+    var message = $('#messageInput').val();
+
+    console.log('Sender:', sender);
+    console.log('Receiver:', receiver);
+    console.log('Message:', message);
+
+    $.ajax({
+      type: 'POST',
+      url: '/chat',
+      data: JSON.stringify({user1: sender, user2: receiver, message: message}),
+      contentType: 'application/json',
+      success: function(response) {
+        console.log('Message sent successfully.');
+      },
+      error: function(xhr, status, error) {
+        console.error('Error sending message:', error);
+      }
     });
+  });
+});
 
-    socket.on('disconnect', function () {
-      console.log('Disconnected from the server');
-    });
-
-    socket.on('message', function (data) {
-      console.log('Received message: ' + data);
-      // Handle the received message in your chat UI
-    });
-
-    function sendMessage() {
-      var message = document.getElementById('message-input').value;
-      socket.emit('message', message);
-    }
   </script>
+  
 </head>
 
 <body>
@@ -65,46 +74,11 @@
               </form>
             </div>
             <ul class="list-unstyled chat-list mt-2 mb-0">
-              <li class="clearfix">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                <div class="about">
-                  <div class="name">Martínez Garcia</div>
-                  <div class="status"> <i class="fa fa-circle offline"></i> Ha marxat fa 4 min </div>
-                </div>
-              </li>
               <li class="clearfix active" style="width: 231px;">
                 <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
                 <div class="about">
                   <div class="name">Pérez Fernández</div>
                   <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
-                </div>
-              </li>
-              <li class="clearfix">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                <div class="about">
-                  <div class="name">Torres Soler</div>
-                  <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
-                </div>
-              </li>
-              <li class="clearfix">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                <div class="about">
-                  <div class="name">García López</div>
-                  <div class="status"> <i class="fa fa-circle offline"></i> Ha marxat fa7 h </div>
-                </div>
-              </li>
-              <li class="clearfix">
-                <img src="https://bootdey.com/img/Content/avatar/avatar8.png" alt="avatar">
-                <div class="about">
-                  <div class="name">Castells Roca</div>
-                  <div class="status"> <i class="fa fa-circle online"></i> Connectat </div>
-                </div>
-              </li>
-              <li class="clearfix">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="avatar">
-                <div class="about">
-                  <div class="name">Bosch Sánchez</div>
-                  <div class="status"> <i class="fa fa-circle offline"></i> Desconnectat el 28/Feb </div>
                 </div>
               </li>
             </ul>
@@ -118,7 +92,7 @@
                   </a>
                   <div class="chat-about">
                     <h6 class="m-b-0">Pérez Fernández</h6>
-                    <small>Vist per última vegada: fa 2hores</small>
+                    <small>Vist per última vegada: fa 2 hores</small>
                   </div>
                 </div>
                 <div class="col-lg-6 hidden-sm text-right">
@@ -131,53 +105,36 @@
             </div>
             <div class="chat-history">
               <ul class="m-b-0" id="message-list">
-                <!-- Messages will be displayed here -->
+                {% for message in conversa %}
+                  {% if message.sender == user %}
+                    <li class="clearfix">
+                      <div class="message-data float-right">
+                        <span class="message-data-time">10:10 AM, Avui</span>
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+                      </div>
+                      <br><br><br>
+                      <div class="message other-message float-right">{{ message.message }}</div>
+                    </li>
+                  {% else %}
+                    <li class="clearfix">
+                      <div class="message-data">
+                        <span class="message-data-time">10:12 AM, Avui</span>
+                      </div>
+                      <div class="message my-message">{{ message.message }}</div>
+                    </li>
+                  {% endif %}
+                {% endfor %}
               </ul>
             </div>
             <div class="search search-bar">
-              <form action="" id="message-form">
-                <input id="message-input" type="text" class="input-class" placeholder="Escriu missatge aquí...">
-                <button class="fa fa-send" style="height: 50px; width: 50px;" onclick="sendMessage()"></button>
-              </form>
+              <form id="message-form">
+                <input id="messageInput" type="text" class="input-class" placeholder="Escriu missatge aquí...">
+                <button type="submit" id="sendBtn" class="fa fa-send" style="height: 50px; width: 50px;"></button>
+              </form>              
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Add Socket.IO script -->
-    <script>
-      // Connect to the SocketIO server
-      var socket = io.connect('http://127.0.0.1:5000/chat');
-
-      // Receive new messages
-      socket.on('message', function (data) {
-        // Append the new message to the message list
-        var messageList = document.getElementById('message-list');
-        var messageItem = document.createElement('li');
-        console.log("appended");
-        messageItem.textContent = data;
-        messageList.appendChild(messageItem);
-      });
-
-      // Send message form submission
-      var form = document.getElementById('message-form');
-      form.onsubmit = function (e) {
-        e.preventDefault();
-        var messageInput = document.getElementById('message-input');
-        var message = messageInput.value;
-        // Send the message to the server
-        socket.emit('message', message);
-        messageInput.value = '';
-
-        var messageList = document.getElementById('message-list');
-        var messageItem = document.createElement('li');
-        console.log("appended");
-        a = '<div class="message other-message float-right">' + message + '</div>'
-        messageItem.textContent = a;
-        messageList.appendChild(messageItem);
-      };
-    </script>
+    </div>  
 </body>
-
 </html>
