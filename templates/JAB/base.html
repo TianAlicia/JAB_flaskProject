@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}基类{% endblock %}</title>
+    {% block head_block %}
+        {% include 'JAB/includes/head_script.html' %}
+    {% endblock %}
+</head>
+<body>
+<div class="layui-header header">
+    <div class="layui-container">
+        <div class="header-demo">
+            <!-- 头部 logo -->
+            <a href="/" class="logo">
+                <img src="/static/images/logo.png" alt="">
+            </a>
+            {% block menu %}
+                <!-- 中间分类栏 -->
+                <ul class="menu">
+                    {% for cate in cate_list %}
+                        <li><a href="/?cid={{ cate.id }}">{{ cate.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endblock %}
+              <div class="search">
+                	<form action="" style="line-height: 60px"><input type="text"><button class="iconfont icon-sousuo"></button></form></a></div>
+            <!--登录注册栏-->
+            <div class="login-btn">
+                {% if current_user.is_active %}
+                    <a href="/account">{{current_user.nick_name}}</a>
+                    <a href="/logout">Log out</a>
+                {% else %}
+                    <a href="/login" class="login_btn">Log in</a> /
+                    <a href="/register" class="register_btn">Registre</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--中间内容部分-->
+<div class="layui-container">
+    <!--新闻列表-->
+    <div class="layui-row main" style="margin-top: 20px">
+        <div class="layui-col-md9">
+            {% block main %}
+                main
+            {% endblock %}
+            <div id="pagination" style="text-align: center"></div>
+        </div>
+        <div class="layui-col-md3 layui-hide-xs">
+            <div class="side">
+                {% block author %}
+
+                {% endblock %}
+                <div class="rank">
+                    <div class="rank_title">
+                        <h3>Articulos Populares</h3>
+                    </div>
+                    <div class="rank_list">
+                        {% for hot_article in hot_article_list %}
+                            <a href="/article/{{ hot_article.id }}">{{ hot_article.title }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% block foot_block %}
+    {% include 'JAB/includes/foot_script.html' %}
+{% endblock %}
+
+</body>
+</html>

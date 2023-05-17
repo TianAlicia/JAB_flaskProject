@@ -30,4 +30,10 @@ class CommentORM(db.Model):
     )  # 记录的更新时间
 
     # 父评论
-    parent = db.relationship("CommentORM", remote_side=[id])  # 自关联
+    parent = db.relationship("CommentORM", remote_side=[id], backref="child")  # 自关联
+
+    user_like_list = db.relationship(
+        "UserORM",
+        secondary="bbs_comment_like",
+        lazy="dynamic",
+    )  # 用户收藏的新闻
