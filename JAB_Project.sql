@@ -771,11 +771,16 @@ CREATE TABLE `bbs_user` (
 LOCK TABLES `bbs_user` WRITE;
 /*!40000 ALTER TABLE `bbs_user` DISABLE KEYS */;
 INSERT INTO `bbs_user` VALUES
-('2023-05-10 15:14:56','2023-05-10 15:14:56',14,'yu','pbkdf2:sha256:600000$FkdwRNzCPMUPS81e$5ed71fb6fd5de5153c95aaa2ae48f0e52a439c1462b4e8e1131d9f3950b61f3c','635658931',NULL,'/static/images/cat.jpg','2023-05-10 15:14:56',0,NULL,'MAN'),
-('2023-05-10 15:21:31','2023-05-10 15:21:31',15,'yuu','pbkdf2:sha256:600000$rRMtAUXBwFar50lR$2e45a8442844fb8d852d29724b4696b0fec325aa2ecd7c1091dcfb3740b4ad21','635666838',NULL,'/static/images/user_pic.png','2023-05-10 15:21:31',0,NULL,'MAN'),
-('2023-05-10 15:29:53','2023-05-10 15:29:53',16,'wee','pbkdf2:sha256:600000$GHKFMUputKJH82OP$84f874a08845d21a28b730536d68494870d88783d19897b91745343d6020e02b','645634633',NULL,'/static/images/worm.jpg','2023-05-10 15:29:53',0,NULL,'MAN'),
-('2023-05-10 15:32:11','2023-05-10 15:32:11',17,'we','pbkdf2:sha256:600000$z7IsPJSCGlsFRnLD$b8185bcef5b00bc515fd825f6c1eebb34f7f2407e581c4e5f5eacb55f08b0f13','645634123',NULL,'/static/images/worm.jpg','2023-05-10 15:32:11',0,NULL,'MAN'),
-('2023-05-10 15:02:47','2023-05-10 15:02:47',13,'ronghua','pbkdf2:sha256:600000$qKw9QGOntklOyH3X$adf451c862a8107c45e0e200852a2bbd5cc05336a4169a0c778eb33d05bf5aac','684122626',NULL,'/static/images/worm.jpg','2023-05-10 15:02:47',0,NULL,'MAN');
+('2023-05-10 15:14:56','2023-05-10 15:14:56',14,'yu','pbkdf2:sha256:600000$FkdwRNzCPMUPS81e$5ed71fb6fd5de5153c95aaa2ae48f0e52a439c1462b4e8e1131d9f3950b61f3c','635658931',NULL,'/static/images/cat.jpg','2023-05-10 15:14:56',0,NULL,'Home'),
+('2023-05-10 15:21:31','2023-05-10 15:21:31',15,'yuu','pbkdf2:sha256:600000$rRMtAUXBwFar50lR$2e45a8442844fb8d852d29724b4696b0fec325aa2ecd7c1091dcfb3740b4ad21','635666838',NULL,'/static/images/user_pic.png','2023-05-10 15:21:31',0,NULL,'Home'),
+('2023-05-10 15:29:53','2023-05-10 15:29:53',16,'wee','pbkdf2:sha256:600000$GHKFMUputKJH82OP$84f874a08845d21a28b730536d68494870d88783d19897b91745343d6020e02b','645634633',NULL,'/static/images/worm.jpg','2023-05-10 15:29:53',0,NULL,'Home'),
+('2023-05-10 15:32:11','2023-05-10 15:32:11',17,'we','pbkdf2:sha256:600000$z7IsPJSCGlsFRnLD$b8185bcef5b00bc515fd825f6c1eebb34f7f2407e581c4e5f5eacb55f08b0f13','645634123',NULL,'/static/images/worm.jpg','2023-05-10 15:32:11',0,NULL,'Home'),
+('2023-05-10 15:02:47','2023-05-10 15:02:47',13,'ronghua','pbkdf2:sha256:600000$qKw9QGOntklOyH3X$adf451c862a8107c45e0e200852a2bbd5cc05336a4169a0c778eb33d05bf5aac','684122626',NULL,'/static/images/worm.jpg','2023-05-10 15:02:47',0,NULL,'Home'),
+('2023-05-10 15:10:50','2023-05-10 15:10:50',1,'Mia Johnson','pbkdf2:sha256:260000$L32ycfcJi7qCeQ1d$2e3339517b149f90bb4f22112cff0f3a39e3230bc7767e11cd242b0a47ec0a03','611122201',NULL,'https://bootdey.com/img/Content/avatar/avatar3.png','2023-05-10 15:10:50',0,NULL,'Dona'),
+('2023-05-10 15:10:50','2023-05-10 15:10:50',2,'Ethan Campbell','pbkdf2:sha256:260000$GpLphAtBG4qWN4OT$ba81be2e1293e989299985cd0c9e885ae0183625c84519ebdaa0dd3c48bb3d22','611122202',NULL,'https://bootdey.com/img/Content/avatar/avatar2.png','2023-05-10 15:10:50',0,NULL,'Home'),
+('2023-05-10 15:10:50','2023-05-10 15:10:50',3,'Olivia Parker','pbkdf2:sha256:260000$BsIuKFyQw70hukfB$838b9a0c3d1f667fdff34ae114fa48799c06b2b44c6295d048e228ceba5260c2','611122203',NULL,'https://bootdey.com/img/Content/avatar/avatar8.png','2023-05-10 15:10:50',0,NULL,'Dona'),
+('2023-05-10 15:10:50','2023-05-10 15:10:50',4,'Emma Brown','pbkdf2:sha256:260000$26Wd4l6aTLQw16fU$65ca4cfd388fea0c3a1954cd3cbd383fefc6d6e5caea366f3797b6324558b885','611122204',NULL,'https://bootdey.com/img/Content/avatar/avatar6.png','2023-05-10 15:10:50',0,NULL,'Dona'),
+('2023-05-10 15:10:50','2023-05-10 15:10:50',5,'Benjamin White','pbkdf2:sha256:260000$kOqeLGQwib3ROMiA$851a27c207b52cbd895fc964843ec37de907e7e54dfd50f5f6e0087f366b529d','611122205',NULL,'https://bootdey.com/img/Content/avatar/avatar7.png','2023-05-10 15:10:50',0,NULL,'Home');
 /*!40000 ALTER TABLE `bbs_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
