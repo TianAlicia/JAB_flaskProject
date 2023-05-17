@@ -51,8 +51,13 @@
         </div>
         <div class="edit-form-group">
             <label for="category_id">Categoria del post</label>
-            <textarea name="category_id" placeholder="category_id" class="edit-form-control">{{ request.form['category_id'] or post['category_id'] }}</textarea>
-        </div>
+            <select name="category_id" class="edit-form-control">
+                <option value="1" {% if request.form['category_id'] == 1 or post['category_id'] == 1 %}selected{% endif %}>Educació</option>
+                <option value="2" {% if request.form['category_id'] == 2 or post['category_id'] == 2 %}selected{% endif %}>Tecnologia</option>
+                <option value="3" {% if request.form['category_id'] == 3 or post['category_id'] == 3 %}selected{% endif %}>Cultura</option>
+            </select>
+        </div>        
+        
         <div class="edit-form-group">
             <button type="submit" class="edit-btn btn-primary">Edita</button>
         </div>
