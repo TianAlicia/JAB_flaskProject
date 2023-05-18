@@ -15,7 +15,7 @@
                 <label class="layui-form-label">tipo：</label>
                 <div class="layui-input-inline">
                     <select name="category_id" lay-verify="required" lay-search="">
-                        <option value="">elegir</option>
+<!--                        <option value="">elegir</option>-->
                         {% for cate in cate_list %}
                             <option value="{{ cate.id }}">{{ cate.name }}</option>
                         {% endfor %}
@@ -28,19 +28,19 @@
                     <textarea name="digest" placeholder="pone contenido"
                               class="layui-textarea"></textarea>
                 </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">sube foto：</label>
-                <div class="layui-input-block">
-                    <input type="text" name="image_url" class="article_img_url" style="display: none">
-                    <button type="button" class="layui-btn" id="test1">
-                        <i class="layui-icon">&#xe67c;</i>subir
-                    </button>
-                </div>
-                <div class="layui-input-block">
-                    <img src="" alt="文章图片" class="article_img" style="display: none">
-                </div>
-            </div>
+<!--            </div>-->
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label">sube foto：</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="text" name="image_url" class="article_img_url" style="display: none">-->
+<!--                    <button type="button" class="layui-btn" id="test1">-->
+<!--                        <i class="layui-icon">&#xe67c;</i>subir-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <img src="" alt="文章图片" class="article_img" style="display: none">-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="layui-form-item">
                 <label class="layui-form-label" for="rich_content">contenido：</label>
                 <div class="layui-input-block">
@@ -69,7 +69,7 @@
             // 初始化富文本编辑器
             tinymce.init({
                 selector: '#rich_content',
-                language: 'zh_CN', //调用放在 langs 文件夹内的语言包
+                // language: 'zh_CN', //调用放在 langs 文件夹内的语言包
                 // 工具栏上面的补丁按钮
                 plugins: [
                     'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
@@ -95,23 +95,23 @@
                 imageupload_url: '/user/submit-image',
             });
 
-            var uploadInst = upload.render({
-                elem: '#test1' //绑定元素
-                , url: '/account/article_img' //上传接口
-                , done: function(res) {
-                    //上传完毕回调
-                    {#console.log(res);#}
-                    $('.article_img_url').val(res.avatar_url);
-                    {#$('.article_img').src = res.avatar_url#}
-                    document.querySelector('.article_img').src = res.avatar_url;
-
-                    $('.article_img').show();
-                    // 需要预览吗 ?
-                }
-                , error: function() {
-                    //请求异常回调
-                },
-            });
+            // var uploadInst = upload.render({
+            //     elem: '#test1' //绑定元素
+            //     , url: '/account/article_img' //上传接口
+            //     , done: function(res) {
+            //         //上传完毕回调
+            //         {#console.log(res);#}
+            //         $('.article_img_url').val(res.avatar_url);
+            //         {#$('.article_img').src = res.avatar_url#}
+            //         document.querySelector('.article_img').src = res.avatar_url;
+            //
+            //         $('.article_img').show();
+            //         // 需要预览吗 ?
+            //     }
+            //     , error: function() {
+            //         //请求异常回调
+            //     },
+            // });
             form.on('submit(formDemo)', function(form) {
                 // layui 表单监听 默认上传的文件在电脑中的地址
                 // 如果用默认的提交,就获取不到 tinymce 的 html

@@ -46,12 +46,12 @@
             {% block profile %}
                 <div class="profile-menu">
                     <div class="profile-picture">
-                        <img src="/static/images/user_pic.png" alt="用户图片">
+                        <img src="{{ current_user.avatar_url }}" alt="用户图片">
                     </div>
                     <div class="profile-name">{{ current_user.nick_name }}</div>
                     <!--个人信息操作列表-->
                     <ul class="profile-option-list">
-                        <li data-active="baseinfo"><a href="./baseinfo">informacion basica</a></li>
+                        <li data-active="baseinfo"><a href="./base_info">informacion basica</a></li>
                         <li data-active="followed"><a href="./followed">mis seguidos</a></li>
                         <li data-active="collection"><a href="./collection">mis favoritos</a></li>
                         <li data-active="articles"><a href="./articles">listos de articulo</a></li>
@@ -59,6 +59,7 @@
                     </ul>
                 </div>
             {% endblock %}
+
         </div>
         <div class="layui-col-md8">
             <div class="user_con fr">

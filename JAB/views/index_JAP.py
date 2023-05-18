@@ -121,7 +121,7 @@ def register_view():
     user.mobile = mobile
     user.nick_name = nickname
     user.password = password
-    user.avatar_url = "/static/images/worm.jpg"
+    user.avatar_url = "/static/images/user_pic.png"
     user.save_to_db()
     return {"status": "success", "message": gettext("Registered successfully.")}
 
@@ -402,8 +402,8 @@ def account_articles_view():
 @index_JAP.route("/account/article_release")
 def account_release_view():
     cate_list = CategoryORM.query.all()
-    # 最新 是按照时间排序 不是一个类别
-    cate_list.pop(0)
+    #
+    # cate_list.pop(0)
     return render_template("account/article_release.html", cate_list=cate_list)
 
 
@@ -435,6 +435,26 @@ def account_password():
     user.save_to_db()
     logout_user()
     return {"status": "success", "message": "修改密码成功"}
+
+
+@index_JAP.route("/user/posts_release", methods=["POST"])
+def user_posts_release_view():
+    title = request.json.get("title")
+    category_id = request.json.get("category_id")
+    digest = request.json.get("digest")
+    image_url = request.json.get("image_url")
+    content = request.json.get("content")
+
+    article: ArticleORM = ArticleORM()
+    article.title = title
+    article.source = "Persina-{}".format(current_user.nick_name)
+    article.user_id = current_user.id
+    article.category_id = category_id
+    article.digest = digest
+    article.index_image_url = "static/images/user_pic.png"
+    article.content = content
+    article.save_to_db()
+    return {"status": "success", "message": "Publica correcto"}
 
 
 # class TenCos:
@@ -548,6 +568,7 @@ def register_view():
     user.mobile = mobile
     user.nick_name = nickname
     user.password = password
+    user.avatar_url = "static/images/user_pic.png"
     user.save_to_db()
     return {"status": "success", "message": "Registre correcte"}
 
