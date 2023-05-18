@@ -9,54 +9,42 @@ tb_user_follows = db.Table(
     "bbs_user_fans",
     db.Column(
         "follower_id", db.Integer, db.ForeignKey("bbs_user.id"), primary_key=True
-    ),  # 粉丝id
+    ),
     db.Column(
         "followed_id", db.Integer, db.ForeignKey("bbs_user.id"), primary_key=True
-    ),  # 被关注人的id
+    ),
 )
 
 
 class UserORM(db.Model, UserMixin):
-    """用户"""
-
     __tablename__ = "bbs_user"
 
-    create_time = db.Column(db.DateTime, default=datetime.now)  # 记录的创建时间
-    update_time = db.Column(
-        db.DateTime, default=datetime.now, onupdate=datetime.now
-    )  # 记录的更新时间
+    create_time = db.Column(db.DateTime, default=datetime.now)
+    update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    id = db.Column(db.Integer, primary_key=True)  # 用户编号
-    nick_name = db.Column(db.String(32), unique=True, nullable=False)  # 用户昵称
-    password_hash = db.Column(db.String(128), nullable=False)  # 加密的密码
-    mobile = db.Column(db.String(11), unique=True, nullable=False)  # 手机号
-    email = db.Column(db.String(50))  # 游戏地址
-    avatar_url = db.Column(db.String(256))  # 用户头像路径
-    last_login = db.Column(db.DateTime, default=datetime.now)  # 最后一次登录时间
+    id = db.Column(db.Integer, primary_key=True)
+    nick_name = db.Column(db.String(32), unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
+    mobile = db.Column(db.String(11), unique=True, nullable=False)
+    email = db.Column(db.String(50))
+    avatar_url = db.Column(db.String(256))
+    last_login = db.Column(db.DateTime, default=datetime.now)
     is_admin = db.Column(db.Boolean, default=False)
-    signature = db.Column(db.String(512))  # 用户签名
+    signature = db.Column(db.String(512))
 
-    gender = db.Column(db.Enum("MAN", "WOMAN"), default="MAN")  # 男  # 女
+    gender = db.Column(db.Enum("MAN", "WOMAN"), default="MAN")
 
-    """关系部分"""
-
-    # 当前用户所发布的新闻
     article_list = db.relationship("ArticleORM", backref="user", lazy="dynamic")
     comment_list = db.relationship("CommentORM", backref="user", lazy="dynamic")
 
-    # 当前用户收藏的所有新闻
     collection_article_list = db.relationship(
         "ArticleORM", secondary="bbs_user_collection", lazy="dynamic"
-    )  # 用户收藏的新闻
+    )
 
-    # 用户点赞评论的关系
     comment_like_list = db.relationship(
         "CommentORM", secondary="bbs_comment_like", lazy="dynamic"
-    )  # 用户收藏的新闻
+    )
 
-    # dynamic如果不调用属性, 就不会进行动态查询
-
-    # 用户所有的粉丝，添加了反向引用 followed ，代表用户都关注了哪些人
     followers = db.relationship(
         "UserORM",
         secondary=tb_user_follows,
@@ -68,16 +56,13 @@ class UserORM(db.Model, UserMixin):
 
     @property
     def password(self):
-        """进制密码被直接访问"""
         raise AttributeError("password is not a readable attribute")
 
     @password.setter
     def password(self, password):
-        """设置密码"""
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        """校验密码"""
         return check_password_hash(self.password_hash, password)
 
     def save_to_db(self):

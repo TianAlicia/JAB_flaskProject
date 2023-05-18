@@ -210,9 +210,9 @@ def article_view(article_id):
         is_collect = True if (article in user.collection_article_list) else False
 
     author: UserORM = article.user
-    comment_list = article.comment_list  # 可以对评论进行排序
+    comment_list = article.comment_list
     is_followed = False
-    if author:  # 文章有作者才能判断用户是不是作者的粉丝
+    if author:
         is_followed = True if user in author.followers else False
     return render_template(
         "JAB/article.html",
@@ -227,7 +227,7 @@ def article_view(article_id):
 
 @index_JAP.route("/article/article_collect", methods=["POST"])
 def article_collect_view():
-    user: UserORM = current_user  # 已经登录的用户 匿名用户
+    user: UserORM = current_user
 
     if not user.is_active:
         return {"status": "success", "message": "log in", "code": 4101}
@@ -256,17 +256,14 @@ def article_comment_view():
     content = request.json.get("comment")
     parent_id = request.json.get("parent_id")
     if not content:
-        return {"status": "fail", "message": "没有评论内容"}, 401
+        return {"status": "fail", "message": "No hay contenido"}, 401
 
-    # 评论文章
-    # 1. 拿到文章对象
     article = ArticleORM.query.get(int(article_id))
-    # 2. 拿到评论对象
+
     comment: CommentORM = CommentORM()
     comment.user_id = current_user.id
     comment.content = content
 
-    # 如果有父级评论
     if parent_id:
         comment.parent_id = int(parent_id)
 
@@ -276,16 +273,7 @@ def article_comment_view():
     db.session.add(article)
     db.session.commit()
 
-    return {"status": "success", "message": "评论文章成功"}
-
-
-"""
-    评论的显示方式
-    1. 返回文章的时候把评论渲染到页面(jinja2静态渲染)
-    2. 返回文章之后,在前端动态请求通过前端渲染的方式实现
-        2.1 实现的时候麻烦一点
-        2.2 可以实现对评论的分页处理
-"""
+    return {"status": "success", "message": "comenta correcto"}
 
 
 @index_JAP.route("/article/comment_like", methods=["POST"])
@@ -293,17 +281,17 @@ def article_comment_view():
 def comment_like_view():
     action = request.json.get("action")
     comment_id = request.json.get("comment_id")
-    # 1. 获取评论对象
+
     comment: CommentORM = CommentORM.query.get(int(comment_id))
-    # 2. 获取点赞对象
+
     user: UserORM = current_user
     msg = ""
     if action == "add":
         user.comment_like_list.append(comment)
-        msg = "点赞评论成功"
+        msg = "comenta exito"
     elif action == "remove":
         user.comment_like_list.remove(comment)
-        msg = "取消点赞评论成功"
+        msg = "cancela exito"
     db.session.commit()
 
     return {
@@ -318,37 +306,17 @@ def follow_user():
     author_id = request.json.get("user_id")
     action = request.json.get("action")
 
-    # 实现关注的逻辑
     author: UserORM = UserORM.query.get(int(author_id))
     user: UserORM = current_user
     msg = ""
     if action == "follow":
         user.followed.append(author)
-        msg = "关注用户成功"
+        msg = "seguir correcto"
     elif action == "unfollow":
         user.followed.remove(author)
-        msg = "取消关注用户成功"
+        msg = "cancela correcto"
     db.session.commit()
     return {"status": "success", "message": msg}
-
-
-# import hashlib
-#
-# from flask import Blueprint, redirect, render_template, request
-# from flask_login import current_user, login_required, logout_user
-#
-# from com.cos import TenCos
-# from com.utils import upload_article_img, upload_avatar
-# from qingdeng.orms import ArticleORM, CategoryORM, UserORM
-
-# user_bp = Blueprint("user", __name__)
-
-"""
-    /个人中心
-    /个人信息修改
-    /我的收藏
-    /我的关注
-"""
 
 
 @index_JAP.route("/account")
@@ -366,11 +334,8 @@ def base_info_view():
 @index_JAP.route("/account/followed")
 @login_required
 def follow_view():
-    # 我的关注
     user: UserORM = current_user
     followed_list = user.followed
-
-    # 可以做分页的操作
 
     return render_template("account/followed.html", followed_list=followed_list)
 
@@ -420,7 +385,7 @@ def account_info():
     user.gender = gender
     user.create_time = birthday
     user.save_to_db()
-    return {"status": "success", "message": "修改信息成功"}
+    return {"status": "success", "message": "modifica correcto"}
 
 
 @index_JAP.route("/account/password", methods=["POST"])
@@ -430,11 +395,11 @@ def account_password():
     new_password = request.json.get("new_password")
     user: UserORM = current_user
     if not user.check_password(old_password):
-        return {"status": "fail", "message": "用户密码错误"}
+        return {"status": "fail", "message": "password incorrecto"}
     user.password = new_password
     user.save_to_db()
     logout_user()
-    return {"status": "success", "message": "修改密码成功"}
+    return {"status": "success", "message": "modifica correcto"}
 
 
 @index_JAP.route("/user/posts_release", methods=["POST"])
@@ -455,53 +420,6 @@ def user_posts_release_view():
     article.content = content
     article.save_to_db()
     return {"status": "success", "message": "Publica correcto"}
-
-
-# class TenCos:
-# pass
-#
-#
-# @index_JAP.route("/account/avatar", methods=["POST"])
-# @login_required
-# def account_avatar():
-#     avatar = request.files.get("file")
-#
-#     filename = avatar.filename
-#     # 名字相同,内容不同
-#     suffix = filename.split(".")[-1]
-#     # name = uuid.uuid4().hex
-#     # 内容相同,名字不同 md5 摘要
-#     content = avatar.stream.read()  # 读取图片之后,就没有内容了
-#     name = hashlib.md5(content).hexdigest()  # 获取 md5 的值
-#     # print(name)
-#     filename = ".".join([name, suffix])
-#     flag, avatar_url = TenCos().save_user_pic(filename=filename, file=content)
-#     if flag != "ok":
-#         return {"status": "success", "message": "上传头像失败"}
-#     # avatar_url = upload_avatar(avatar)
-#     # 图书上传成功之后头像是否有修改 ?
-#     user: UserORM = current_user
-#     user.avatar_url = avatar_url
-#     user.save_to_db()
-#     return {"status": "success", "message": "上传头像成功", "avatar_url": avatar_url}
-#
-#
-# @index_JAP.route("/account/article_img", methods=["POST"])
-# @login_required
-# def account_upload_article_img():
-#     avatar = request.files.get("file")
-#
-#     avatar_url = upload_article_img(avatar)
-#     # 图书上传成功之后头像是否有修改 ?
-#     user: UserORM = current_user
-#     user.avatar_url = avatar_url
-#     user.save_to_db()
-#     return {"status": "success", "message": "上传文章图片成功", "avatar_url": avatar_url}
-#
-# # @index_JAP.route("/")
-# # def hello_world():
-# #     posts = ArticleORM.query.all()
-# #     return render_template("JAB/index.html", posts=posts)
 
 
 @index_JAP.route("/logo-social.ico")
@@ -547,15 +465,7 @@ def register_view():
     data = request.get_json()
     Email = str(data.get("Email"))
 
-    # if not re.match(r'^[\w\.-]+@[\w\.-]+\.\w+$', Email):
-    #     return {"status": "fail", "message": "Email invàlid"}
-
     mobile = data.get("mobile")
-    # if not re.match(r'^6\d{8}$', mobile):
-    #     return {"status": "fail", "message": "Telèfon invàlid"}
-
-    # if not re.match( r'^6\d{8}$', int(mobile)):
-    #     return {"status": "fail", "message": "Telèfon invàlid"}
 
     nickname = data.get("nom")
 
@@ -591,8 +501,6 @@ def sms_code_view():
     captcha_code = request.json.get("captcha_code")
     captcha_code_uuid = request.json.get("captcha_code_uuid")
     Email = request.json.get("Email")
-    # if not Email.find('@'):
-    #     return {'status': 'fail', message': 'Email incorrecte'}
 
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code2:

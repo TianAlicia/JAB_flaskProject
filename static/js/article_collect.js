@@ -54,7 +54,7 @@ layui.use(['jquery'], function() {
                     layui.layer.msg(ret.message);
                 } else if (ret.code === 4101) {
                     layui.layer.msg('Necessita log in');
-                    // 调转到登录页面
+                    //
                     setTimeout(function() {
                         location.href = '/login?next=' + location.pathname;
                     }, 1500);
