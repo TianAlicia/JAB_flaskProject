@@ -543,11 +543,11 @@ def logout_view():
     return redirect("/")
 
 
-@index_JAP.route("/profile/<author>")
-def profile(author):
-    user = UserORM.query.filter_by(nick_name=author).first()
+@index_JAP.route("/profile/<int:user_id>")
+def profile(user_id):
+    user = UserORM.query.filter_by(nick_name=user_id).first()
 
-    user_posts = ArticleORM.query.filter_by(author=author).all()
+    user_posts = ArticleORM.query.filter_by(user_id=user_id).all()
 
     return render_template("JAB/profile.html", user=user, posts=user_posts)
 
