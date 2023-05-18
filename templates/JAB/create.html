@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <title>Crea un post</title>
@@ -52,9 +52,9 @@
         <div class="edit-form-group">
             <label for="category_id">Categoria del post</label>
             <select name="category_id" class="edit-form-control">
-              <option value="1" {% if request.form['category_id'] == '1' %}selected{% endif %}>Educació</option>
-              <option value="2" {% if request.form['category_id'] == '2' %}selected{% endif %}>Tecnologia</option>
-              <option value="3" {% if request.form['category_id'] == '3' %}selected{% endif %}>Cultura</option>
+              <option value="1" {% if request.form['category_id'] == 1 %}selected{% endif %}>Educació</option>
+              <option value="2" {% if request.form['category_id'] == 2 %}selected{% endif %}>Tecnologia</option>
+              <option value="3" {% if request.form['category_id'] == 3 %}selected{% endif %}>Cultura</option>
             </select>
         </div>
           
