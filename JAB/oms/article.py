@@ -9,6 +9,8 @@ class ArticleORM(db.Model):
     __tablename__ = "bbs_article"
 
     id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(64), nullable=False)
+    author_pfp = db.Column(db.String(256))
     title = db.Column(db.String(256), nullable=False)
     source = db.Column(db.String(64), nullable=False)
     digest = db.Column(db.String(512), nullable=False)
@@ -28,4 +30,26 @@ class ArticleORM(db.Model):
 
     def save_to_db(self):
         db.session.add(self)
+        db.session.commit()
+
+    def delete_to_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def update(self, author=None, author_pfp=None, title=None, content=None, index_image_url=None, category_id=None, update_time=None):
+        if author:
+            self.author = author
+        if author_pfp:
+            self.author_pfp = author_pfp
+        if title:
+            self.title = title
+        if content:
+            self.content = content
+        if index_image_url:
+            self.index_image_url = index_image_url
+        if category_id:
+            self.category_id = category_id
+        if update_time:
+            self.update_time = update_time
+
         db.session.commit()

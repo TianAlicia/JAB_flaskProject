@@ -16,13 +16,12 @@
                 </div>
                 <div class="layui-card-body">
                     <a href="/article/{{ article.id }}" class="news_title">{{ article.title }}</a>
-                    <a href="/article/{{ article.id }}" class="news_detail">{{ article.digest }}</a>
                     <div class="author_info">
                         <div class="author">
-                            <img src="/static/images/person.png" alt="author">
-                            <a href="#">{{article.user_id}}</a>
+                            <img src="{{ article['author_pfp'] }}" onerror="this.src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';" style="width:18px" alt="author_profile_picture">
+                            <a href="/profile/{{ article['author'] }}">{{ article['author'] }}</a>
                         </div>
-                        <div class="time">{{ article.create_time }}</div>
+                        <div class="time">{{ article['update_time'] }}</div>
                     </div>
                 </div>
             </div>

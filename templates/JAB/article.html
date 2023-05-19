@@ -11,7 +11,7 @@
         <div class="article-body">
             <h3>{{ article.title }}</h3>
             <div class="detail_about clearfix">
-                <span class="time_source ">{{ article.create_time }} {{ gettext('Font:') }} {{ article.source }}</span>
+                <span class="time_source ">{{ article.update_time }}</span>
                 {#文章的评论数量#}
                 <span class="comment_liens">{{ article.comment_list.count() }}</span>
             </div>
@@ -111,7 +111,7 @@
                         <img src="/static/images/worm.jpg" alt="用户图标">
                     </div>
                     <div class="comment-content">
-                        <div class="user_name ">{{ gettext('Usuari:') }}Juan</div>
+                        <div class="user_name ">{{ gettext('Usuari:') }}Joan</div>
                         <div class="comment_text ">
                             Good!
                         </div>

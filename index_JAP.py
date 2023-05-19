@@ -17,7 +17,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import func
 from com.gen_captcha import get_captcha_image
 from extensions import db, redis_store
-from JAB.oms import ArticleORM, CategoryORM, CommentORM, UserORM
+from JAB.oms import ArticleORM, CategoryORM, CommentORM, UserORM, ChatORM
 from config import config
 from extensions import register_plugin
 from flask_cors import CORS
@@ -56,10 +56,11 @@ LANGUAGES = {
     'en': 'English'
 }
 
+@babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(LANGUAGES.keys())
 
-babel.init_app(app, locale_selector=get_locale)
+babel.init_app(app)
 
 
 def get_user():
@@ -343,15 +344,20 @@ def user_posts_release_view():
     image_url = request.json.get("image_url")
     content = request.json.get("content")
 
+    now = datetime.now()
+
     article: ArticleORM = ArticleORM()
     article.title = title
-    article.source = "Persina-{}".format(current_user.nick_name)
-    article.user_id = current_user.id
-    article.category_id = category_id
-    article.digest = digest
-    article.index_image_url = "static/images/user_pic.png"
-    article.content = content
+    article.content = request.form['content']
+    article.author = request.form['nick_name']
+    article.author_pfp = request.form['avatar_url']
+    article.index_image_url = request.form['index_image_url']
+    article.category_id = request.form['category_id']
+    article.create_time = now
+    article.update_time = now
+
     article.save_to_db()
+    
     return {"status": "success", "message": gettext("Article publicat") }
 
 
@@ -490,10 +496,59 @@ def f404():
     return render_template("JAB/404.html")
 
 
-@app.route("/chat")
+@app.route("/chat", methods=('GET', 'POST'))
 @login_required
-def xat():
-    return render_template("JAB/chat.html")
+def chat():
+    
+    if request.method == 'POST':
+
+        user1 = get_user().id
+        #print(user1)
+        
+        user2 = request.json.get('user2')
+        #print(user2)
+        message = request.json.get('message')
+        #print(message)
+        
+        chat = ChatORM.query.filter_by(user1=user1, user2=user2).first()
+
+        if chat is not None:
+            if type(chat.conversa) == str:
+                conversa = eval(chat.conversa)
+            else:
+                conversa = chat.conversa
+            #print(conversa)
+            conversa.append({'sender': user1, 'message': message})
+            #print(conversa)
+            chat.update(conversa=conversa)
+            printchat = ChatORM.query.filter_by(user1=user1, user2=user2).first()
+
+            #print(chat.conversa)
+            #print("not None")
+
+        else:
+            new_chat = ChatORM(user1=user1, user2=user2, conversa=[{'sender': user1, 'message': message}])
+            new_chat.save_to_db()
+            #print("None")
+
+        #return {'status': 'success'}
+    
+    else:
+        user1 = get_user().id
+        chat = ChatORM.query.filter_by(user1=user1, user2=1).first()
+
+        if not chat:
+            chat: ChatORM = ChatORM()
+            chat.user1 = user1
+            chat.user2 = 1
+            chat.conversa = []
+            #print("not chat")
+
+            chat.save_to_db()
+        #print("GET")
+    
+    print(chat.conversa)
+    return render_template("JAB/chat.html", conversa=chat.conversa, user=user1)
 
 
 @app.route("/create", methods=("GET", "POST"))

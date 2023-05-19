@@ -13,7 +13,7 @@
         <div class="header-demo">
             <!-- 头部 logo -->
             <a href="/" class="logo">
-                <img src="/static/images/logo.png" alt="">
+                <img src="/static/images/logo-social.png" alt="">
             </a>
             {% block menu %}
                 <!-- 中间分类栏 -->
@@ -21,8 +21,12 @@
                     {% for cate in cate_list %}
                         <li><a href="/?cid={{ cate.id }}">{{ cate.name }}</a></li>
                     {% endfor %}
+                    {% if current_user.is_active %}
+                <li data-cid="4"><a href="/chat">Xat</a></li>
+            {% endif %}
                 </ul>
             {% endblock %}
+            
               <div class="search">
                 	<form action="/search" method="POST" style="line-height: 60px;">
                         <input type="text", name="keyword" style=" width: 100px">
@@ -31,7 +35,9 @@
             </div>
             <div class="login-btn">
                 {% if current_user.is_active %}
-                    <a href="/account">{{current_user.nick_name}}</a>
+                    <a href="/account/base_info" class="logo">
+                        <img src="{{ current_user.avatar_url }}" onerror="this.src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
+                    </a>
                     <a href="/logout">{{ gettext('Logout') }}</a>
                 {% else %}
                     <a href="/login" class="login_btn">{{ gettext('Login') }}</a> /
