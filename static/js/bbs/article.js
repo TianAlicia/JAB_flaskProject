@@ -83,7 +83,7 @@ layui.use(async function () {
         const comment = $(this).parent().siblings('.reply_input').val();
 
         if (!comment) {
-            alert('请输入评论内容');
+            alert(gettext('Falta contingut'));
             return;
         }
 

@@ -4,6 +4,7 @@ from datetime import datetime
 from random import randint
 
 from flask import (
+    Flask,
     Blueprint,
     current_app,
     make_response,
@@ -13,31 +14,33 @@ from flask import (
 )
 from flask_babel import Babel, gettext
 from flask_login import current_user, login_required, login_user, logout_user
-
+from sqlalchemy import func
 from com.gen_captcha import get_captcha_image
 from extensions import db, redis_store
 from JAB.oms import ArticleORM, CategoryORM, CommentORM, UserORM
 
 # from com.cos import TenCos
 
-
+app = Flask(__name__)
 index_JAP = Blueprint("index", __name__)
 index_JAP.secret_key = "joanaliciabernat"
 
+babel = Babel(app)
 
-# LANGUAGES = {
-#     'cat': 'Català',
-#     'es': 'Español',
-#     'en': 'English'
-# }
+# pybabel extract -F babel.cfg -o messages.pot --input-dirs=.
+# pybabel init -i messages.pot -d translations -l en
+# pybabel compile -d translations
 
-# babel = Babel()
+LANGUAGES = {
+    'ca': 'Català',
+    'es': 'Español',
+    'en': 'English'
+}
 
-# @babel.localeselector
-# def get_locale():
-#     return request.accept_languages.best_match(LANGUAGES.keys())
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
 
-# babel.init_app(index_JAP)
+babel.init_app(app, locale_selector=get_locale)
 
 
 def get_user():
@@ -57,46 +60,6 @@ def get_post(post_id):
         return None
     return post
 
-
-@index_JAP.route("/logo-social.ico")
-def favicon():
-    return current_app.send_static_file("logo-social.ico")
-
-
-#
-# @index_JAP.route("/login", methods=["POST", "GET"])
-# def login_view():
-#     if request.method == "GET":
-#         return render_template("JAB/login.html")
-#
-#     username = request.json.get("username")
-#     password = request.json.get("password")
-#
-#     captcha_code = request.json.get("captcha_code")
-#     captcha_code_uuid = request.json.get("captcha_code_uuid")
-#     # Check parameters
-#     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
-#     if not captcha_code or not captcha_code2:
-#         return {"status": "fail", "message": gettext("Invalid captcha code.")}
-#
-#     if captcha_code != captcha_code2:
-#         return {"status": "fail", "message": gettext("Invalid captcha code.")}
-#     if not username or not password:
-#         return {
-#             "status": "fail",
-#             "message": gettext("Please enter all required fields."),
-#         }
-#
-#     user = UserORM.query.filter_by(nick_name=username).first()
-#     if not user:
-#         return {"status": "fail", "message": gettext("Username does not exist.")}
-#     if not user.check_password(password):
-#         return {"status": "fail", "message": gettext("Password incorrect.")}
-#     login_user(user)
-#     return {"status": "success", "message": gettext("Login successfully.")}
-#
-
-
 @index_JAP.route("/search", methods=["POST"])
 def search_view():
     if request.method == "POST":
@@ -113,66 +76,6 @@ def search_view():
         return render_template(
             "JAB/search_results.html", results=results, keyword=keyword
         )
-
-
-from sqlalchemy import func
-
-# @index_JAP.route("/register", methods=["POST", "GET"])
-# def register_view():
-#     if request.method == "GET":
-#         return render_template("JAB/register.html")
-#
-#     data = request.get_json()
-#     Email = data.get("Email")
-#     mobile = data.get("mobile")
-#     nickname = data.get("nom")
-#     password = data.get("password")
-#     if not Email or not nickname or not password:
-#         return {
-#             "status": "fail",
-#             "message": gettext("Please enter all required fields."),
-#         }
-#     user = UserORM()
-#     user.email = Email
-#     user.mobile = mobile
-#     user.nick_name = nickname
-#     user.password = password
-#     user.avatar_url = "/static/images/user_pic.png"
-#     user.save_to_db()
-#     return {"status": "success", "message": gettext("Registered successfully.")}
-#
-#
-# @index_JAP.route("/get_captcha")
-# def get_captcha_view():
-#     uuid = request.args.get("image_code_uuid")
-#     img, text = get_captcha_image()
-#     # Save text to redis
-#     redis_store.store_chapter_image(uuid, text)
-#     # Return the image to the browser
-#     resp = make_response
-#
-
-#
-# index_JAP = Blueprint("index", __name__)
-#
-
-# babel = Babel()
-
-# # pybabel extract -F babel.cfg -o messages.pot --input-dirs=.
-# # pybabel init -i messages.pot -d translations -l en
-# # pybabel compile -d translations
-
-# LANGUAGES = {
-# 	'cat' : 'Català',
-# 	'es'  : 'Español',
-# 	'en'  : 'English'
-# }
-
-# def get_locale():
-#     return request.accept_languages.best_match(LANGUAGES.keys())
-
-# babel.init_app(index_JAP, locale_selector=get_locale)
-
 
 def get_post(post_id):
     """
@@ -248,21 +151,21 @@ def article_collect_view():
     user: UserORM = current_user
 
     if not user.is_active:
-        return {"status": "success", "message": "log in", "code": 4101}
+        return {"status": "success", "message": gettext("Cal fer Login"), "code": 4101}
     # return {"status": "success", "message": "Yes", "code": 0}
 
     article_id = request.json.get("article_id")
     action = request.json.get("action")
     article: ArticleORM = ArticleORM.query.get(int(article_id))
     if not article or action not in ["collect", "cancel_collect"]:
-        return {"status": "success", "message": "request error", "code": 4102}
+        return {"status": "success", "message": gettext("Error"), "code": 4102}
     # 前后端都需要完善
     if action == "collect":
         user.collection_article_list.append(article)
-        msg = "favorito correcto"
+        msg = gettext("Favorit afegit")
     else:
         user.collection_article_list.remove(article)
-        msg = "cancela"
+        msg = gettext("Cancel·la")
     db.session.commit()
     return {"status": "success", "message": msg, "code": 0}
 
@@ -274,7 +177,7 @@ def article_comment_view():
     content = request.json.get("comment")
     parent_id = request.json.get("parent_id")
     if not content:
-        return {"status": "fail", "message": "No hay contenido"}, 401
+        return {"status": "fail", "message": gettext("No hi ha contingut")}, 401
 
     article = ArticleORM.query.get(int(article_id))
 
@@ -291,7 +194,7 @@ def article_comment_view():
     db.session.add(article)
     db.session.commit()
 
-    return {"status": "success", "message": "comenta correcto"}
+    return {"status": "success", "message": gettext("Comentari correcte")}
 
 
 @index_JAP.route("/article/comment_like", methods=["POST"])
@@ -306,10 +209,10 @@ def comment_like_view():
     msg = ""
     if action == "add":
         user.comment_like_list.append(comment)
-        msg = "comenta exito"
+        msg = gettext("Comentari afegit")
     elif action == "remove":
         user.comment_like_list.remove(comment)
-        msg = "cancela exito"
+        msg = gettext("Comentari esborrat")
     db.session.commit()
 
     return {
@@ -329,10 +232,10 @@ def follow_user():
     msg = ""
     if action == "follow":
         user.followed.append(author)
-        msg = "seguir correcto"
+        msg = gettext("Usuari seguit")
     elif action == "unfollow":
         user.followed.remove(author)
-        msg = "cancela correcto"
+        msg = gettext("Usuari deixat de seguir")
     db.session.commit()
     return {"status": "success", "message": msg}
 
@@ -403,7 +306,7 @@ def account_info():
     user.gender = gender
     user.create_time = birthday
     user.save_to_db()
-    return {"status": "success", "message": "modifica correcto"}
+    return {"status": "success", "message": gettext("Modificat correctament")}
 
 
 @index_JAP.route("/account/password", methods=["POST"])
@@ -413,11 +316,11 @@ def account_password():
     new_password = request.json.get("new_password")
     user: UserORM = current_user
     if not user.check_password(old_password):
-        return {"status": "fail", "message": "password incorrecto"}
+        return {"status": "fail", "message": gettext("Contrasenya incorrecte")}
     user.password = new_password
     user.save_to_db()
     logout_user()
-    return {"status": "success", "message": "modifica correcto"}
+    return {"status": "success", "message": gettext("Modificat correctament")}
 
 
 @index_JAP.route("/user/posts_release", methods=["POST"])
@@ -437,7 +340,12 @@ def user_posts_release_view():
     article.index_image_url = "static/images/user_pic.png"
     article.content = content
     article.save_to_db()
-    return {"status": "success", "message": "Publica correcto"}
+    return {"status": "success", "message": gettext("Post publicat")}
+
+
+@index_JAP.route("/logo-social.ico")
+def favicon():
+    return current_app.send_static_file("logo-social.ico")
 
 
 @index_JAP.route("/login", methods=["POST", "GET"])
@@ -455,20 +363,20 @@ def login_view():
     # 校验参数
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code or not captcha_code2:
-        return {"status": "fail", "message": "Captcha erroni"}
+        return {"status": "fail", "message": gettext("Captcha erroni")}
 
     if captcha_code != captcha_code2:
-        return {"status": "fail", "message": "Captcha erroni"}
+        return {"status": "fail", "message": gettext("Captcha erroni")}
     if not username or not password:
-        return {"status": "fail", "message": "Falten dades"}
+        return {"status": "fail", "message": gettext("Falten dades")}
 
     user: UserORM = UserORM.query.filter_by(nick_name=username).first()
     if not user:
-        return {"status": "fail", "message": "Usuari no existent"}
+        return {"status": "fail", "message": gettext("Usuari no existent")}
     if not user.check_password(password):
-        return {"status": "fail", "message": "Contrasenya errònia"}
+        return {"status": "fail", "message": gettext("Contrasenya errònia")}
     login_user(user)
-    return {"status": "success", "message": "Login correcte!"}
+    return {"status": "success", "message": "OK"}
 
 
 @index_JAP.route("/register", methods=["POST", "GET"])
@@ -485,7 +393,7 @@ def register_view():
     password = data.get("password")
     # print(password)
     if not Email or not nickname or not password:
-        return {"status": "fail", "message": "Falta informació"}
+        return {"status": "fail", "message": gettext("Falta informació")}
     user: UserORM = UserORM()
     user.email = Email
     user.mobile = mobile
@@ -493,7 +401,7 @@ def register_view():
     user.password = password
     user.avatar_url = "static/images/user_pic.png"
     user.save_to_db()
-    return {"status": "success", "message": "Registre correcte"}
+    return {"status": "success", "message": gettext("Registre correcte")}
 
 
 @index_JAP.route("/get_captcha")
@@ -517,10 +425,10 @@ def sms_code_view():
 
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code2:
-        return {"status": "fail", "message": "Codi no existent"}
+        return {"status": "fail", "message": gettext("Codi no existent")}
     if captcha_code != captcha_code2:
-        return {"status": "fail", "message": "Codi erroni"}
-    return {"status": "sucess", "message": "Enviament satisfactori, Codi: 1234"}
+        return {"status": "fail", "message": gettext("Codi erroni")}
+    return {"status": "sucess", "message": gettext("Enviament satisfactori, Codi: ") + 1234}
 
 
 @index_JAP.route("/check_mobile")
@@ -531,7 +439,7 @@ def check_mobile():
     user = UserORM.query.filter_by(mobile=mobile).first()
 
     if user:
-        return {"status": "fail", "message": "Mòvil ja existent"}
+        return {"status": "fail", "message": gettext("Mòvil ja existent")}
     else:
         return {"status": "success"}
 
@@ -544,7 +452,7 @@ def check_name():
     user = UserORM.query.filter_by(nick_name=nom).first()
 
     if user:
-        return {"status": "fail", "message": "Nom ja existent"}
+        return {"status": "fail", "message": gettext("Nom ja existent")}
     else:
         return {"status": "success"}
 

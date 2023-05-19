@@ -57,13 +57,13 @@ layui.use(function () {
                             // {#清除倒计时#}
                             clearInterval(t);
                             // {#设置显示内容#}
-                            $('.send_sms').html('点击获取验证码');
+                            $('.send_sms').html(gettext('Fes click per obtenir el codi'));
                             // {#添加点击事件#}
                             // $('.send_sms').attr('onclick', 'sendSMSCode();');
                         } else {
                             num -= 1;
                             // {#设置 a 标签显示的内容#}
-                            $('.send_sms').html(num + '秒');
+                            $('.send_sms').html(num + gettext('Segon'));
                         }
                     }, 1000);
                 }

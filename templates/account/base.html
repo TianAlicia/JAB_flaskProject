@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>area personal</title>
+    <title>{{ current_user.nick_name }} -- {{ gettext('El teu Perfil')}}</title>
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/css/global.css">
     <link rel="stylesheet" href="/static/css/user.css">
@@ -27,10 +27,10 @@
             <div class="login-btn">
                 {% if current_user.is_active %}
                     <a href="/account">{{ current_user.nick_name }}</a>
-                    <a href="/logout">log out</a>
+                    <a href="/logout"></a>
                 {% else %}
-                    <a href="/login" class="login_btn">log in</a> /
-                    <a href="/register" class="register_btn">registre</a>
+                    <a href="/login" class="login_btn">{{ gettext('Login')}}</a> /
+                    <a href="/register" class="register_btn">{{ gettext('Registre')}}</a>
                 {% endif %}
             </div>
         </div>
@@ -51,11 +51,11 @@
                     <div class="profile-name">{{ current_user.nick_name }}</div>
                     <!--个人信息操作列表-->
                     <ul class="profile-option-list">
-                        <li data-active="baseinfo"><a href="./base_info">informacion basica</a></li>
-                        <li data-active="followed"><a href="./followed">mis seguidos</a></li>
-                        <li data-active="collection"><a href="./collection">mis favoritos</a></li>
-                        <li data-active="articles"><a href="./articles">listos de articulo</a></li>
-                        <li data-active="article_release"><a href="./article_release">Publica articulo</a></li>
+                        <li data-active="baseinfo"><a href="./base_info">{{ gettext('Informació bàsica')}}</a></li>
+                        <li data-active="followed"><a href="./followed">{{ gettext('Els meus segidors')}}</a></li>
+                        <li data-active="collection"><a href="./collection">{{ gettext('Els meus Favorits')}}</a></li>
+                        <li data-active="articles"><a href="./articles">{{ gettext('Llista darticles')}}</a></li>
+                        <li data-active="article_release"><a href="./article_release">{{ gettext('Publica un Article')}}</a></li>
                     </ul>
                 </div>
             {% endblock %}

@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from flask_babel import gettext
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -32,7 +32,7 @@ class UserORM(db.Model, UserMixin):
     is_admin = db.Column(db.Boolean, default=False)
     signature = db.Column(db.String(512))
 
-    gender = db.Column(db.Enum("MAN", "WOMAN"), default="MAN")
+    gender = db.Column(db.Enum("Home","Dona"), default="Home")
 
     article_list = db.relationship("ArticleORM", backref="user", lazy="dynamic")
     comment_list = db.relationship("CommentORM", backref="user", lazy="dynamic")
@@ -56,7 +56,7 @@ class UserORM(db.Model, UserMixin):
 
     @property
     def password(self):
-        raise AttributeError("password is not a readable attribute")
+        raise AttributeError(gettext("Contrasenya errònia"))
 
     @password.setter
     def password(self, password):

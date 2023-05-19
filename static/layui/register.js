@@ -60,7 +60,7 @@ let image_code_uuid = null;
                     var t = setInterval(function () {
                         if (num === 1) {
                             clearInterval(t);
-                            $('.send_sms').html('Code de verificació');
+                            $('.send_sms').html(gettext('Codi de verificació'));
                         }
                     }, 1000);
                 }
@@ -76,7 +76,7 @@ let image_code_uuid = null;
             if (codeInput.value === "1234") {
                 register();
             } else {
-                alert("Error");
+                alert(gettext("Error"));
             }
         });
 
@@ -122,7 +122,7 @@ let image_code_uuid = null;
             if (result.status === 'success') {
                 window.location.href = '/login'; 
             } else {
-                alert("Registre incorrecte, el nom o el mòvil ja existeix."); 
+                alert(gettext("Registre incorrecte, el nom o el mòvil ja existeix.")); 
             }
         }
         

@@ -75,7 +75,7 @@ layui.use(function() {
           } else {
             // 请求失败
             // {#layer.msg(resp_data.message)#}
-            layer.msg('请求数据失败');
+            layer.msg(gettext('Error'));
           }
         });
   }
@@ -86,8 +86,8 @@ layui.use(function() {
     elem: 'pagination'
     , count: 100
     , curr: 1
-    , first: '首页'
-    , last: '尾页'
+    , first: gettext('Primer')
+    , last:  gettext('Últim')
     , limit: 10
     , prev: '<em>←</em>'
     , next: '<em>→</em>'

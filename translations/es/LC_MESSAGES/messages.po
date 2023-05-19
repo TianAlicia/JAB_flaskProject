@@ -1,0 +1,206 @@
+# Spanish translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-05-19 09:36+0200\n"
+"PO-Revision-Date: 2023-05-19 09:37+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.12.1\n"
+
+#: JAB/oms/user.py:59 JAB/views/index_JAP.py:351
+msgid "Contrasenya errònia"
+msgstr ""
+
+#: JAB/views/index_JAP.py:128
+msgid "Cal fer Login"
+msgstr ""
+
+#: JAB/views/index_JAP.py:135 templates/account/articles.html:16
+msgid "Error"
+msgstr ""
+
+#: JAB/views/index_JAP.py:139
+msgid "Favorit afegit"
+msgstr ""
+
+#: JAB/views/index_JAP.py:142 templates/account/followed.html:23
+msgid "Cancel·la"
+msgstr ""
+
+#: JAB/views/index_JAP.py:154
+msgid "No hi ha contingut"
+msgstr ""
+
+#: JAB/views/index_JAP.py:171
+msgid "Comentari correcte"
+msgstr ""
+
+#: JAB/views/index_JAP.py:186
+msgid "Comentari afegit"
+msgstr ""
+
+#: JAB/views/index_JAP.py:189
+msgid "Comentari esborrat"
+msgstr ""
+
+#: JAB/views/index_JAP.py:209
+msgid "Usuari seguit"
+msgstr ""
+
+#: JAB/views/index_JAP.py:212
+msgid "Usuari deixat de seguir"
+msgstr ""
+
+#: JAB/views/index_JAP.py:283 JAB/views/index_JAP.py:297
+msgid "Modificat correctament"
+msgstr ""
+
+#: JAB/views/index_JAP.py:293
+msgid "Contrasenya incorrecte"
+msgstr ""
+
+#: JAB/views/index_JAP.py:317
+msgid "Post publicat"
+msgstr ""
+
+#: JAB/views/index_JAP.py:340 JAB/views/index_JAP.py:343
+msgid "Captcha erroni"
+msgstr ""
+
+#: JAB/views/index_JAP.py:345
+msgid "Falten dades"
+msgstr ""
+
+#: JAB/views/index_JAP.py:349
+msgid "Usuari no existent"
+msgstr ""
+
+#: JAB/views/index_JAP.py:353
+msgid "Login correcte!"
+msgstr ""
+
+#: JAB/views/index_JAP.py:370
+msgid "Falta informació"
+msgstr ""
+
+#: JAB/views/index_JAP.py:378
+msgid "Registre correcte"
+msgstr ""
+
+#: JAB/views/index_JAP.py:402
+msgid "Codi no existent"
+msgstr ""
+
+#: JAB/views/index_JAP.py:404
+msgid "Codi erroni"
+msgstr ""
+
+#: JAB/views/index_JAP.py:405
+msgid "Enviament satisfactori, Codi: "
+msgstr ""
+
+#: JAB/views/index_JAP.py:416
+msgid "Mòvil ja existent"
+msgstr ""
+
+#: JAB/views/index_JAP.py:429
+msgid "Nom ja existent"
+msgstr ""
+
+#: templates/JAB/article.html:90
+msgid "Bo"
+msgstr ""
+
+#: templates/JAB/article.html:160 templates/account/profile.html:18
+msgid "Sense estat"
+msgstr ""
+
+#: templates/account/article_release.html:26
+msgid "Resum: "
+msgstr ""
+
+#: templates/account/article_release.html:45
+msgid "Contingut: "
+msgstr ""
+
+#: templates/account/article_release.html:52
+#: templates/account/base_info.html:76
+msgid "Modifica"
+msgstr ""
+
+#: templates/account/article_release.html:53
+#: templates/account/base_info.html:77
+msgid "Reiniciar"
+msgstr ""
+
+#: templates/account/articles.html:12
+msgid "Sota revisió"
+msgstr ""
+
+#: templates/account/articles.html:14
+msgid "Aprovat"
+msgstr ""
+
+#: templates/account/base_info.html:6
+msgid "Edita el perfil"
+msgstr ""
+
+#: templates/account/base_info.html:10
+msgid "Nom usuari: "
+msgstr ""
+
+#: templates/account/base_info.html:19
+msgid "Estat: "
+msgstr ""
+
+#: templates/account/base_info.html:26
+msgid "Gènere: "
+msgstr ""
+
+#: templates/account/base_info.html:35
+msgid "Aniversari: "
+msgstr ""
+
+#: templates/account/base_info.html:42
+msgid "Edita"
+msgstr ""
+
+#: templates/account/base_info.html:43
+msgid "Reinicia"
+msgstr ""
+
+#: templates/account/base_info.html:54
+msgid "Contrasenya actual:"
+msgstr ""
+
+#: templates/account/base_info.html:61
+msgid "Nova contrasenya: "
+msgstr ""
+
+#: templates/account/base_info.html:68
+msgid "Confirma: "
+msgstr ""
+
+#: templates/account/collection.html:5
+msgid "Favorits"
+msgstr ""
+
+#: templates/account/followed.html:5
+msgid "Seguits"
+msgstr ""
+
+#: templates/account/followed.html:22
+msgid "Seguint"
+msgstr ""
+

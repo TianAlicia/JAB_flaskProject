@@ -14,7 +14,7 @@ layui.use(['jquery'], function() {
 
         let comment = $('.comment_input').val();
         if (!comment) {
-            layui.layer.msg('pone conntenido');
+            layui.layer.msg(gettext('Cal contingut'));
         } else {
 
             fetch('/article/article_comment', {
@@ -53,7 +53,7 @@ layui.use(['jquery'], function() {
         let comment = $(this).find('.reply_input').val();
         let comment_id = $(this).attr('data-commit-id');
         if (!comment) {
-            layui.layer.msg('Pone contenido');
+            layui.layer.msg(gettext('Pone contenido'));
         } else {
             //
             fetch('/article/article_comment', {

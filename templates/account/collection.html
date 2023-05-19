@@ -2,7 +2,7 @@
 
 {% block main %}
     <div class="profile-card">
-        <h3 class="profile-card-title">favorito</h3>
+        <h3 class="profile-card-title">{{ gettext('Favorits')}}</h3>
         <ul class="profile-articles">
             {% for item in paginate.items %}
                 <li><a href="/article/{{ item.id }}">{{ item.title }}</a></li>

@@ -1,5 +1,4 @@
 from flask import Flask
-
 import JAB.oms
 from com.utils import setup_log
 from config import config

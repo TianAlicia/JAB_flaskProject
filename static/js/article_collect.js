@@ -18,7 +18,7 @@ layui.use(['jquery'], function() {
             if (ret.code === 0) {
                 layui.layer.msg(ret.message);
             } else if (ret.code === 4101) {
-                layui.layer.msg('Neccessita log in');
+                layui.layer.msg(gettext('Cal fer Login'));
                 // 调转到登录页面
                 setTimeout(function() {
                     location.href = '/login?next=' + location.pathname;
@@ -53,7 +53,7 @@ layui.use(['jquery'], function() {
                 if (ret.code === 0) {
                     layui.layer.msg(ret.message);
                 } else if (ret.code === 4101) {
-                    layui.layer.msg('Necessita log in');
+                    layui.layer.msg(gettext('Cal fer Login'));
                     //
                     setTimeout(function() {
                         location.href = '/login?next=' + location.pathname;

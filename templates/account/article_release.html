@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">resumen：</label>
+                <label class="layui-form-label">{{ gettext('Resum: ') }}</label>
                 <div class="layui-input-block">
                     <textarea name="digest" placeholder="pone contenido"
                               class="layui-textarea"></textarea>
@@ -42,15 +42,15 @@
 <!--                </div>-->
 <!--            </div>-->
             <div class="layui-form-item">
-                <label class="layui-form-label" for="rich_content">contenido：</label>
+                <label class="layui-form-label" for="rich_content">{{ gettext('Contingut: ') }}</label>
                 <div class="layui-input-block">
                     <input class="input_area" id="rich_content" name="content" style="height: 700px">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">subir</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">reiniciar</button>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">{{ gettext('Modifica') }}</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">{{ gettext('Reiniciar') }}</button>
                 </div>
             </div>
         </form>

@@ -9,11 +9,11 @@
                     <a href="/article/{{ item.id }}">{{ item.title }}</a>
 
                     {% if item.status == 1 %}
-                        <span style="color: green">bajo revisión</span>
+                        <span style="color: green">{{ gettext('Sota revisió') }}</span>
                     {% elif item.status == 0 %}
-                        <span style="color: blue">aprobado</span>
+                        <span style="color: blue">{{ gettext('Aprovat') }}</span>
                     {% else %}
-                        <span style="color: red">fail</span>
+                        <span style="color: red">{{ gettext('Error') }}</span>
                     {% endif %}
                     <span>{{ item.create_time }}</span>
                 </li>

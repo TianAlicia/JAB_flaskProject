@@ -1,10 +1,10 @@
 {% extends 'account/base.html' %}
 
-{#
+<!--{#
     作者信息也 给别的用户看的
     审核没有通过的文章,不能显示出来
     这个页面不需要登录
-#}
+#} -->
 {% block profile %}
     <div class="profile-menu">
         <div class="profile-picture">
@@ -15,19 +15,19 @@
         <ul class="profile-option-list">
             <div class="author_card" style="width: 96%;margin-bottom: 5px;padding: 5px" data-userid="{{ author.id }}">
 
-                <div class="author_resume">{{ author.signature  or 'no deja nada' }}</div>
+                <div class="author_resume">{{ author.signature  or gettext('Sense estat') }}</div>
                 <div class="author-card-info">
-                    <div class="writings"><span>articulos</span><b>{{ author.article_list.count() }}</b></div>
-                    <div class="follows"><span>fans</span><b>{{ author.followers.count() }}</b></div>
-                    {# 可以在前端写关注判断 #}
+                    <div class="writings"><span>gettext('Articles')</span><b>{{ author.article_list.count() }}</b></div>
+                    <div class="follows"><span>gettext('Fans')</span><b>{{ author.followers.count() }}</b></div>
+                    <!--{# 可以在前端写关注判断 #}-->
                     <a href="javascript:;" class="focused"
                        style="display: {% if is_followed %} inline-block {% else %} none {% endif %}">
-                        <span class="over">cancela</span>
+                        <span class="over">gettext('Cancel·la')</span>
                     </a>
 
                     <a href="javascript:;" class="focus"
                        style="display:  {% if is_followed %} none {% else %} inline-block {% endif %}">
-                        seguir
+                       gettext('Segueix')
                     </a>
                 </div>
             </div>
@@ -36,7 +36,7 @@
 {% endblock %}
 {% block main %}
     <div class="profile-card">
-        <h3 class="profile-card-title">articulo</h3>
+        <h3 class="profile-card-title">gettext('Articles')</h3>
         <ul class="profile-articles">
             {% for item in paginate.items %}
                 <li>
