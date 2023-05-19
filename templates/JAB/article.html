@@ -1,7 +1,7 @@
 {% extends 'JAB/base.html' %}
 
 {% block title %}
-    gettext('Article')
+    {{ gettext('Article') }}
 {% endblock %}
 
 
@@ -11,7 +11,7 @@
         <div class="article-body">
             <h3>{{ article.title }}</h3>
             <div class="detail_about clearfix">
-                <span class="time_source ">{{ article.create_time }} gettext('Font:') {{ article.source }}</span>
+                <span class="time_source ">{{ article.create_time }} {{ gettext('Font:') }} {{ article.source }}</span>
                 {#文章的评论数量#}
                 <span class="comment_liens">{{ article.comment_list.count() }}</span>
             </div>
@@ -25,27 +25,27 @@
 
             <!--收藏/取消收藏-->
             <a href="javascript:;" class="collection block-center"
-               style="display:  {% if is_collect %}none{% else %}block{% endif %}">gettext('Favorit')</a>
+               style="display:  {% if is_collect %}none{% else %}block{% endif %}">{{ gettext('Favorit') }}</a>
             <a href="javascript:;" class="collected block-center"
                style="display: {% if is_collect %}block{% else %}none{% endif %}">
-                <span class="out">gettext('Ja és favorit')</span>
-                <span class="over" style="display: none">gettext('Cancel·la')</span>
+                <span class="out">{{ gettext('Ja és favorit') }}</span>
+                <span class="over" style="display: none">{{ gettext('Cancel·la') }}</span>
             </a>
 
             <!--评论栏-->
             <!--评论栏-未登陆显示登陆之后进行评论-->
             {% if not current_user.is_active %}
                 <div class="comment_form_logout">
-                    gettext('Comenta')
+                    {{ gettext('Comenta') }}
                 </div>
             {% else %}
                 <!--评论栏-登陆之后显示用户头像并进行评论-->
                 <form action="" class="comment_form">
                     <div class="person_pic">
                         <img src="/static/images/cat.jpg" alt="用户图标">
-                        <textarea placeholder="gettext('Comenta')" class="comment_input"></textarea>
+                        <textarea placeholder={{ gettext('Comenta') }} class="comment_input"></textarea>
                     </div>
-                    <input type="submit" name="" value="Commit" class="comment_sub">
+                    <input type="submit" name="" value={{ gettext('Envia') }} class="comment_sub">
                 </form>
             {% endif %}
             <!--评论数据展示栏-->
@@ -80,7 +80,7 @@
                                 <div class="comment-details">
                                     <div class="comment_time ">{{ comment.create_time }}</div>
                                     <div>
-                                        <a href="javascript:;" class="comment_reply">gettext('Respon')</a>
+                                        <a href="javascript:;" class="comment_reply">{{ gettext('Respon') }}</a>
                                         {#当前的评论是否有人点赞#}
                                         {# 当前用户点赞过此评论需要高亮 当前的评论就会出现在当前用户的点赞列表里面 #}
                                         <a href="javascript:;" class="comment_up
@@ -111,13 +111,13 @@
                         <img src="/static/images/worm.jpg" alt="用户图标">
                     </div>
                     <div class="comment-content">
-                        <div class="user_name ">gettext('Usuari:') Juan</div>
+                        <div class="user_name ">{{ gettext('Usuari:') }}Juan</div>
                         <div class="comment_text ">
                             Good!
                         </div>
                         {#渲染评论的时候,如果有二级评论也进行渲染#}
                         <div class="reply_text_con">
-                            <div class="user_name2">gettext('Usuari:')Pepe</div>
+                            <div class="user_name2">{{ gettext('Usuari:') }}Pepe</div>
                             <div class="reply_text">
                                 I don't like it
                             </div>
@@ -125,7 +125,7 @@
                         <div class="comment-details">
                             <div class="comment_time ">2020-01-01 00:00:00</div>
                             <div>
-                                <a href="javascript:;" class="comment_reply">gettext('Respon')</a>
+                                <a href="javascript:;" class="comment_reply">{{ gettext('Respon') }}</a>
                                 <a href="javascript:;" class="comment_up has_comment_up"></a>
                             </div>
                         </div>
@@ -151,11 +151,11 @@
     {% if author %}
         <div class="author_card" style="width: 96%;margin-bottom: 5px;padding: 5px" data-userid="{{ author.id }}">
             <div class="card-header">
-                <a href="/profile/{{ author.id }}" target="_blank" class="author_pic">
+                <a  target="_blank" class="author_pic">
                     <img src="https://qingdeng123-1257113111.cos.ap-nanjing.myqcloud.com/user_pic/2022-02/73b879c8-35e2-423a-ab13-92609797103e.jpg"
                          alt="author_pic">
                 </a>
-                <a href="/profile/{{ author.id }}" target="_blank" class="author_name">{{ author.nick_name }}</a>
+                <a target="_blank" class="author_name">{{ author.nick_name }}</a>
             </div>
             <div class="author_resume">{{ author.signature  or gettext('Sense estat') }}</div>
             <div class="author-card-info">
@@ -164,12 +164,12 @@
                 {# 可以在前端写关注判断 #}
                 <a href="javascript:;" class="focused"
                    style="display: {% if is_followed %} inline-block {% else %} none {% endif %}">
-                    <span class="over">gettext('Cancel·la')</span>
+                    <span class="over">{{ gettext('Cancel·la') }}</span>
                 </a>
 
                 <a href="javascript:;" class="focus"
                    style="display:  {% if is_followed %} none {% else %} inline-block {% endif %}">
-                   gettext('Segueix')
+                   {{ gettext('Segueix') }}
                 </a>
             </div>
         </div>

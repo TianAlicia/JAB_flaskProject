@@ -24,8 +24,8 @@
                 </ul>
             {% endblock %}
               <div class="search">
-                	<form action="/search" method="POST" style="line-height: 60px">
-                        <input type="text", name="keyword">
+                	<form action="/search" method="POST" style="line-height: 60px;">
+                        <input type="text", name="keyword" style=" width: 100px">
                         <button class="iconfont icon-sousuo"></button>
                     </form>
             </div>
@@ -48,7 +48,7 @@
     <div class="layui-row main" style="margin-top: 20px">
         <div class="layui-col-md9">
             {% block main %}
-                gettext('Inici')
+                {{ gettext('Inici') }}
             {% endblock %}
             <div id="pagination" style="text-align: center"></div>
         </div>
@@ -59,7 +59,7 @@
                 {% endblock %}
                 <div class="rank">
                     <div class="rank_title">
-                        <h3>gettext('Articles Populars')</h3>
+                        <h3>{{ gettext('Articles Populars') }}</h3>
                     </div>
                     <div class="rank_list">
                         {% for hot_article in hot_article_list %}

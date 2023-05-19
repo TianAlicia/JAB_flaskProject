@@ -14,8 +14,8 @@
                     </div>
                     <div class="author_resume">{{ followed.signature }}</div>
                     <div class="author-card-info">
-                        <div class="writings"><span>articulos</span><b>{{ followed.article_list.count() }}</b></div>
-                        <div class="follows"><span>fans</span><b>{{ followed.followers.count() }}</b></div>
+                        <div class="writings"><span>{{ gettext('Articles') }}</span><b>{{ followed.article_list.count() }}</b></div>
+                        <div class="follows"><span>{{ gettext('Fans') }}</span><b>{{ followed.followers.count() }}</b></div>
                         {# gettext('Només 1 seguidor') #}
 {#                        <a href="javascript:;" class="focus">{{ gettext('Segueix')}}</a>#}
                         <a href="javascript:;" class="focused">

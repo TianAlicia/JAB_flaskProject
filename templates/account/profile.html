@@ -22,12 +22,12 @@
                     <!--{# 可以在前端写关注判断 #}-->
                     <a href="javascript:;" class="focused"
                        style="display: {% if is_followed %} inline-block {% else %} none {% endif %}">
-                        <span class="over">gettext('Cancel·la')</span>
+                        <span class="over">{{ gettext('Cancel·la') }}</span>
                     </a>
 
                     <a href="javascript:;" class="focus"
                        style="display:  {% if is_followed %} none {% else %} inline-block {% endif %}">
-                       gettext('Segueix')
+                       {{ gettext('Segueix') }}
                     </a>
                 </div>
             </div>
@@ -36,7 +36,7 @@
 {% endblock %}
 {% block main %}
     <div class="profile-card">
-        <h3 class="profile-card-title">gettext('Articles')</h3>
+        <h3 class="profile-card-title">{{ gettext('Articles') }}</h3>
         <ul class="profile-articles">
             {% for item in paginate.items %}
                 <li>

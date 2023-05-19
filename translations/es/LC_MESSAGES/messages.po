@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-19 16:45+0200\n"
+"POT-Creation-Date: 2023-05-19 19:53+0200\n"
 "PO-Revision-Date: 2023-05-19 09:37+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -18,122 +18,227 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
-#: JAB/oms/user.py:59 JAB/views/index_JAP.py:382
-msgid "Contrasenya errònia"
-msgstr "Contraseña errónea"
-
-#: JAB/views/index_JAP.py:159
+#: index_JAP.py:153
 msgid "Cal fer Login"
 msgstr "Log in necesario"
 
-#: JAB/views/index_JAP.py:166 templates/account/articles.html:16
+#: index_JAP.py:160 templates/account/articles.html:16
 msgid "Error"
 msgstr "Error"
 
-#: JAB/views/index_JAP.py:170
+#: index_JAP.py:164
 msgid "Favorit afegit"
 msgstr "Favorito añadido"
 
-#: JAB/views/index_JAP.py:173 templates/account/followed.html:23
+#: index_JAP.py:167 templates/JAB/article.html:32
+#: templates/JAB/article.html:167 templates/account/followed.html:23
+#: templates/account/profile.html:25
 msgid "Cancel·la"
 msgstr "Cancela"
 
-#: JAB/views/index_JAP.py:185
+#: index_JAP.py:179
 msgid "No hi ha contingut"
 msgstr "No hay contenido"
 
-#: JAB/views/index_JAP.py:202
+#: index_JAP.py:196
 msgid "Comentari correcte"
 msgstr "Comentario correcto"
 
-#: JAB/views/index_JAP.py:217
+#: index_JAP.py:211
 msgid "Comentari afegit"
 msgstr "Comentario añadido"
 
-#: JAB/views/index_JAP.py:220
+#: index_JAP.py:214
 msgid "Comentari esborrat"
 msgstr "Comentario borrado"
 
-#: JAB/views/index_JAP.py:240
+#: index_JAP.py:234
 msgid "Usuari seguit"
 msgstr "Usuario seguido"
 
-#: JAB/views/index_JAP.py:243
+#: index_JAP.py:237
 msgid "Usuari deixat de seguir"
 msgstr "Usuario dejado de seguir"
 
-#: JAB/views/index_JAP.py:314 JAB/views/index_JAP.py:328
+#: index_JAP.py:308 index_JAP.py:322
 msgid "Modificat correctament"
 msgstr "Modificado correctamente"
 
-#: JAB/views/index_JAP.py:324
+#: index_JAP.py:318
 msgid "Contrasenya incorrecte"
 msgstr "Contraseña incorrecta"
 
-#: JAB/views/index_JAP.py:348
+#: index_JAP.py:342
 msgid "Article publicat"
 msgstr "Artículo publicado"
 
-#: JAB/views/index_JAP.py:371 JAB/views/index_JAP.py:374
+#: index_JAP.py:365 index_JAP.py:368
 msgid "Captcha erroni"
 msgstr "Captcha erróneo"
 
-#: JAB/views/index_JAP.py:376
+#: index_JAP.py:370
 msgid "Falten dades"
 msgstr "Faltan datos"
 
-#: JAB/views/index_JAP.py:380
+#: index_JAP.py:374
 msgid "Usuari no existent"
 msgstr "Usuario inexistente"
 
-#: JAB/views/index_JAP.py:401
+#: JAB/oms/user.py:59 index_JAP.py:376
+msgid "Contrasenya errònia"
+msgstr "Contraseña errónea"
+
+#: index_JAP.py:395
 msgid "Falta informació"
 msgstr "Falta información"
 
-#: JAB/views/index_JAP.py:409
+#: index_JAP.py:403
 msgid "Registre correcte"
 msgstr "Registro correcto"
 
-#: JAB/views/index_JAP.py:433
+#: index_JAP.py:427
 msgid "Codi no existent"
 msgstr "Codigo no existente"
 
-#: JAB/views/index_JAP.py:435
+#: index_JAP.py:429
 msgid "Codi erroni"
 msgstr "Código erróneo"
 
-#: JAB/views/index_JAP.py:436
+#: index_JAP.py:430
 msgid "Enviament satisfactori, Codi: "
 msgstr "Enviamento satisfactorio, Código: "
 
-#: JAB/views/index_JAP.py:447
+#: index_JAP.py:441
 msgid "Mòvil ja existent"
 msgstr "Móvil ya existente"
 
-#: JAB/views/index_JAP.py:460
+#: index_JAP.py:454
 msgid "Nom ja existent"
 msgstr "Nombre ya existente"
+
+#: templates/JAB/404.html:5
+msgid "Pàgina no trobada"
+msgstr "Página no encontrada"
+
+#: templates/JAB/404.html:27 templates/JAB/base.html:37
+#: templates/JAB/login.html:5 templates/JAB/login.html:37
+#: templates/JAB/register.html:65 templates/account/base.html:32
+msgid "Login"
+msgstr "Log in"
+
+#: templates/JAB/404.html:28 templates/JAB/base.html:38
+#: templates/JAB/register.html:5 templates/account/base.html:33
+#, fuzzy
+msgid "Registre"
+msgstr "Registro correcto"
+
+#: templates/JAB/404.html:42
+#, fuzzy
+msgid "No existeix"
+msgstr "Nombre ya existente"
+
+#: templates/JAB/404.html:44
+msgid "Torna a la pàgina principal"
+msgstr "Vuelve a la página principal"
+
+#: templates/JAB/404.html:50 templates/JAB/includes/foot_script.html:4
+#: templates/JAB/login.html:49 templates/JAB/register.html:72
+msgid "Sobre JAB"
+msgstr "Sobre JAB"
+
+#: templates/JAB/404.html:52 templates/JAB/includes/foot_script.html:6
+#: templates/JAB/login.html:51 templates/JAB/register.html:74
+#, fuzzy
+msgid "Contacte"
+msgstr "Comentario correcto"
+
+#: templates/JAB/404.html:54 templates/JAB/includes/foot_script.html:8
+#: templates/JAB/login.html:53 templates/JAB/register.html:76
+msgid "Web"
+msgstr "Web"
+
+#: templates/JAB/404.html:58 templates/JAB/includes/foot_script.html:12
+#: templates/JAB/login.html:57 templates/JAB/register.html:80
+msgid "Telèfon"
+msgstr "Teléfono"
+
+#: templates/JAB/article.html:4
+#, fuzzy
+msgid "Article"
+msgstr "Lista de artículos"
+
+#: templates/JAB/article.html:14
+msgid "Font:"
+msgstr "Fuente: "
+
+#: templates/JAB/article.html:28
+#, fuzzy
+msgid "Favorit"
+msgstr "Favoritos"
+
+#: templates/JAB/article.html:31
+#, fuzzy
+msgid "Ja és favorit"
+msgstr "Favoritos"
+
+#: templates/JAB/article.html:39 templates/JAB/article.html:46
+#, fuzzy
+msgid "Comenta"
+msgstr "Comentario correcto"
+
+#: templates/JAB/article.html:48
+#, fuzzy
+msgid "Envia"
+msgstr "Reinicia"
+
+#: templates/JAB/article.html:83 templates/JAB/article.html:128
+msgid "Respon"
+msgstr "Comenta"
 
 #: templates/JAB/article.html:90
 msgid "Bo"
 msgstr "Bueno"
 
+#: templates/JAB/article.html:114 templates/JAB/article.html:120
+#: templates/JAB/register.html:28
+#, fuzzy
+msgid "Usuari:"
+msgstr "Nombre de usuario: "
+
 #: templates/JAB/article.html:160 templates/account/profile.html:18
 msgid "Sense estat"
 msgstr "Sin estado"
+
+#: templates/JAB/article.html:172 templates/account/profile.html:30
+#, fuzzy
+msgid "Segueix"
+msgstr "Seguidos"
 
 #: templates/JAB/base.html:35
 msgid "Logout"
 msgstr "Log out"
 
-#: templates/JAB/base.html:37 templates/account/base.html:32
-msgid "Login"
-msgstr "Log in"
-
-#: templates/JAB/base.html:38 templates/account/base.html:33
+#: templates/JAB/base.html:51
 #, fuzzy
-msgid "Registre"
-msgstr "Registro correcto"
+msgid "Inici"
+msgstr "Reinicia"
+
+#: templates/JAB/base.html:62
+#, fuzzy
+msgid "Articles Populars"
+msgstr "Artículo publicado"
+
+#: templates/JAB/chat.html:8
+msgid "Xat"
+msgstr "Chat"
+
+#: templates/JAB/chat.html:36
+msgid "Message sent successfully."
+msgstr "Mensaje enviado con éxito"
+
+#: templates/JAB/chat.html:39
+msgid "Error sending message:"
+msgstr "Error enviando el mensaje"
 
 #: templates/JAB/chat.html:72
 msgid "Cerca usuaris..."
@@ -159,9 +264,94 @@ msgstr "Hoy"
 msgid "Escriu el missatge aquí"
 msgstr "Escribe el mensaje aquí"
 
+#: templates/JAB/index.html:47 templates/JAB/search_results.html:47
+#: templates/account/articles.html:40 templates/account/collection.html:28
+#, fuzzy
+msgid "Anterior"
+msgstr "Error"
+
+#: templates/JAB/index.html:48 templates/account/articles.html:41
+#: templates/account/collection.html:29
+#, fuzzy
+msgid "Següent"
+msgstr "Siguiendo"
+
+#: templates/JAB/login.html:25
+#, fuzzy
+msgid "Nom dusuari: "
+msgstr "Nombre de usuario: "
+
+#: templates/JAB/login.html:28
+#, fuzzy
+msgid "Contrasenya: "
+msgstr "Nuevo Móvil"
+
+#: templates/JAB/login.html:31 templates/JAB/register.html:41
+#: templates/JAB/register.html:50
+msgid "Codi de verificació: "
+msgstr "Codigo de verificación: "
+
+#: templates/JAB/login.html:42
+#, fuzzy
+msgid "No tens un compte? "
+msgstr "Ya tienes una cuenta?"
+
+#: templates/JAB/login.html:42 templates/JAB/register.html:60
+#, fuzzy
+msgid "Registrar-se"
+msgstr "Registro correcto"
+
+#: templates/JAB/register.html:33
+#, fuzzy
+msgid "Contransenya: "
+msgstr "Nuevo Móvil"
+
+#: templates/JAB/register.html:37
+msgid "Mòvil:"
+msgstr "Móvil:"
+
+#: templates/JAB/register.html:46
+msgid "Email: "
+msgstr "Email: "
+
+#: templates/JAB/register.html:54
+msgid "Codi"
+msgstr "Código"
+
+#: templates/JAB/register.html:65
+msgid "Ja tens un compte?"
+msgstr "Ya tienes una cuenta?"
+
+#: templates/JAB/search_results.html:48
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/account/article_release.html:5
+#, fuzzy
+msgid "Publica un article"
+msgstr "Publica un Artículo"
+
+#: templates/account/article_release.html:8
+msgid "Títol: "
+msgstr "Título: "
+
+#: templates/account/article_release.html:11
+msgid "Títol"
+msgstr "Título"
+
+#: templates/account/article_release.html:15
+msgid "Categoria: "
+msgstr "Categoría"
+
 #: templates/account/article_release.html:26
 msgid "Resum: "
 msgstr "Resumen: "
+
+#: templates/account/article_release.html:28
+#: templates/account/base_info.html:21
+#, fuzzy
+msgid "Contingut"
+msgstr "Contenido: "
 
 #: templates/account/article_release.html:45
 msgid "Contingut: "
@@ -176,6 +366,12 @@ msgstr "Modifica"
 #: templates/account/base_info.html:77
 msgid "Reiniciar"
 msgstr "Reiniciar"
+
+#: templates/account/articles.html:5 templates/account/followed.html:17
+#: templates/account/profile.html:39
+#, fuzzy
+msgid "Articles"
+msgstr "Lista de artículos"
 
 #: templates/account/articles.html:12
 msgid "Sota revisió"
@@ -220,6 +416,10 @@ msgstr "Edita el perfil"
 msgid "Nom usuari: "
 msgstr "Nombre de usuario: "
 
+#: templates/account/base_info.html:13
+msgid "Nom"
+msgstr "Nombre"
+
 #: templates/account/base_info.html:19
 msgid "Estat: "
 msgstr "Estado: "
@@ -227,6 +427,15 @@ msgstr "Estado: "
 #: templates/account/base_info.html:26
 msgid "Gènere: "
 msgstr "Género: "
+
+#: templates/account/base_info.html:28
+#, fuzzy
+msgid "Home"
+msgstr "Hombre"
+
+#: templates/account/base_info.html:30
+msgid "Dona"
+msgstr "Mujer"
 
 #: templates/account/base_info.html:35
 msgid "Aniversari: "
@@ -244,8 +453,18 @@ msgstr "Reinicia"
 msgid "Contrasenya actual:"
 msgstr "Contraseña actual:"
 
+#: templates/account/base_info.html:57
+#, fuzzy
+msgid "Contrasenya"
+msgstr "Nuevo Móvil"
+
 #: templates/account/base_info.html:61
 msgid "Nova contrasenya: "
+msgstr "Nueva Mòvil"
+
+#: templates/account/base_info.html:64 templates/account/base_info.html:71
+#, fuzzy
+msgid "Nova contrasenya"
 msgstr "Nueva Mòvil"
 
 #: templates/account/base_info.html:68
@@ -260,10 +479,20 @@ msgstr "Favoritos"
 msgid "Seguits"
 msgstr "Seguidos"
 
+#: templates/account/followed.html:18
+msgid "Fans"
+msgstr "Fans"
+
 #: templates/account/followed.html:22
 msgid "Seguint"
 msgstr "Siguiendo"
 
 #~ msgid "Login correcte!"
 #~ msgstr "Log in corecto!"
+
+#~ msgid "Bo"
+#~ msgstr "Bueno"
+
+#~ msgid "Sense estat"
+#~ msgstr "Sin estado"
 

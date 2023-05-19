@@ -80,7 +80,7 @@
                 <ul class="profile-articles">
                     {% for post in posts %}
                         <li>
-                            <a href="{{ url_for('index.post', post_id=post['id']) }}" style="margin-left: 2rem;">
+                            <a href="{{ url_for('post', post_id=post['id']) }}" style="margin-left: 2rem;">
                                 {{ post['title'][:60] }}
                             </a>
                             {% if user.nick_name == current_user.nick_name %}

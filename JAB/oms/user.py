@@ -56,7 +56,7 @@ class UserORM(db.Model, UserMixin):
 
     @property
     def password(self):
-        raise AttributeError(gettext("Contrasenya errònia"))
+        raise AttributeError({{ gettext("Contrasenya errònia") }})
 
     @password.setter
     def password(self, password):

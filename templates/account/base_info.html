@@ -10,7 +10,7 @@
                 <label class="layui-form-label">{{ gettext('Nom usuari: ') }}</label>
                 <div class="layui-input-block">
                     <input type="text" name="username" required lay-verify="required"
-                           placeholder=gettext("Nom") autocomplete="off" class="layui-input"
+                           placeholder={{ gettext("Nom") }} autocomplete="off" class="layui-input"
                            value="{{ current_user.nick_name }}"
                     >
                 </div>
@@ -18,16 +18,16 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">{{ gettext('Estat: ') }}</label>
                 <div class="layui-input-block">
-                    <textarea name="signature" placeholder=gettext("Contingut")
+                    <textarea name="signature" placeholder={{ gettext("Contingut") }}
                               class="layui-textarea">{{ current_user.signature }}</textarea>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">{{ gettext('Gènere: ') }}</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="gender" value="Home" title=gettext("Home") {% if current_user.gender=='Home' %}
+                    <input type="radio" name="gender" value="Home" title={{ gettext("Home") }} {% if current_user.gender=='Home' %}
                            checked {% endif %}   >
-                    <input type="radio" name="gender" value="Dona" title=ettext("Dona") {% if current_user.gender=='Dona' %}
+                    <input type="radio" name="gender" value="Dona" title={{ gettext("Dona") }} {% if current_user.gender=='Dona' %}
                            checked {% endif %}>
                 </div>
             </div>
@@ -54,21 +54,21 @@
                 <label class="layui-form-label">{{ gettext('Contrasenya actual:') }}</label>
                 <div class="layui-input-block avatar">
                     <input type="password" name="old_password" required lay-verify="required"
-                           placeholder=gettext("Contrasenya") autocomplete="off" class="layui-input">
+                           placeholder={{ gettext("Contrasenya") }} autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">{{ gettext('Nova contrasenya: ') }}</label>
                 <div class="layui-input-block">
                     <input type="password" name="new_password" required lay-verify="required"
-                           placeholder=gettext("Nova contrasenya") autocomplete="off" class="layui-input">
+                           placeholder={{ gettext("Nova contrasenya") }} autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">{{ gettext('Confirma: ') }}</label>
                 <div class="layui-input-block">
                     <input type="password" name="sure_password" required lay-verify="required"
-                           placeholder=gettext("Nova contrasenya") autocomplete="off" class="layui-input">
+                           placeholder={{ gettext("Nova contrasenya") }} autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -117,7 +117,7 @@
 
             form.on('submit(submit_password)', function(form) {
                 if (form.field.new_password !== form.field.sure_password) {
-                    layer.msg('Confirma tu password');
+                    layer.msg('Confirma la contrasenya');
                     return false;
                 }
                 fetch('/account/password', {

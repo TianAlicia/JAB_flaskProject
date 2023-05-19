@@ -44,8 +44,8 @@ laypage.render({
     , count: {{ results.pages.total }} //数据总数，从服务端得到
     , curr: {{ results.pages.page }}
     , limit: {{ results.pages.per_page }}
-    , prev: gettext("Anterior") // 上一页的显示文本
-    , next: gettext("Next") // 下一页的显示文本
+    , prev: {{ gettext("Anterior") }} // 上一页的显示文本
+    , next: {{ gettext("Next") }} // 下一页的显示文本
     , jump: function(obj, first) {
         // obj包含了当前分页的所有参数，比如：
         //首次不执行

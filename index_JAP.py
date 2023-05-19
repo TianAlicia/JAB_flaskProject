@@ -112,13 +112,7 @@ def hello_world():
     hot_article_list = (
         ArticleORM.query.order_by(ArticleORM.clicks.desc()).limit(10).all()
     )
-    return render_template(
-        "JAB/index.html",
-        cate_list=cate_list,
-        paginate=paginate,
-        hot_article_list=hot_article_list,
-    )
-
+    return render_template('JAB/index.html', cate_list=cate_list, paginate=paginate, hot_article_list=hot_article_list)    
     # return render_template("JAB/index.html", posts=posts)
 
 
@@ -199,7 +193,7 @@ def article_comment_view():
     db.session.add(article)
     db.session.commit()
 
-    return {"status": "success", "message": gettext("Comentari correcte")}
+    return {"status": "success", "message": gettext("Comentari correcte") }
 
 
 @app.route("/article/comment_like", methods=["POST"])
@@ -218,7 +212,6 @@ def comment_like_view():
     elif action == "remove":
         user.comment_like_list.remove(comment)
         msg = gettext("Comentari esborrat")
-    db.session.commit()
 
     return {
         "status": "success",
@@ -311,7 +304,7 @@ def account_info():
     user.gender = gender
     user.create_time = birthday
     user.save_to_db()
-    return {"status": "success", "message": gettext("Modificat correctament")}
+    return {"status": "success", "message": gettext("Modificat correctament") }
 
 
 @app.route("/account/password", methods=["POST"])
@@ -321,11 +314,11 @@ def account_password():
     new_password = request.json.get("new_password")
     user: UserORM = current_user
     if not user.check_password(old_password):
-        return {"status": "fail", "message": gettext("Contrasenya incorrecte")}
+        return {"status": "fail", "message": gettext("Contrasenya incorrecte") }
     user.password = new_password
     user.save_to_db()
     logout_user()
-    return {"status": "success", "message": gettext("Modificat correctament")}
+    return {"status": "success", "message": gettext("Modificat correctament") }
 
 
 @app.route("/user/posts_release", methods=["POST"])
@@ -345,7 +338,7 @@ def user_posts_release_view():
     article.index_image_url = "static/images/user_pic.png"
     article.content = content
     article.save_to_db()
-    return {"status": "success", "message": gettext("Article publicat")}
+    return {"status": "success", "message": gettext("Article publicat") }
 
 
 @app.route("/logo-social.ico")
@@ -368,18 +361,18 @@ def login_view():
     # 校验参数
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code or not captcha_code2:
-        return {"status": "fail", "message": gettext("Captcha erroni")}
+        return {"status": "fail", "message": gettext("Captcha erroni") }
 
     if captcha_code != captcha_code2:
-        return {"status": "fail", "message": gettext("Captcha erroni")}
+        return {"status": "fail", "message": gettext("Captcha erroni") }
     if not username or not password:
-        return {"status": "fail", "message": gettext("Falten dades")}
+        return {"status": "fail", "message": gettext("Falten dades") }
 
     user: UserORM = UserORM.query.filter_by(nick_name=username).first()
     if not user:
-        return {"status": "fail", "message": gettext("Usuari no existent")}
+        return {"status": "fail", "message": gettext("Usuari no existent") }
     if not user.check_password(password):
-        return {"status": "fail", "message": gettext("Contrasenya errònia")}
+        return {"status": "fail", "message": gettext("Contrasenya errònia") }
     login_user(user)
     return {"status": "success", "message": "OK"}
 
@@ -398,7 +391,7 @@ def register_view():
     password = data.get("password")
     # print(password)
     if not Email or not nickname or not password:
-        return {"status": "fail", "message": gettext("Falta informació")}
+        return {"status": "fail", "message": gettext("Falta informació") }
     user: UserORM = UserORM()
     user.email = Email
     user.mobile = mobile
@@ -406,7 +399,7 @@ def register_view():
     user.password = password
     user.avatar_url = "static/images/user_pic.png"
     user.save_to_db()
-    return {"status": "success", "message": gettext("Registre correcte")}
+    return {"status": "success", "message": gettext("Registre correcte") }
 
 
 @app.route("/get_captcha")
@@ -430,9 +423,9 @@ def sms_code_view():
 
     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
     if not captcha_code2:
-        return {"status": "fail", "message": gettext("Codi no existent")}
+        return {"status": "fail", "message": gettext("Codi no existent") }
     if captcha_code != captcha_code2:
-        return {"status": "fail", "message": gettext("Codi erroni")}
+        return {"status": "fail", "message": gettext("Codi erroni") }
     return {"status": "sucess", "message": gettext("Enviament satisfactori, Codi: ") + 1234}
 
 
@@ -444,7 +437,7 @@ def check_mobile():
     user = UserORM.query.filter_by(mobile=mobile).first()
 
     if user:
-        return {"status": "fail", "message": gettext("Mòvil ja existent")}
+        return {"status": "fail", "message": gettext("Mòvil ja existent") }
     else:
         return {"status": "success"}
 
@@ -457,7 +450,7 @@ def check_name():
     user = UserORM.query.filter_by(nick_name=nom).first()
 
     if user:
-        return {"status": "fail", "message": gettext("Nom ja existent")}
+        return {"status": "fail", "message": gettext("Nom ja existent") }
     else:
         return {"status": "success"}
 

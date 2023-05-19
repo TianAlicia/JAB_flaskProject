@@ -97,7 +97,7 @@ CREATE TABLE `bbs_category` (
 
 LOCK TABLES `bbs_category` WRITE;
 /*!40000 ALTER TABLE `bbs_category` DISABLE KEYS */;
-INSERT INTO `bbs_category` VALUES (1,'Educacion',NULL,NULL),(2,'Tecnologia',NULL,NULL),(3,'Cultura',NULL,NULL);
+INSERT INTO `bbs_category` VALUES (1,'Educació',NULL,NULL),(2,'Tecnologia',NULL,NULL),(3,'Cultura',NULL,NULL);
 /*!40000 ALTER TABLE `bbs_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
