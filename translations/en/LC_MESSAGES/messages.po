@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-19 19:53+0200\n"
+"POT-Creation-Date: 2023-05-19 20:16+0200\n"
 "PO-Revision-Date: 2023-05-19 09:37+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -52,67 +52,67 @@ msgstr "Comment added"
 msgid "Comentari esborrat"
 msgstr "Comment deleted"
 
-#: index_JAP.py:234
+#: index_JAP.py:233
 msgid "Usuari seguit"
 msgstr "User followed"
 
-#: index_JAP.py:237
+#: index_JAP.py:236
 msgid "Usuari deixat de seguir"
 msgstr "User unfollowed"
 
-#: index_JAP.py:308 index_JAP.py:322
+#: index_JAP.py:307 index_JAP.py:321
 msgid "Modificat correctament"
 msgstr "Modified correctly"
 
-#: index_JAP.py:318
+#: index_JAP.py:317
 msgid "Contrasenya incorrecte"
 msgstr "Wrong password"
 
-#: index_JAP.py:342
+#: index_JAP.py:341
 msgid "Article publicat"
 msgstr "Article published"
 
-#: index_JAP.py:365 index_JAP.py:368
+#: index_JAP.py:364 index_JAP.py:367
 msgid "Captcha erroni"
 msgstr "Wrong captcha"
 
-#: index_JAP.py:370
+#: index_JAP.py:369
 msgid "Falten dades"
 msgstr "Data missing"
 
-#: index_JAP.py:374
+#: index_JAP.py:373
 msgid "Usuari no existent"
 msgstr "User does not exist"
 
-#: JAB/oms/user.py:59 index_JAP.py:376
+#: JAB/oms/user.py:59 index_JAP.py:375
 msgid "Contrasenya errònia"
 msgstr "Wrong password"
 
-#: index_JAP.py:395
+#: index_JAP.py:394
 msgid "Falta informació"
 msgstr "Information missing"
 
-#: index_JAP.py:403
+#: index_JAP.py:402
 msgid "Registre correcte"
 msgstr "Register correct"
 
-#: index_JAP.py:427
+#: index_JAP.py:426
 msgid "Codi no existent"
 msgstr "Code does not exist"
 
-#: index_JAP.py:429
+#: index_JAP.py:428
 msgid "Codi erroni"
 msgstr "Wrong code"
 
-#: index_JAP.py:430
+#: index_JAP.py:429
 msgid "Enviament satisfactori, Codi: "
 msgstr "Successful delivery, Code:"
 
-#: index_JAP.py:441
+#: index_JAP.py:440
 msgid "Mòvil ja existent"
 msgstr "Mobile already exists"
 
-#: index_JAP.py:454
+#: index_JAP.py:453
 msgid "Nom ja existent"
 msgstr "Username already exists"
 

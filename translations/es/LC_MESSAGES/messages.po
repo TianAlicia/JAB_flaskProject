@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-19 19:53+0200\n"
+"POT-Creation-Date: 2023-05-19 20:16+0200\n"
 "PO-Revision-Date: 2023-05-19 09:37+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -52,67 +52,67 @@ msgstr "Comentario añadido"
 msgid "Comentari esborrat"
 msgstr "Comentario borrado"
 
-#: index_JAP.py:234
+#: index_JAP.py:233
 msgid "Usuari seguit"
 msgstr "Usuario seguido"
 
-#: index_JAP.py:237
+#: index_JAP.py:236
 msgid "Usuari deixat de seguir"
 msgstr "Usuario dejado de seguir"
 
-#: index_JAP.py:308 index_JAP.py:322
+#: index_JAP.py:307 index_JAP.py:321
 msgid "Modificat correctament"
 msgstr "Modificado correctamente"
 
-#: index_JAP.py:318
+#: index_JAP.py:317
 msgid "Contrasenya incorrecte"
 msgstr "Contraseña incorrecta"
 
-#: index_JAP.py:342
+#: index_JAP.py:341
 msgid "Article publicat"
 msgstr "Artículo publicado"
 
-#: index_JAP.py:365 index_JAP.py:368
+#: index_JAP.py:364 index_JAP.py:367
 msgid "Captcha erroni"
 msgstr "Captcha erróneo"
 
-#: index_JAP.py:370
+#: index_JAP.py:369
 msgid "Falten dades"
 msgstr "Faltan datos"
 
-#: index_JAP.py:374
+#: index_JAP.py:373
 msgid "Usuari no existent"
 msgstr "Usuario inexistente"
 
-#: JAB/oms/user.py:59 index_JAP.py:376
+#: JAB/oms/user.py:59 index_JAP.py:375
 msgid "Contrasenya errònia"
 msgstr "Contraseña errónea"
 
-#: index_JAP.py:395
+#: index_JAP.py:394
 msgid "Falta informació"
 msgstr "Falta información"
 
-#: index_JAP.py:403
+#: index_JAP.py:402
 msgid "Registre correcte"
 msgstr "Registro correcto"
 
-#: index_JAP.py:427
+#: index_JAP.py:426
 msgid "Codi no existent"
 msgstr "Codigo no existente"
 
-#: index_JAP.py:429
+#: index_JAP.py:428
 msgid "Codi erroni"
 msgstr "Código erróneo"
 
-#: index_JAP.py:430
+#: index_JAP.py:429
 msgid "Enviament satisfactori, Codi: "
 msgstr "Enviamento satisfactorio, Código: "
 
-#: index_JAP.py:441
+#: index_JAP.py:440
 msgid "Mòvil ja existent"
 msgstr "Móvil ya existente"
 
-#: index_JAP.py:454
+#: index_JAP.py:453
 msgid "Nom ja existent"
 msgstr "Nombre ya existente"
 

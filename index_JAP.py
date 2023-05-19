@@ -20,9 +20,23 @@ from extensions import db, redis_store
 from JAB.oms import ArticleORM, CategoryORM, CommentORM, UserORM
 from config import config
 from extensions import register_plugin
+from flask_cors import CORS
 # from com.cos import TenCos
 
 app = Flask(__name__)
+
+CORS(app)
+CORS(app, origins=['http://localhost'])
+
+@app.after_request
+def set_secure_headers(response):
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
+    response.headers['Content-Security-Policy'] = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'"
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    return response
+
 
 def create_app(config_name):
     app.config.from_object(config[config_name])
