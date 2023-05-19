@@ -58,12 +58,6 @@ def get_post(post_id):
     return post
 
 
-@index_JAP.route("/")
-def hello_world():
-    posts = ArticleORM.query.all()
-    return render_template("JAB/index.html", posts=posts)
-
-
 @index_JAP.route("/logo-social.ico")
 def favicon():
     return current_app.send_static_file("logo-social.ico")
@@ -101,6 +95,27 @@ def login_view():
     return {"status": "success", "message": gettext("Login successfully.")}
 
 
+@index_JAP.route("/search", methods=["POST"])
+def search_view():
+    if request.method == "POST":
+        keyword = request.form.get("keyword")
+
+        page = request.args.get("page", 1, type=int)  # 获取当前页数，默认为1
+        per_page = 10  # 每页显示的数量
+
+        # 查询符合关键字的文章列表，并进行分页处理
+        results = ArticleORM.query.filter(
+            ArticleORM.title.ilike("%{}%".format(keyword))
+        ).paginate(page=page, per_page=per_page)
+
+        return render_template(
+            "JAB/search_results.html", results=results, keyword=keyword
+        )
+
+
+from sqlalchemy import func
+
+
 @index_JAP.route("/register", methods=["POST", "GET"])
 def register_view():
     if request.method == "GET":
@@ -136,7 +151,9 @@ def get_captcha_view():
     resp = make_response
 
 
-index_JAP = Blueprint("index", __name__)
+#
+# index_JAP = Blueprint("index", __name__)
+#
 
 # babel = Babel()
 
@@ -422,78 +439,73 @@ def user_posts_release_view():
     return {"status": "success", "message": "Publica correcto"}
 
 
-@index_JAP.route("/logo-social.ico")
-def favicon():
-    return current_app.send_static_file("logo-social.ico")
+# @index_JAP.route("/login", methods=["POST", "GET"])
+# def login_view():
+#     if request.method == "GET":
+#         return render_template("JAB/login.html")
+#     # data = request.get_json()
+#     # Email = data.get("Email")
+#     # mobile = data.get("mobile")
+#     username = request.json.get("username")
+#     password = request.json.get("password")
+#
+#     captcha_code = request.json.get("captcha_code")
+#     captcha_code_uuid = request.json.get("captcha_code_uuid")
+#     # 校验参数
+#     captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
+#     if not captcha_code or not captcha_code2:
+#         return {"status": "fail", "message": "Captcha erroni"}
+#
+#     if captcha_code != captcha_code2:
+#         return {"status": "fail", "message": "Captcha erroni"}
+#     if not username or not password:
+#         return {"status": "fail", "message": "Falten dades"}
+#
+#     user: UserORM = UserORM.query.filter_by(nick_name=username).first()
+#     if not user:
+#         return {"status": "fail", "message": "Usuari no existent"}
+#     if not user.check_password(password):
+#         return {"status": "fail", "message": "Contrasenya errònia"}
+#     login_user(user)
+#     return {"status": "success", "message": "Login correcte!"}
+#
+#
+# @index_JAP.route("/register", methods=["POST", "GET"])
+# def register_view():
+#     if request.method == "GET":
+#         return render_template("JAB/register.html")
+#     data = request.get_json()
+#     Email = str(data.get("Email"))
+#
+#     mobile = data.get("mobile")
+#
+#     nickname = data.get("nom")
+#
+#     password = data.get("password")
+#     # print(password)
+#     if not Email or not nickname or not password:
+#         return {"status": "fail", "message": "Falta informació"}
+#     user: UserORM = UserORM()
+#     user.email = Email
+#     user.mobile = mobile
+#     user.nick_name = nickname
+#     user.password = password
+#     user.avatar_url = "static/images/user_pic.png"
+#     user.save_to_db()
+#     return {"status": "success", "message": "Registre correcte"}
+#
 
-
-@index_JAP.route("/login", methods=["POST", "GET"])
-def login_view():
-    if request.method == "GET":
-        return render_template("JAB/login.html")
-    # data = request.get_json()
-    # Email = data.get("Email")
-    # mobile = data.get("mobile")
-    username = request.json.get("username")
-    password = request.json.get("password")
-
-    captcha_code = request.json.get("captcha_code")
-    captcha_code_uuid = request.json.get("captcha_code_uuid")
-    # 校验参数
-    captcha_code2 = redis_store.get_chapter_image(captcha_code_uuid)
-    if not captcha_code or not captcha_code2:
-        return {"status": "fail", "message": "Captcha erroni"}
-
-    if captcha_code != captcha_code2:
-        return {"status": "fail", "message": "Captcha erroni"}
-    if not username or not password:
-        return {"status": "fail", "message": "Falten dades"}
-
-    user: UserORM = UserORM.query.filter_by(nick_name=username).first()
-    if not user:
-        return {"status": "fail", "message": "Usuari no existent"}
-    if not user.check_password(password):
-        return {"status": "fail", "message": "Contrasenya errònia"}
-    login_user(user)
-    return {"status": "success", "message": "Login correcte!"}
-
-
-@index_JAP.route("/register", methods=["POST", "GET"])
-def register_view():
-    if request.method == "GET":
-        return render_template("JAB/register.html")
-    data = request.get_json()
-    Email = str(data.get("Email"))
-
-    mobile = data.get("mobile")
-
-    nickname = data.get("nom")
-
-    password = data.get("password")
-    # print(password)
-    if not Email or not nickname or not password:
-        return {"status": "fail", "message": "Falta informació"}
-    user: UserORM = UserORM()
-    user.email = Email
-    user.mobile = mobile
-    user.nick_name = nickname
-    user.password = password
-    user.avatar_url = "static/images/user_pic.png"
-    user.save_to_db()
-    return {"status": "success", "message": "Registre correcte"}
-
-
-@index_JAP.route("/get_captcha")
-def get_captcha_view():
-    uuid = request.args.get("image_code_uuid")
-    img, text = get_captcha_image()
-    # 将文字保存到 redis
-    # print(img, text)
-    redis_store.store_chapter_image(uuid, text)
-    # 图片返回给浏览器
-    resp = make_response(img)
-    resp.content_type = "image/png"
-    return resp
+# @index_JAP.route("/get_captcha")
+# def get_captcha_view():
+#     uuid = request.args.get("image_code_uuid")
+#     img, text = get_captcha_image()
+#     # 将文字保存到 redis
+#     # print(img, text)
+#     redis_store.store_chapter_image(uuid, text)
+#     # 图片返回给浏览器
+#     resp = make_response(img)
+#     resp.content_type = "image/png"
+#     return resp
 
 
 @index_JAP.route("/sms_code", methods=["POST"])

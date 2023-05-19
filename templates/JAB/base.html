@@ -23,8 +23,16 @@
                     {% endfor %}
                 </ul>
             {% endblock %}
-              <div class="search">
-                	<form action="" style="line-height: 60px"><input type="text"><button class="iconfont icon-sousuo"></button></form></a></div>
+            <!-- 在合适的位置添加搜索表单 -->
+        <div class="search">
+                	<form action="/search" method="POST" style="line-height: 60px">
+                        <input type="text", name="keyword">
+                        <button class="iconfont icon-sousuo"></button>
+                    </form>
+        </div>
+
+
+
             <!--登录注册栏-->
             <div class="login-btn">
                 {% if current_user.is_active %}
