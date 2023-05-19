@@ -18,12 +18,17 @@ from sqlalchemy import func
 from com.gen_captcha import get_captcha_image
 from extensions import db, redis_store
 from JAB.oms import ArticleORM, CategoryORM, CommentORM, UserORM
-
+from config import config
+from extensions import register_plugin
 # from com.cos import TenCos
 
 app = Flask(__name__)
-index_JAP = Blueprint("index", __name__)
-index_JAP.secret_key = "joanaliciabernat"
+
+def create_app(config_name):
+    app.config.from_object(config[config_name])
+    register_plugin(app)
+
+    return app
 
 babel = Babel(app)
 
@@ -60,7 +65,7 @@ def get_post(post_id):
         return None
     return post
 
-@index_JAP.route("/search", methods=["POST"])
+@app.route("/search", methods=["POST"])
 def search_view():
     if request.method == "POST":
         keyword = request.form.get("keyword")
@@ -87,7 +92,7 @@ def get_post(post_id):
     return post
 
 
-@index_JAP.route("/")
+@app.route("/")
 def hello_world():
     # presenta el categoria
     cate_list = CategoryORM.query.all()
@@ -117,7 +122,7 @@ def hello_world():
     # return render_template("JAB/index.html", posts=posts)
 
 
-@index_JAP.route("/article/<int:article_id>")
+@app.route("/article/<int:article_id>")
 def article_view(article_id):
     article: ArticleORM = ArticleORM.query.get(article_id)
     hot_article_list = (
@@ -146,7 +151,7 @@ def article_view(article_id):
     )
 
 
-@index_JAP.route("/article/article_collect", methods=["POST"])
+@app.route("/article/article_collect", methods=["POST"])
 def article_collect_view():
     user: UserORM = current_user
 
@@ -170,7 +175,7 @@ def article_collect_view():
     return {"status": "success", "message": msg, "code": 0}
 
 
-@index_JAP.route("/article/article_comment", methods=["POST"])
+@app.route("/article/article_comment", methods=["POST"])
 @login_required
 def article_comment_view():
     article_id = request.json.get("article_id")
@@ -197,7 +202,7 @@ def article_comment_view():
     return {"status": "success", "message": gettext("Comentari correcte")}
 
 
-@index_JAP.route("/article/comment_like", methods=["POST"])
+@app.route("/article/comment_like", methods=["POST"])
 @login_required
 def comment_like_view():
     action = request.json.get("action")
@@ -221,7 +226,7 @@ def comment_like_view():
     }
 
 
-@index_JAP.route("/article/followed_user", methods=["POST"])
+@app.route("/article/followed_user", methods=["POST"])
 @login_required
 def follow_user():
     author_id = request.json.get("user_id")
@@ -240,19 +245,19 @@ def follow_user():
     return {"status": "success", "message": msg}
 
 
-@index_JAP.route("/account")
+@app.route("/account")
 @login_required
 def account_view():
     return redirect("/account/base_info")
 
 
-@index_JAP.route("/account/base_info")
+@app.route("/account/base_info")
 @login_required
 def base_info_view():
     return render_template("account/base_info.html")
 
 
-@index_JAP.route("/account/followed")
+@app.route("/account/followed")
 @login_required
 def follow_view():
     user: UserORM = current_user
@@ -261,7 +266,7 @@ def follow_view():
     return render_template("account/followed.html", followed_list=followed_list)
 
 
-@index_JAP.route("/account/collection")
+@app.route("/account/collection")
 @login_required
 def account_collection_view():
     # ?page=1&per_page=10
@@ -275,7 +280,7 @@ def account_collection_view():
     return render_template("account/collection.html", paginate=paginate)
 
 
-@index_JAP.route("/account/articles")
+@app.route("/account/articles")
 def account_articles_view():
     page = request.args.get("page", type=int, default=1)
     per_page = request.args.get("per_page", type=int, default=10)
@@ -285,7 +290,7 @@ def account_articles_view():
     return render_template("account/articles.html", paginate=paginate)
 
 
-@index_JAP.route("/account/article_release")
+@app.route("/account/article_release")
 def account_release_view():
     cate_list = CategoryORM.query.all()
     #
@@ -293,7 +298,7 @@ def account_release_view():
     return render_template("account/article_release.html", cate_list=cate_list)
 
 
-@index_JAP.route("/account/info", methods=["POST"])
+@app.route("/account/info", methods=["POST"])
 def account_info():
     username = request.json.get("username")
     signature = request.json.get("signature")
@@ -309,7 +314,7 @@ def account_info():
     return {"status": "success", "message": gettext("Modificat correctament")}
 
 
-@index_JAP.route("/account/password", methods=["POST"])
+@app.route("/account/password", methods=["POST"])
 @login_required
 def account_password():
     old_password = request.json.get("old_password")
@@ -323,7 +328,7 @@ def account_password():
     return {"status": "success", "message": gettext("Modificat correctament")}
 
 
-@index_JAP.route("/user/posts_release", methods=["POST"])
+@app.route("/user/posts_release", methods=["POST"])
 def user_posts_release_view():
     title = request.json.get("title")
     category_id = request.json.get("category_id")
@@ -340,15 +345,15 @@ def user_posts_release_view():
     article.index_image_url = "static/images/user_pic.png"
     article.content = content
     article.save_to_db()
-    return {"status": "success", "message": gettext("Post publicat")}
+    return {"status": "success", "message": gettext("Article publicat")}
 
 
-@index_JAP.route("/logo-social.ico")
+@app.route("/logo-social.ico")
 def favicon():
     return current_app.send_static_file("logo-social.ico")
 
 
-@index_JAP.route("/login", methods=["POST", "GET"])
+@app.route("/login", methods=["POST", "GET"])
 def login_view():
     if request.method == "GET":
         return render_template("JAB/login.html")
@@ -379,7 +384,7 @@ def login_view():
     return {"status": "success", "message": "OK"}
 
 
-@index_JAP.route("/register", methods=["POST", "GET"])
+@app.route("/register", methods=["POST", "GET"])
 def register_view():
     if request.method == "GET":
         return render_template("JAB/register.html")
@@ -404,7 +409,7 @@ def register_view():
     return {"status": "success", "message": gettext("Registre correcte")}
 
 
-@index_JAP.route("/get_captcha")
+@app.route("/get_captcha")
 def get_captcha_view():
     uuid = request.args.get("image_code_uuid")
     img, text = get_captcha_image()
@@ -417,7 +422,7 @@ def get_captcha_view():
     return resp
 
 
-@index_JAP.route("/sms_code", methods=["POST"])
+@app.route("/sms_code", methods=["POST"])
 def sms_code_view():
     captcha_code = request.json.get("captcha_code")
     captcha_code_uuid = request.json.get("captcha_code_uuid")
@@ -431,7 +436,7 @@ def sms_code_view():
     return {"status": "sucess", "message": gettext("Enviament satisfactori, Codi: ") + 1234}
 
 
-@index_JAP.route("/check_mobile")
+@app.route("/check_mobile")
 def check_mobile():
     mobile = request.args.get("mobile")
 
@@ -444,7 +449,7 @@ def check_mobile():
         return {"status": "success"}
 
 
-@index_JAP.route("/check_name")
+@app.route("/check_name")
 def check_name():
     nom = request.args.get("nom")
 
@@ -457,14 +462,14 @@ def check_name():
         return {"status": "success"}
 
 
-@index_JAP.route("/logout")
+@app.route("/logout")
 @login_required
 def logout_view():
     logout_user()
     return redirect("/")
 
 
-@index_JAP.route("/profile/<int:user_id>")
+@app.route("/profile/<int:user_id>")
 def profile(user_id):
     user = UserORM.query.filter_by(nick_name=user_id).first()
 
@@ -473,18 +478,18 @@ def profile(user_id):
     return render_template("JAB/profile.html", user=user, posts=user_posts)
 
 
-@index_JAP.route("/404")
+@app.route("/404")
 def f404():
     return render_template("JAB/404.html")
 
 
-@index_JAP.route("/chat")
+@app.route("/chat")
 @login_required
 def xat():
     return render_template("JAB/chat.html")
 
 
-@index_JAP.route("/create", methods=("GET", "POST"))
+@app.route("/create", methods=("GET", "POST"))
 @login_required
 def create():
     if request.method == "POST":
@@ -510,13 +515,13 @@ def create():
     return render_template("JAB/create.html", user=get_user())
 
 
-@index_JAP.route("/<int:post_id>")
+@app.route("/<int:post_id>")
 def post(post_id):
     post = get_post(post_id)
     return render_template("JAB/post.html", post=post)
 
 
-@index_JAP.route("/<int:id>/edit", methods=("GET", "POST"))
+@app.route("/<int:id>/edit", methods=("GET", "POST"))
 @login_required
 def edit(id):
     post = get_post(id)
@@ -546,7 +551,7 @@ def edit(id):
     return render_template("JAB/edit.html", post=post)
 
 
-@index_JAP.route("/<int:id>/delete", methods=("POST",))
+@app.route("/<int:id>/delete", methods=("POST",))
 @login_required
 def delete(id):
     post = get_post(id)
@@ -556,11 +561,11 @@ def delete(id):
     return redirect("/")
 
 
-@index_JAP.errorhandler(404)
+@app.errorhandler(404)
 def page_not_found(error):
     return make_response("Page not found.", 404)
 
 
-@index_JAP.errorhandler(401)
+@app.errorhandler(401)
 def unauthorized(error):
     return make_response("Unauthorized.", 401)

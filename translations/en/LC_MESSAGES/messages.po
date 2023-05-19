@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-19 09:36+0200\n"
+"POT-Creation-Date: 2023-05-19 16:45+0200\n"
 "PO-Revision-Date: 2023-05-19 09:37+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,189 +18,248 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
-#: JAB/oms/user.py:59 JAB/views/index_JAP.py:351
+#: JAB/oms/user.py:59 JAB/views/index_JAP.py:382
 msgid "Contrasenya errònia"
-msgstr ""
+msgstr "Wrong password"
 
-#: JAB/views/index_JAP.py:128
+#: JAB/views/index_JAP.py:159
 msgid "Cal fer Login"
-msgstr ""
+msgstr "Login needed"
 
-#: JAB/views/index_JAP.py:135 templates/account/articles.html:16
+#: JAB/views/index_JAP.py:166 templates/account/articles.html:16
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
-#: JAB/views/index_JAP.py:139
+#: JAB/views/index_JAP.py:170
 msgid "Favorit afegit"
-msgstr ""
+msgstr "Like added"
 
-#: JAB/views/index_JAP.py:142 templates/account/followed.html:23
+#: JAB/views/index_JAP.py:173 templates/account/followed.html:23
 msgid "Cancel·la"
-msgstr ""
+msgstr "Cancell"
 
-#: JAB/views/index_JAP.py:154
+#: JAB/views/index_JAP.py:185
 msgid "No hi ha contingut"
-msgstr ""
+msgstr "No content"
 
-#: JAB/views/index_JAP.py:171
+#: JAB/views/index_JAP.py:202
 msgid "Comentari correcte"
-msgstr ""
+msgstr "Good comment"
 
-#: JAB/views/index_JAP.py:186
+#: JAB/views/index_JAP.py:217
 msgid "Comentari afegit"
-msgstr ""
+msgstr "Comment added"
 
-#: JAB/views/index_JAP.py:189
+#: JAB/views/index_JAP.py:220
 msgid "Comentari esborrat"
-msgstr ""
+msgstr "Comment deleted"
 
-#: JAB/views/index_JAP.py:209
+#: JAB/views/index_JAP.py:240
 msgid "Usuari seguit"
-msgstr ""
+msgstr "User followed"
 
-#: JAB/views/index_JAP.py:212
+#: JAB/views/index_JAP.py:243
 msgid "Usuari deixat de seguir"
-msgstr ""
+msgstr "User unfollowed"
 
-#: JAB/views/index_JAP.py:283 JAB/views/index_JAP.py:297
+#: JAB/views/index_JAP.py:314 JAB/views/index_JAP.py:328
 msgid "Modificat correctament"
-msgstr ""
+msgstr "Modified correctly"
 
-#: JAB/views/index_JAP.py:293
+#: JAB/views/index_JAP.py:324
 msgid "Contrasenya incorrecte"
-msgstr ""
+msgstr "Wrong password"
 
-#: JAB/views/index_JAP.py:317
-msgid "Post publicat"
-msgstr ""
+#: JAB/views/index_JAP.py:348
+msgid "Article publicat"
+msgstr "Article published"
 
-#: JAB/views/index_JAP.py:340 JAB/views/index_JAP.py:343
+#: JAB/views/index_JAP.py:371 JAB/views/index_JAP.py:374
 msgid "Captcha erroni"
-msgstr ""
+msgstr "Wrong captcha"
 
-#: JAB/views/index_JAP.py:345
+#: JAB/views/index_JAP.py:376
 msgid "Falten dades"
-msgstr ""
+msgstr "Data missing"
 
-#: JAB/views/index_JAP.py:349
+#: JAB/views/index_JAP.py:380
 msgid "Usuari no existent"
-msgstr ""
+msgstr "User does not exist"
 
-#: JAB/views/index_JAP.py:353
-msgid "Login correcte!"
-msgstr ""
-
-#: JAB/views/index_JAP.py:370
+#: JAB/views/index_JAP.py:401
 msgid "Falta informació"
-msgstr ""
+msgstr "Information missing"
 
-#: JAB/views/index_JAP.py:378
+#: JAB/views/index_JAP.py:409
 msgid "Registre correcte"
-msgstr ""
+msgstr "Register correct"
 
-#: JAB/views/index_JAP.py:402
+#: JAB/views/index_JAP.py:433
 msgid "Codi no existent"
-msgstr ""
+msgstr "Code does not exist"
 
-#: JAB/views/index_JAP.py:404
+#: JAB/views/index_JAP.py:435
 msgid "Codi erroni"
-msgstr ""
+msgstr "Wrong code"
 
-#: JAB/views/index_JAP.py:405
+#: JAB/views/index_JAP.py:436
 msgid "Enviament satisfactori, Codi: "
-msgstr ""
+msgstr "Successful delivery, Code:"
 
-#: JAB/views/index_JAP.py:416
+#: JAB/views/index_JAP.py:447
 msgid "Mòvil ja existent"
-msgstr ""
+msgstr "Mobile already exists"
 
-#: JAB/views/index_JAP.py:429
+#: JAB/views/index_JAP.py:460
 msgid "Nom ja existent"
-msgstr ""
+msgstr "Username already exists"
 
 #: templates/JAB/article.html:90
 msgid "Bo"
-msgstr ""
+msgstr "Good"
 
 #: templates/JAB/article.html:160 templates/account/profile.html:18
 msgid "Sense estat"
-msgstr ""
+msgstr "Without state"
+
+#: templates/JAB/base.html:35
+msgid "Logout"
+msgstr "Logout"
+
+#: templates/JAB/base.html:37 templates/account/base.html:32
+msgid "Login"
+msgstr "Login"
+
+#: templates/JAB/base.html:38 templates/account/base.html:33
+msgid "Registre"
+msgstr "Register"
+
+#: templates/JAB/chat.html:72
+msgid "Cerca usuaris..."
+msgstr "Search users..."
+
+#: templates/JAB/chat.html:81
+msgid "Connectat"
+msgstr "Connected"
+
+#: templates/JAB/chat.html:95
+msgid "Vist per última vegada: fa"
+msgstr "Last seen: "
+
+#: templates/JAB/chat.html:95
+msgid "hores"
+msgstr "hours ago"
+
+#: templates/JAB/chat.html:112 templates/JAB/chat.html:121
+msgid "Avui"
+msgstr "Today"
+
+#: templates/JAB/chat.html:131
+msgid "Escriu el missatge aquí"
+msgstr "Write here the mesage"
 
 #: templates/account/article_release.html:26
 msgid "Resum: "
-msgstr ""
+msgstr "Summary: "
 
 #: templates/account/article_release.html:45
 msgid "Contingut: "
-msgstr ""
+msgstr "Content: "
 
 #: templates/account/article_release.html:52
 #: templates/account/base_info.html:76
 msgid "Modifica"
-msgstr ""
+msgstr "Modify"
 
 #: templates/account/article_release.html:53
 #: templates/account/base_info.html:77
 msgid "Reiniciar"
-msgstr ""
+msgstr "Reset"
 
 #: templates/account/articles.html:12
 msgid "Sota revisió"
-msgstr ""
+msgstr "under revision"
 
 #: templates/account/articles.html:14
 msgid "Aprovat"
-msgstr ""
+msgstr "Aproved"
+
+#: templates/account/base.html:5
+msgid "El teu Perfil"
+msgstr "Your profile"
+
+#: templates/account/base.html:54
+msgid "Informació bàsica"
+msgstr "Basic information"
+
+#: templates/account/base.html:55
+msgid "Els meus segidors"
+msgstr "My followers"
+
+#: templates/account/base.html:56
+msgid "Els meus Favorits"
+msgstr "My Likes"
+
+#: templates/account/base.html:57
+msgid "Llista darticles"
+msgstr "Article list"
+
+#: templates/account/base.html:58
+msgid "Publica un Article"
+msgstr "Publish an Article"
 
 #: templates/account/base_info.html:6
 msgid "Edita el perfil"
-msgstr ""
+msgstr "Edit profile"
 
 #: templates/account/base_info.html:10
 msgid "Nom usuari: "
-msgstr ""
+msgstr "username: "
 
 #: templates/account/base_info.html:19
 msgid "Estat: "
-msgstr ""
+msgstr "State: "
 
 #: templates/account/base_info.html:26
 msgid "Gènere: "
-msgstr ""
+msgstr "Gender: "
 
 #: templates/account/base_info.html:35
 msgid "Aniversari: "
-msgstr ""
+msgstr "Birthday: "
 
 #: templates/account/base_info.html:42
 msgid "Edita"
-msgstr ""
+msgstr "Edit"
 
 #: templates/account/base_info.html:43
 msgid "Reinicia"
-msgstr ""
+msgstr "Reset"
 
 #: templates/account/base_info.html:54
 msgid "Contrasenya actual:"
-msgstr ""
+msgstr "Current password: "
 
 #: templates/account/base_info.html:61
 msgid "Nova contrasenya: "
-msgstr ""
+msgstr "New password: "
 
 #: templates/account/base_info.html:68
 msgid "Confirma: "
-msgstr ""
+msgstr "Confirm"
 
 #: templates/account/collection.html:5
 msgid "Favorits"
-msgstr ""
+msgstr "Likes"
 
 #: templates/account/followed.html:5
 msgid "Seguits"
-msgstr ""
+msgstr "Followers"
 
 #: templates/account/followed.html:22
 msgid "Seguint"
-msgstr ""
+msgstr "Following"
+
+#~ msgid "Login correcte!"
+#~ msgstr "Login correct!"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-05-19 09:36+0200\n"
+"POT-Creation-Date: 2023-05-19 16:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,103 +17,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.12.1\n"
 
-#: JAB/oms/user.py:59 JAB/views/index_JAP.py:351
+#: JAB/oms/user.py:59 JAB/views/index_JAP.py:382
 msgid "Contrasenya errònia"
 msgstr ""
 
-#: JAB/views/index_JAP.py:128
+#: JAB/views/index_JAP.py:159
 msgid "Cal fer Login"
 msgstr ""
 
-#: JAB/views/index_JAP.py:135 templates/account/articles.html:16
+#: JAB/views/index_JAP.py:166 templates/account/articles.html:16
 msgid "Error"
 msgstr ""
 
-#: JAB/views/index_JAP.py:139
+#: JAB/views/index_JAP.py:170
 msgid "Favorit afegit"
 msgstr ""
 
-#: JAB/views/index_JAP.py:142 templates/account/followed.html:23
+#: JAB/views/index_JAP.py:173 templates/account/followed.html:23
 msgid "Cancel·la"
 msgstr ""
 
-#: JAB/views/index_JAP.py:154
+#: JAB/views/index_JAP.py:185
 msgid "No hi ha contingut"
 msgstr ""
 
-#: JAB/views/index_JAP.py:171
+#: JAB/views/index_JAP.py:202
 msgid "Comentari correcte"
 msgstr ""
 
-#: JAB/views/index_JAP.py:186
+#: JAB/views/index_JAP.py:217
 msgid "Comentari afegit"
 msgstr ""
 
-#: JAB/views/index_JAP.py:189
+#: JAB/views/index_JAP.py:220
 msgid "Comentari esborrat"
 msgstr ""
 
-#: JAB/views/index_JAP.py:209
+#: JAB/views/index_JAP.py:240
 msgid "Usuari seguit"
 msgstr ""
 
-#: JAB/views/index_JAP.py:212
+#: JAB/views/index_JAP.py:243
 msgid "Usuari deixat de seguir"
 msgstr ""
 
-#: JAB/views/index_JAP.py:283 JAB/views/index_JAP.py:297
+#: JAB/views/index_JAP.py:314 JAB/views/index_JAP.py:328
 msgid "Modificat correctament"
 msgstr ""
 
-#: JAB/views/index_JAP.py:293
+#: JAB/views/index_JAP.py:324
 msgid "Contrasenya incorrecte"
 msgstr ""
 
-#: JAB/views/index_JAP.py:317
-msgid "Post publicat"
+#: JAB/views/index_JAP.py:348
+msgid "Article publicat"
 msgstr ""
 
-#: JAB/views/index_JAP.py:340 JAB/views/index_JAP.py:343
+#: JAB/views/index_JAP.py:371 JAB/views/index_JAP.py:374
 msgid "Captcha erroni"
 msgstr ""
 
-#: JAB/views/index_JAP.py:345
+#: JAB/views/index_JAP.py:376
 msgid "Falten dades"
 msgstr ""
 
-#: JAB/views/index_JAP.py:349
+#: JAB/views/index_JAP.py:380
 msgid "Usuari no existent"
 msgstr ""
 
-#: JAB/views/index_JAP.py:353
-msgid "Login correcte!"
-msgstr ""
-
-#: JAB/views/index_JAP.py:370
+#: JAB/views/index_JAP.py:401
 msgid "Falta informació"
 msgstr ""
 
-#: JAB/views/index_JAP.py:378
+#: JAB/views/index_JAP.py:409
 msgid "Registre correcte"
 msgstr ""
 
-#: JAB/views/index_JAP.py:402
+#: JAB/views/index_JAP.py:433
 msgid "Codi no existent"
 msgstr ""
 
-#: JAB/views/index_JAP.py:404
+#: JAB/views/index_JAP.py:435
 msgid "Codi erroni"
 msgstr ""
 
-#: JAB/views/index_JAP.py:405
+#: JAB/views/index_JAP.py:436
 msgid "Enviament satisfactori, Codi: "
 msgstr ""
 
-#: JAB/views/index_JAP.py:416
+#: JAB/views/index_JAP.py:447
 msgid "Mòvil ja existent"
 msgstr ""
 
-#: JAB/views/index_JAP.py:429
+#: JAB/views/index_JAP.py:460
 msgid "Nom ja existent"
 msgstr ""
 
@@ -123,6 +119,42 @@ msgstr ""
 
 #: templates/JAB/article.html:160 templates/account/profile.html:18
 msgid "Sense estat"
+msgstr ""
+
+#: templates/JAB/base.html:35
+msgid "Logout"
+msgstr ""
+
+#: templates/JAB/base.html:37 templates/account/base.html:32
+msgid "Login"
+msgstr ""
+
+#: templates/JAB/base.html:38 templates/account/base.html:33
+msgid "Registre"
+msgstr ""
+
+#: templates/JAB/chat.html:72
+msgid "Cerca usuaris..."
+msgstr ""
+
+#: templates/JAB/chat.html:81
+msgid "Connectat"
+msgstr ""
+
+#: templates/JAB/chat.html:95
+msgid "Vist per última vegada: fa"
+msgstr ""
+
+#: templates/JAB/chat.html:95
+msgid "hores"
+msgstr ""
+
+#: templates/JAB/chat.html:112 templates/JAB/chat.html:121
+msgid "Avui"
+msgstr ""
+
+#: templates/JAB/chat.html:131
+msgid "Escriu el missatge aquí"
 msgstr ""
 
 #: templates/account/article_release.html:26
@@ -149,6 +181,30 @@ msgstr ""
 
 #: templates/account/articles.html:14
 msgid "Aprovat"
+msgstr ""
+
+#: templates/account/base.html:5
+msgid "El teu Perfil"
+msgstr ""
+
+#: templates/account/base.html:54
+msgid "Informació bàsica"
+msgstr ""
+
+#: templates/account/base.html:55
+msgid "Els meus segidors"
+msgstr ""
+
+#: templates/account/base.html:56
+msgid "Els meus Favorits"
+msgstr ""
+
+#: templates/account/base.html:57
+msgid "Llista darticles"
+msgstr ""
+
+#: templates/account/base.html:58
+msgid "Publica un Article"
 msgstr ""
 
 #: templates/account/base_info.html:6
