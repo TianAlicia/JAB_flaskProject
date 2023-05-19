@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from extensions import db
+import json
 
 
 class ChatORM(db.Model):
@@ -19,6 +20,6 @@ class ChatORM(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-    def update(self, conversa):
-        self.conversa = conversa
+    def update(self, conversa=None):
+        self.conversa = json.dumps(conversa)
         db.session.commit()

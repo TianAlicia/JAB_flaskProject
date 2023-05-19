@@ -848,5 +848,6 @@ DROP TABLE IF EXISTS `bbs_chat`;
 CREATE TABLE `bbs_chat` (
   `user1` int(11) NOT NULL,
   `user2` int(11) NOT NULL,
-  `conversa` json DEFAULT NULL
+  `conversa` json DEFAULT NULL,
+  PRIMARY KEY (`user1`,`user2`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;

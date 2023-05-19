@@ -2,6 +2,7 @@ import re
 from random import randint
 from datetime import datetime
 from extensions import db
+import json
 
 from flask import (
     Flask,
@@ -376,36 +377,49 @@ def chat():
     if request.method == 'POST':
 
         user1 = get_user().id
+        #print(user1)
         
         user2 = request.json.get('user2')
+        #print(user2)
         message = request.json.get('message')
+        #print(message)
         
         chat = ChatORM.query.filter_by(user1=user1, user2=user2).first()
 
         if chat is not None:
-            conversa = chat.conversa
+            if type(chat.conversa) == str:
+                conversa = eval(chat.conversa)
+            else:
+                conversa = chat.conversa
+            #print(conversa)
             conversa.append({'sender': user1, 'message': message})
-            chat.update(conversa)
-            print(chat.conversa)
+            #print(conversa)
+            chat.update(conversa=conversa)
+            printchat = ChatORM.query.filter_by(user1=user1, user2=user2).first()
+
+            #print(chat.conversa)
+            #print("not None")
 
         else:
             new_chat = ChatORM(user1=user1, user2=user2, conversa=[{'sender': user1, 'message': message}])
             new_chat.save_to_db()
+            #print("None")
 
-        return {'status': 'success'}
+        #return {'status': 'success'}
     
     else:
         user1 = get_user().id
         chat = ChatORM.query.filter_by(user1=user1, user2=1).first()
 
         if not chat:
-            chat = ChatORM()
+            chat: ChatORM = ChatORM()
             chat.user1 = user1
             chat.user2 = 1
             chat.conversa = []
+            #print("not chat")
 
             chat.save_to_db()
+        #print("GET")
     
+    print(chat.conversa)
     return render_template("JAB/chat.html", conversa=chat.conversa, user=user1)
-
-    
