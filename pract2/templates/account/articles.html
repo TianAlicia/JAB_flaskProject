@@ -1,0 +1,56 @@
+{% extends 'account/base.html' %}
+
+{% block main %}
+    <div class="profile-card">
+        <h3 class="profile-card-title">{{ gettext('Articles') }}</h3>
+        <ul class="profile-articles">
+            {% for item in paginate.items %}
+                <li>
+                    <a href="/article/{{ item.id }}" style="margin-left: 2rem;">{{ item.title }}</a>
+
+                    {% if item.status == 1 %}
+                        <span style="color: green">{{ gettext('Sota revisió') }}</span>
+                    {% elif item.status == 0 %}
+                        <span style="color: blue">{{ gettext('Aprovat') }}</span>
+                    {% else %}
+                        <span style="color: red">{{ gettext('Error') }}</span>
+                    {% endif %}
+                    <span>{{ item.create_time }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="profile-pagination">
+            <div id="test1"></div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block footer_script %}
+    <script>
+        layui.use('laypage', function() {
+            var laypage = layui.laypage;
+
+            //执行一个laypage实例
+            laypage.render({
+                elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+                , count: {{paginate.total}} //数据总数，从服务端得到
+                , curr: {{ paginate.page }}
+                , limit: {{ paginate.per_page}},
+                  prev: {{ gettext('Anterior')}}, // 上一页的显示文本
+                  next : {{ gettext('Següent')}}
+                , jump: function(obj, first) {
+                    // obj包含了当前分页的所有参数，比如：
+                    //首次不执行
+                    if (!first) {
+                        let searchParams = new URLSearchParams(location.search);
+                        searchParams.set('page', obj.curr);
+                        // 更新 url 调用浏览器默认的方式请求后端
+                        location.search = searchParams.toString();
+                        // ajax 进行请求  动态更新 jquery 修改页面
+                    }
+                },
+            });
+        });
+    </script>
+{% endblock %}

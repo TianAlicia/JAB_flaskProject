@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Edita el post</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <link rel="stylesheet" href="/static/css/global.css">
+    <link rel="stylesheet" href="/static/css/edit.css">
+    <link rel="stylesheet" href="/static/iconfont/iconfont.css">
+    <link rel="shortcut icon" href="/static/images/logo.png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="layui-header header">
+    <div class="layui-container">
+        <div class="header-demo">
+            <!-- 头部 logo -->
+            <a href="/" class="logo">
+                <img src="/static/images/logo-social.png" alt="">
+            </a>
+            <!--登录注册栏-->
+            <div class="login-btn">
+                <a href="/profile/{{ current_user.nick_name }}" class="logo">
+                <img src="{{ current_user.avatar_url }}" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+    <h1>{% block title %} Edita el post "{{ post['title'] }}" {% endblock %}</h1>
+
+    <form method="POST">
+        <input type="hidden" name="nick_name" value="{{ current_user.nick_name }}">
+        <input type="hidden" name="avatar_url" value="{{ current_user.avatar_url }}">
+        <div class="edit-form-group">
+            <label for="title">Títol</label>
+            <div id="edit-post-page">
+                <input type="text" name="title" placeholder="Títol del post" class="edit-form-control" value="{{ request.form['title'] or post['title'] }}"></input>
+            </div>
+        </div>
+        <div class="edit-form-group">
+            <label for="content">Contingut</label>
+            <textarea name="content" placeholder="Contingut del post" class="edit-form-control">{{ request.form['content'] or post['content'] }}</textarea>
+        </div>
+        <div class="edit-form-group">
+            <label for="index_image_url">URL de la foto</label>
+            <textarea name="index_image_url" placeholder="URL de la foto" class="edit-form-control">{{ request.form['index_image_url'] or post['index_image_url'] }}</textarea>
+        </div>
+        <div class="edit-form-group">
+            <label for="category_id">Categoria del post</label>
+            <select name="category_id" class="edit-form-control">
+                <option value="1" {% if request.form['category_id'] == 1 or post['category_id'] == 1 %}selected{% endif %}>Educació</option>
+                <option value="2" {% if request.form['category_id'] == 2 or post['category_id'] == 2 %}selected{% endif %}>Tecnologia</option>
+                <option value="3" {% if request.form['category_id'] == 3 or post['category_id'] == 3 %}selected{% endif %}>Cultura</option>
+            </select>
+        </div>        
+        
+        <div class="edit-form-group">
+            <button type="submit" class="edit-btn btn-primary">Edita</button>
+        </div>
+    </form>
+
+    <form action="{{ url_for('index.delete', id=post['id']) }}" method="POST">
+        <input type="submit" value="Borra el post" class="edit-btn btn-danger btn-sm">
+    </form>
+{% endblock %}
+
+<div class="layui-footer footer">
+    <div class="footer_links">
+        <a href="">Sobre JAB</a>
+        <span>|</span>
+        <a href="">Contacte</a>
+        <span>|</span>
+        <a href="">Web</a>
+    </div>
+    <p class="copyright">
+        CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+        Telèfon:010-****888 xICP*******8x
+    </p>
+</div>
+</body>
+</html>
