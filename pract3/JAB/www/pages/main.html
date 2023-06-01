@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>JAB Main Page</title>
+    <link rel="stylesheet" href="../css/edit.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div class="layui-header header">
+    <div class="layui-container">
+        <div class="header-demo">
+            <!-- 头部 logo -->
+            <a href="/" class="logo">
+                <img src="../img/logo-social.png" alt="">
+            </a>
+            <ul class="menu">
+                <li><a href="/?cid=1">Educació</a></li>
+                <li><a href="/?cid=2">Tecnologia</a></li>
+                <li><a href="/?cid=3">Cultura</a></li>
+                <li data-cid="4"><a href="/chat">Xat</a></li>
+            </ul>
+            
+              <div class="search">
+                <form action="/search" method="POST" style="line-height: 60px;">
+                    <input type="text", name="keyword" style=" width: 100px">
+                    <button class="iconfont icon-sousuo"></button>
+                </form>
+            </div>
+            <div class="login-btn">
+                <a href="../pages/base_info.html" class="logo">
+                    <img src="../img/social-ico.png" alt="Foto de perfil" style="width:50px;height:50px;">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-container">
+    <div class="layui-row main" style="margin-top: 20px">
+        <div class="layui-col-md9">
+            Inici
+            <div id="pagination" style="text-align: center"></div>
+        </div>
+        <div class="layui-col-md3 layui-hide-xs">
+            <div class="side">
+                <div class="rank">
+                    <div class="rank_title">
+                        <h3>Articles Populars</h3>
+                    </div>
+                    <div class="rank_list">
+                        <a href="../pages/article.html">Títol 1</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="layui-footer footer" style="margin-top: 13rem;">
+    <div class="footer_links">
+        <a href="#">Sobre JAB</a>
+        <span>|</span>
+        <a href="#">Contacte</a>
+        <span>|</span>
+        <a href="#">Web</a>
+    </div>
+    <p class="copyright">
+        CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+        Telèfon:010-****888 xICP*******8x
+    </p>
+</div>
+
+</body>
+</html>
+
+<script src="../js/main.js"></script>
+<script src="../js/index.js"></script>
+<script>
+    layui.use('laypage', function() {
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'pagination' //注意，这里的 test1 是 ID，不用加 # 号
+            , count: {{paginate.total}} //数据总数，从服务端得到
+            , curr: {{ paginate.page }}
+            , limit: {{ paginate.per_page}},
+                prev: 'Anterior', // 上一页的显示文本
+                next : 'Següent'
+            , jump: function(obj, first) {
+                // obj包含了当前分页的所有参数，比如：
+                //首次不执行
+                if (!first) {
+                    //do something
+                    let searchParams = new URLSearchParams(location.search);
+                    searchParams.set('page', obj.curr);
+                    // 更新 url 调用浏览器默认的方式请求后端
+                    location.search = searchParams.toString();
+                    // ajax 进行请求  动态更新 jquery 修改页面
+                }
+            },
+        });
+    });
+</script>
