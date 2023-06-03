@@ -1,46 +1,74 @@
-{% extends 'account/base.html' %}
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>JAB Perfil</title>
+    <link rel="stylesheet" href="../css/edit.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-{% block main %}
+</head>
+<body>
+<div class="layui-header header">
+    <div class="layui-container">
+        <div class="header-demo">
+            <!-- 头部 logo -->
+            <a href="../pages/main.html" class="logo">
+                <img src="../img/logo-social.png" alt="">
+            </a>
+            <ul>
+                <li data-cid="4"><a href="../pages/chat.html">Xat</a></li>
+            </ul>
+            <div class="login-btn">
+                <a href="../pages/profile.html" class="logo">
+                    <img src="../img/social-ico.png" alt="Foto de perfil" style="width:50px;height:50px;">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="profile-card">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>{{ gettext('Edita el perfil') }}</legend>
+            <legend>Edita el perfil</legend>
         </fieldset>
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">{{ gettext('Nom usuari: ') }}</label>
+                <label class="layui-form-label">Nom usuari: </label>
                 <div class="layui-input-block">
                     <input type="text" name="username" required lay-verify="required"
-                           placeholder={{ gettext("Nom") }} autocomplete="off" class="layui-input"
-                           value="{{ current_user.nick_name }}"
+                           placeholder="Nom" autocomplete="off" class="layui-input"
+                           value="Nom"
                     >
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">{{ gettext('Estat: ') }}</label>
+                <label class="layui-form-label">Estat: </label>
                 <div class="layui-input-block">
-                    <textarea name="signature" placeholder={{ gettext("Contingut") }}
-                              class="layui-textarea">{{ current_user.signature }}</textarea>
+                    <textarea name="signature" placeholder="Contingut"
+                              class="layui-textarea">Firma</textarea>
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">{{ gettext('Gènere: ') }}</label>
+                <label class="layui-form-label">Gènere: </label>
                 <div class="layui-input-block">
-                    <input type="radio" name="gender" value="Home" title={{ gettext("Home") }} {% if current_user.gender=='Home' %}
-                           checked {% endif %}   >
-                    <input type="radio" name="gender" value="Dona" title={{ gettext("Dona") }} {% if current_user.gender=='Dona' %}
-                           checked {% endif %}>
+                    <input type="radio" name="gender" value="Home" title="Home">
+                    <input type="radio" name="gender" value="Dona" title="Dona">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">{{ gettext('Aniversari: ') }}</label>
+                <label class="layui-form-label">Aniversari: </label>
                 <div class="layui-input-inline">
                     <input type="text" class="layui-input" name="birthday" id="birth_day">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="base_info">{{ gettext('Edita') }}</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">{{ gettext('Reinicia') }}</button>
+                    <button class="layui-btn" lay-submit lay-filter="base_info">Edita</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">Reinicia</button>
                 </div>
             </div>
         </form>
@@ -51,38 +79,49 @@
         </fieldset>
         <form class="layui-form" action="">
             <div class="layui-form-item">
-                <label class="layui-form-label">{{ gettext('Contrasenya actual:') }}</label>
+                <label class="layui-form-label">Contrasenya actual:</label>
                 <div class="layui-input-block avatar">
                     <input type="password" name="old_password" required lay-verify="required"
-                           placeholder={{ gettext("Contrasenya") }} autocomplete="off" class="layui-input">
+                           placeholder="Contrasenya" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">{{ gettext('Nova contrasenya: ') }}</label>
+                <label class="layui-form-label">Nova contrasenya: </label>
                 <div class="layui-input-block">
                     <input type="password" name="new_password" required lay-verify="required"
-                           placeholder={{ gettext("Nova contrasenya") }} autocomplete="off" class="layui-input">
+                           placeholder="Nova contrasenya" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">{{ gettext('Confirma: ') }}</label>
+                <label class="layui-form-label">Confirma: </label>
                 <div class="layui-input-block">
                     <input type="password" name="sure_password" required lay-verify="required"
-                           placeholder={{ gettext("Nova contrasenya") }} autocomplete="off" class="layui-input">
+                           placeholder="Nova contrasenya" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="submit_password">{{ gettext('Modifica') }}</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">{{ gettext('Reiniciar') }}</button>
+                    <button class="layui-btn" lay-submit lay-filter="submit_password">Modifica</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">Reiniciar</button>
                 </div>
             </div>
         </form>
     </div>
-{% endblock %}
 
+    <div class="layui-footer footer" style="margin-top: 13rem;">
+        <div class="footer_links">
+            <a href="#">Sobre JAB</a>
+            <span>|</span>
+            <a href="#">Contacte</a>
+            <span>|</span>
+            <a href="#">Web</a>
+        </div>
+        <p class="copyright">
+            CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+            Telèfon:010-****888 xICP*******8x
+        </p>
+    </div>
 
-{% block footer_script %}
     <script>
         layui.use(['form', 'upload', 'jquery'], function() {
             var form = layui.form;
@@ -100,7 +139,7 @@
 
             // 监听提交
             form.on('submit(base_info)', function(data) {
-                {#layer.msg(JSON.stringify(data.field));#}
+                layer.msg(JSON.stringify(data.field));
                 fetch('/account/info', {
                     method: 'POST',
                     headers: {
@@ -150,4 +189,3 @@
             });
         });
     </script>
-{% endblock %}

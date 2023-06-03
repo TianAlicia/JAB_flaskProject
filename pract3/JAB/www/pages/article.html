@@ -1,131 +1,73 @@
-{% extends 'JAB/base.html' %}
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>JAB Article</title>
+    <link rel="stylesheet" href="../css/edit.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-{% block title %}
-    {{ gettext('Article') }}
-{% endblock %}
+</head>
 
-
-{% block main %}
-    <!--中间内容部分-->
+<body>
     <div class="article-content">
         <div class="article-body">
-            <h3>{{ article.title }}</h3>
+            <h3>Title 1</h3>
             <div class="detail_about clearfix">
-                <span class="time_source ">{{ article.update_time }}</span>
-                {#文章的评论数量#}
-                <span class="comment_liens">{{ article.comment_list.count() }}</span>
+                <span class="time_source ">Ahir</span>
+                <span class="comment_liens">2</span>
             </div>
 
             <p class="summary">
-                {{ article.digest }}
+                Buit
             </p>
 
-            {{ article.content | safe }}
+            Contingut
 
 
             <!--收藏/取消收藏-->
             <a href="javascript:;" class="collection block-center"
-               style="display:  {% if is_collect %}none{% else %}block{% endif %}">{{ gettext('Favorit') }}</a>
+               style="display:  none">Favorit</a>
             <a href="javascript:;" class="collected block-center"
-               style="display: {% if is_collect %}block{% else %}none{% endif %}">
-                <span class="out">{{ gettext('Ja és favorit') }}</span>
-                <span class="over" style="display: none">{{ gettext('Cancel·la') }}</span>
+               style="display: block">
+                <span class="out">Ja és favorit</span>
+                <span class="over" style="display: none">Cancel·la</span>
             </a>
-
-            <!--评论栏-->
-            <!--评论栏-未登陆显示登陆之后进行评论-->
-            {% if not current_user.is_active %}
-                <div class="comment_form_logout">
-                    {{ gettext('Comenta') }}
-                </div>
-            {% else %}
-                <!--评论栏-登陆之后显示用户头像并进行评论-->
                 <form action="" class="comment_form">
                     <div class="person_pic">
                         <img src="/static/images/cat.jpg" alt="用户图标">
-                        <textarea placeholder={{ gettext('Comenta') }} class="comment_input"></textarea>
+                        <textarea placeholder="Comenta" class="comment_input"></textarea>
                     </div>
-                    <input type="submit" name="" value={{ gettext('Envia') }} class="comment_sub">
+                    <input type="submit" name="" value="Envia" class="comment_sub">
                 </form>
-            {% endif %}
-            <!--评论数据展示栏-->
             <div class="comment_count">
 
             </div>
 
             <div class="comments">
-                {#渲染评论#}
-                {% for comment in comment_list %}
-                    {% if not comment.parent %}
-                        <div class="comment">
-                            <div class="person_pic">
-                                <img src="/static/images/worm.jpg" alt="用户图标">
-                            </div>
-                            <div class="comment-content">
-                                <div class="user_name">{{ comment.user_id.nick_name }}</div>
-                                <div class="comment_text">
-                                    {{ comment.content }}
-                                </div>
-                                {#渲染评论的时候,如果有二级评论也进行渲染#}
-                                {% if comment.child %}
-                                    {% for child_comment in comment.child %}
-                                        <div class="reply_text_con">
-                                            <div class="user_name2">{{ child_comment.user_id.nick_name }}</div>
-                                            <div class="reply_text">
-                                                {{ child_comment.content }}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% endif %}
-                                <div class="comment-details">
-                                    <div class="comment_time ">{{ comment.create_time }}</div>
-                                    <div>
-                                        <a href="javascript:;" class="comment_reply">{{ gettext('Respon') }}</a>
-                                        {#当前的评论是否有人点赞#}
-                                        {# 当前用户点赞过此评论需要高亮 当前的评论就会出现在当前用户的点赞列表里面 #}
-                                        <a href="javascript:;" class="comment_up
-                                                {% if current_user.is_active and comment in current_user.comment_like_list.all() %}has_comment_up{% endif %}
-                                            ">
-                                            {#显示点赞数量#}
-                                            {{ comment.user_like_list.count() or gettext('Bo') }}
-                                        </a>
-                                    </div>
-                                </div>
-                                <form class="reply_form" data-commit-id="{{ comment.id }}">
-                                    <div>
-                                        <textarea class="reply_input"></textarea>
-                                        <div class="sub_submit">
-                                            <input type="submit" name="" value="Responde" class="reply_sub">
-                                            <input type="reset" name="" value="Cancela" class="reply_cancel">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-
                 <hr>
                 <div class="comment">
                     <div class="person_pic ">
                         <img src="/static/images/worm.jpg" alt="用户图标">
                     </div>
                     <div class="comment-content">
-                        <div class="user_name ">{{ gettext('Usuari:') }}Joan</div>
+                        <div class="user_name">Usuari: Jan</div>
                         <div class="comment_text ">
-                            Good!
+                            Bo!
                         </div>
-                        {#渲染评论的时候,如果有二级评论也进行渲染#}
                         <div class="reply_text_con">
-                            <div class="user_name2">{{ gettext('Usuari:') }}Pepe</div>
+                            <div class="user_name2">Usuari: Pepe</div>
                             <div class="reply_text">
-                                I don't like it
+                                No m'agrada
                             </div>
                         </div>
                         <div class="comment-details">
                             <div class="comment_time ">2020-01-01 00:00:00</div>
                             <div>
-                                <a href="javascript:;" class="comment_reply">{{ gettext('Respon') }}</a>
+                                <a href="javascript:;" class="comment_reply">Respon</a>
                                 <a href="javascript:;" class="comment_up has_comment_up"></a>
                             </div>
                         </div>
@@ -133,8 +75,8 @@
                             <div>
                                 <textarea class="reply_input"></textarea>
                                 <div class="sub_submit">
-                                    <input type="submit" name="" value="回复" class="reply_sub">
-                                    <input type="reset" name="" value="取消" class="reply_cancel">
+                                    <input type="submit" name="" value="Envia" class="reply_sub">
+                                    <input type="reset" name="" value="Cancel·la" class="reply_cancel">
                                 </div>
                             </div>
                         </form>
@@ -144,49 +86,50 @@
         </div>
     </div>
 
-{% endblock %}
-
-
-{% block author %}
-    {% if author %}
-        <div class="author_card" style="width: 96%;margin-bottom: 5px;padding: 5px" data-userid="{{ author.id }}">
-            <div class="card-header">
-                <a  target="_blank" class="author_pic">
-                    <img src="https://qingdeng123-1257113111.cos.ap-nanjing.myqcloud.com/user_pic/2022-02/73b879c8-35e2-423a-ab13-92609797103e.jpg"
-                         alt="author_pic">
-                </a>
-                <a target="_blank" class="author_name">{{ author.nick_name }}</a>
-            </div>
-            <div class="author_resume">{{ author.signature  or gettext('Sense estat') }}</div>
-            <div class="author-card-info">
-                <div class="writings"><span>Articulos</span><b>{{ author.article_list.count() }}</b></div>
-                <div class="follows"><span>Fans</span><b>{{ author.followers.count() }}</b></div>
-                {# 可以在前端写关注判断 #}
-                <a href="javascript:;" class="focused"
-                   style="display: {% if is_followed %} inline-block {% else %} none {% endif %}">
-                    <span class="over">{{ gettext('Cancel·la') }}</span>
-                </a>
-
-                <a href="javascript:;" class="focus"
-                   style="display:  {% if is_followed %} none {% else %} inline-block {% endif %}">
-                   {{ gettext('Segueix') }}
-                </a>
-            </div>
+    <div class="author_card" style="width: 96%;margin-bottom: 5px;padding: 5px" data-userid="{{ author.id }}">
+        <div class="card-header">
+            <a  target="_blank" class="author_pic">
+                <img src="https://qingdeng123-1257113111.cos.ap-nanjing.myqcloud.com/user_pic/2022-02/73b879c8-35e2-423a-ab13-92609797103e.jpg"
+                        alt="author_pic">
+            </a>
+            <a target="_blank" class="author_name">User</a>
         </div>
-    {% endif %}
-{% endblock %}
+        <div class="author_resume">Sense estat</div>
+        <div class="author-card-info">
+            <div class="writings"><span>Articles</span><b>2</b></div>
+            <div class="follows"><span>Fans</span><b>1</b></div>
+            <a href="javascript:;" class="focused"
+                style="display: inline-block">
+                <span class="over">Cancel·la</span>
+            </a>
 
-{% block foot_block %}
-    {% include 'JAB/includes/foot_script.html' %}
-    {#    <script src="/static/js/bbs/article.js"></script>#}
+            <a href="javascript:;" class="focus"
+                style="display:  none">
+                Segueix
+            </a>
+        </div>
+    </div>
+    <div class="layui-footer footer" style="margin-top: 13rem;">
+        <div class="footer_links">
+            <a href="#">Sobre JAB</a>
+            <span>|</span>
+            <a href="#">Contacte</a>
+            <span>|</span>
+            <a href="#">Web</a>
+        </div>
+        <p class="copyright">
+            CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+            Telèfon:010-****888 xICP*******8x
+        </p>
+    </div>
+</body>
+
+    <script src="/static/js/bbs/article.js"></script>
     <script>
         var article_id = {{ article.id }};
     </script>
-    {#收藏的js逻辑#}
     <script src="/static/js/article_collect.js"></script>
-    {#评论的js逻辑#}
     <script src="/static/js/article_comment.js"></script>
-    {#评论点赞的逻辑#}
     <script src="/static/js/comment_like.js"></script>
     <script src="/static/js/followed.js"></script>
-{% endblock %}
+</html>
