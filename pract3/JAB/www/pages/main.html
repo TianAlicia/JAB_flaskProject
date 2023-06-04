@@ -54,11 +54,11 @@
                         <h3>Articles Populars</h3>
                     </div>
                     <div class="rank_list">
-                        <a class="truncate" href="../pages/article.html" author="B"><b><span class="rank_num"></b></span>Títol 1</a>
-                        <a class="truncate" href="../pages/article.html" author="B"><b><span class="rank_num"></b></span>Títol 2</a>
-                        <a class="truncate" href="../pages/article.html" author="B"><b><span class="rank_num"></b></span>Títol 3</a>
-                        <a class="truncate" href="../pages/article.html" author="B"><b><span class="rank_num"></b></span>Títol 4</a>
-                        <a class="truncate" href="../pages/article.html" author="B"><b><span class="rank_num"></b></span>Títol 5</a>
+                        <a class="truncate" href="../pages/article.html" author="Mia Johnson"><b><span class="rank_num"></b></span>Més enllà de la taula de classe: La transformació de l'aprenentatge a través de la tecnologia</a>
+                        <a class="truncate" href="../pages/article.html" author="Ethan Campbell"><b><span class="rank_num"></b></span>Aprenentatge personalitzat: Descobrint el teu camí únic cap a l'èxit</a>
+                        <a class="truncate" href="../pages/article.html" author="Olivia Parker"><b><span class="rank_num"></b></span>Reimaginar la formació professional: Creant noves oportunitats per al creixement laboral</a>
+                        <a class="truncate" href="../pages/article.html" author="Emma Brown"><b><span class="rank_num"></b></span>Aprenentatge per la vida: Preparant-se per al món real més enllà dels llibres de text</a>
+                        <a class="truncate" href="../pages/article.html" author="Benjamin White"><b><span class="rank_num"></b></span>La formació del futur: Navegant en un món digital en constant evolució</a>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,31 @@
 <script src="../js/index.js"></script>
 <script src="../js/layui.js"></script>
 <script>
-    for (var i = 1; i <= 5; i++) {
+    var titles = [
+        "Més enllà de la taula de classe: La transformació de l'aprenentatge a través de la tecnologia", 
+        "Aprenentatge personalitzat: Descobrint el teu camí únic cap a l'èxit", 
+        "Reimaginar la formació professional: Creant noves oportunitats per al creixement laboral", 
+        "Aprenentatge per la vida: Preparant-se per al món real més enllà dels llibres de text", 
+        "La formació del futur: Navegant en un món digital en constant evolució"];
+    var autors = [
+        "Mia Johnson", 
+        "Ethan Campbell", 
+        "Olivia Parker", 
+        "Emma Brown", 
+        "Benjamin White"];
+    var avatars = [
+        "avatar3.png", 
+        "avatar2.png", 
+        "avatar8.png", 
+        "avatar6.png", 
+        "avatar7.png"];
+    var dates = [
+        "2023-05-09 08:00:00", 
+        "2023-05-09 09:15:00", 
+        "2023-05-09 10:30:00", 
+        "2023-05-09 1:45:00", 
+        "2023-05-09 13:00:00"];
+    for (var i = 0; i <= 4; i++) {
       var articleDiv = document.createElement("div");
       articleDiv.className = "articles";
 
@@ -96,17 +120,17 @@
         <div class="layui-card article">
           <div class="layui-card-header">
             <a href="#" class="news_pic">
-              <img src="../img/social-ico.png">
+              <img src="../img/article.jpg">
             </a>
           </div>
           <div class="layui-card-body">
-            <a href="../pages/article.html" class="trucate news_title">Títol ${i}</a>
+            <a href="../pages/article.html" class="trucate news_title">${titles[i]}</a>
             <div class="author_info">
               <div class="author">
-                <img src="../img/social-ico.png" alt="author">
-                <a href="#">Autor</a>
+                <img src="../img//avatar/${avatars[i]}" alt="author">
+                <a href="#">${autors[i]}</a>
               </div>
-              <div class="time">Data creació</div>
+              <div class="time">${dates[i]}</div>
             </div>
           </div>
         </div>
