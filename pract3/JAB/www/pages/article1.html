@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>JAB Article</title>
+    <link rel="stylesheet" href="../css/edit.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="shortcut icon" href="../img/social-ico.png">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="layui-header header">
+        <div class="layui-container">
+            <div class="header-demo">
+                <!-- 头部 logo -->
+                <a href="../pages/main.html" class="logo">
+                    <img src="../img/logo-social.png" alt="Logo JAB">
+                </a>
+                <ul class="menu">
+                    <li><a href="#?cid=1">Educació</a></li>
+                    <li><a href="#?cid=2">Tecnologia</a></li>
+                    <li><a href="#?cid=3">Cultura</a></li>
+                    <li data-cid="4"><a href="../pages/chat.html">Xat</a></li>
+                </ul>
+                
+                  <div class="search">
+                    <form action="/search" method="POST" style="line-height: 60px;">
+                        <input type="text", name="keyword" style=" width: 100px">
+                        <button class="iconfont icon-sousuo"></button>
+                    </form>
+                </div>
+                <div class="login-btn">
+                    <a href="../pages/profile.html" class="logo">
+                        <img src="../img/avatar/cat.jpg" alt="Foto de perfil" style="width:50px;height:50px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="article-content">
+        <div class="article-body">
+            <h3>Més enllà de la taula de classe: La transformació de l'aprenentatge a través de la tecnologia</h3>
+            <div class="detail_about clearfix">
+                <span class="time_source ">2023-05-09 08:00:00</span>
+                <span class="comment_liens">2</span>
+            </div>
+
+            <!--
+            <p class="summary">
+                Buit
+            </p>
+            -->
+
+            En els últims anys, la tecnologia ha tingut un impacte revolucionari en molts àmbits de la nostra vida, incloent-hi l'educació. Les aules ja no són el lloc exclusiu on es produeix l'aprenentatge, sinó que la tecnologia ha obert noves oportunitats per aprendre des de qualsevol lloc i en qualsevol moment.
+            <br>
+            Ara, els estudiants poden accedir a tota mena de recursos educatius en línia, des de llibres electrònics fins a vídeos d'explicacions de conceptes. També hi ha plataformes d'aprenentatge en línia que ofereixen cursos en moltes matèries, des de programació fins a música o història.
+            <br>
+            Això no és només beneficiós per als estudiants, sinó que també ho és per als professors. La tecnologia els ajuda a crear materials educatius innovadors, com ara jocs interactius i simulacions, que fan que els alumnes siguin més actius i engrescats en el seu aprenentatge.
+            <br>
+            La tecnologia també ha transformat la forma en què es realitzen les tasques i les activitats a l'aula. Les taules de classe tradicionals estan sent substituïdes per altres dispositius més avançats, com ara tauletes i portàtils. Això permet als alumnes treballar en grup de forma més eficient i col·laborar amb altres estudiants en línia.
+            <br>
+            Les aplicacions educatives també són cada vegada més populars. Aquestes aplicacions ofereixen diferents funcions que faciliten l'aprenentatge, com ara càmeres que escanejen problemes de matemàtiques i els resolen automàticament, o programes que ajuden a aprendre idiomes a través de jocs interactius.
+            <br>
+            Tot i així, també hi ha alguns desavantatges en la utilització de la tecnologia a l'aula. Els estudiants poden ser més propensos a la distracció si s'estan connectant a les xarxes socials o jugant a jocs en línia en lloc de prestar atenció a les classes. També és possible que alguns estudiants puguin experimentar problemes de salut a llarg termini, com ara dolors de cap o problemes de visió, a causa de l'ús excessiu de dispositius electrònics.
+            <br>
+            Per tant, és important que els educadors i els estudiants siguin conscients dels avantatges i desavantatges de la tecnologia a l'aula i que utilitzin aquests recursos de forma responsable i equilibrada. La tecnologia pot ser una eina poderosa per millorar l'aprenentatge i fer que sigui més accessible, però també és important que els estudiants mantinguin un equilibri saludable entre l'ús de la tecnologia i altres activitats importants de la vida, com ara l'exercici físic i la interacció social cara a cara.
+
+
+            <!--收藏/取消收藏-->
+            <a href="javascript:;" class="collection block-center"
+               style="display:  none">Favorit</a>
+            <a href="javascript:;" class="collected block-center"
+               style="display: block">
+                <span class="out">Ja és favorit</span>
+                <span class="over" style="display: none">Cancel·la</span>
+            </a>
+                <form action="" class="comment_form">
+                    <div class="person_pic">
+                        <img src="../img/avatar/cat.jpg" alt="用户图标">
+                        <textarea placeholder="Comenta" class="comment_input"></textarea>
+                    </div>
+                    <input type="submit" name="" value="Envia" class="comment_sub">
+                </form>
+            <div class="comment_count">
+
+            </div>
+
+            <div class="comments">
+                <hr>
+                <div class="comment">
+                    <div class="person_pic ">
+                        <img src="../img/avatar/worm.jpg" alt="用户图标">
+                    </div>
+                    <div class="comment-content">
+                        <div class="user_name">Usuari: Jan</div>
+                        <div class="comment_text ">
+                            Bo!
+                        </div>
+                        <div class="reply_text_con">
+                            <div class="user_name2">Usuari: Pepe</div>
+                            <div class="reply_text">
+                                No m'agrada
+                            </div>
+                        </div>
+                        <div class="comment-details">
+                            <div class="comment_time ">2020-01-01 00:00:00</div>
+                            <div>
+                                <a href="javascript:;" class="comment_reply">Respon</a>
+                                <a href="javascript:;" class="comment_up has_comment_up"></a>
+                            </div>
+                        </div>
+                        <form class="reply_form">
+                            <div>
+                                <textarea class="reply_input"></textarea>
+                                <div class="sub_submit">
+                                    <input type="submit" name="" value="Envia" class="reply_sub">
+                                    <input type="reset" name="" value="Cancel·la" class="reply_cancel">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="author_card" style="width: 96%;margin-bottom: 5px;padding: 5px" data-userid="{{ author.id }}">
+        <div class="card-header">
+            <a  target="_blank" class="author_pic">
+                <img src="../img/avatar/worm.jpg"
+                        alt="author_pic">
+            </a>
+            <a target="_blank" class="author_name">User</a>
+        </div>
+        <div class="author_resume">Sense estat</div>
+        <div class="author-card-info">
+            <div class="writings"><span>Articles</span><b>2</b></div>
+            <div class="follows"><span>Fans</span><b>1</b></div>
+            <a href="javascript:;" class="focused"
+                style="display: inline-block">
+                <span class="over">Cancel·la</span>
+            </a>
+
+            <a href="javascript:;" class="focus"
+                style="display:  none">
+                Segueix
+            </a>
+        </div>
+    </div>
+    <div class="layui-footer footer" style="margin-top: 13rem;">
+        <div class="footer_links">
+            <a href="#">Sobre JAB</a>
+            <span>|</span>
+            <a href="#">Contacte</a>
+            <span>|</span>
+            <a href="#">Web</a>
+        </div>
+        <p class="copyright">
+            CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+            Telèfon:010-****888 xICP*******8x
+        </p>
+    </div>
+</body>
+
+    <script src="../js/article.js"></script>
+    <script src="../js/article_collect.js"></script>
+    <script src="../js/article_comment.js"></script>
+    <script src="../js/comment_like.js"></script>
+    <script src="../js/followed.js"></script>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>JAB Article</title>
+    <link rel="stylesheet" href="../css/edit.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="shortcut icon" href="../img/social-ico.png">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="layui-header header">
+        <div class="layui-container">
+            <div class="header-demo">
+                <!-- 头部 logo -->
+                <a href="../pages/main.html" class="logo">
+                    <img src="../img/logo-social.png" alt="Logo JAB">
+                </a>
+                <ul class="menu">
+                    <li><a href="#?cid=1">Educació</a></li>
+                    <li><a href="#?cid=2">Tecnologia</a></li>
+                    <li><a href="#?cid=3">Cultura</a></li>
+                    <li data-cid="4"><a href="../pages/chat.html">Xat</a></li>
+                </ul>
+                
+                  <div class="search">
+                    <form action="/search" method="POST" style="line-height: 60px;">
+                        <input type="text", name="keyword" style=" width: 100px">
+                        <button class="iconfont icon-sousuo"></button>
+                    </form>
+                </div>
+                <div class="login-btn">
+                    <a href="../pages/profile.html" class="logo">
+                        <img src="../img/avatar/cat.jpg" alt="Foto de perfil" style="width:50px;height:50px;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="article-content">
+        <div class="article-body">
+            <h3>Aprenentatge per la vida: Preparant-se per al món real més enllà dels llibres de text</h3>
+            <div class="detail_about clearfix">
+                <span class="time_source ">2023-05-09 08:00:00</span>
+                <span class="comment_liens">2</span>
+            </div>
+
+            <!--
+            <p class="summary">
+                Buit
+            </p>
+            -->
+
+            L'aprenentatge per la vida és una forma d'educació que té l'objectiu de preparar als estudiants per al món real més enllà dels llibres de text. Es tracta d'un enfocament que té en compte les necessitats i les habilitats dels estudiants per a l'èxit en la vida, més que només les seves notes acadèmiques.
+            <br>
+            En l'aprenentatge per la vida, els estudiants aprenen habilitats i coneixements que són rellevants per a la seva vida quotidiana i futura carrera professional. Això inclou la capacitat de comunicar-se eficaçment, treballar en equip, resoldre problemes, prendre decisions, i altres habilitats socials i emocionals que són importants per a l'èxit en el món real.
+            <br>
+            Una forma d'implementar l'aprenentatge per la vida és a través de l'aprenentatge basat en projectes. En aquest model d'aprenentatge, els estudiants treballen en projectes que són rellevants per a la seva vida quotidiana i futura carrera professional, i que els permeten aplicar els seus coneixements i habilitats en un context real. Això no només ajuda als estudiants a desenvolupar les seves habilitats i coneixements, sinó que també els motiva a aprendre, ja que veuen la seva educació com una cosa rellevant i útil per a les seves vides.
+            <br>
+            Una altra forma d'implementar l'aprenentatge per la vida és a través de la col·laboració entre les escoles i les empreses. Les empreses poden proporcionar oportunitats de pràctiques o de treball per als estudiants, que els permeten veure com els seus coneixements i habilitats es relacionen amb el món real. Això també pot ajudar als estudiants a trobar una direcció per a la seva futura carrera professional, i els dona la possibilitat d'adquirir habilitats i coneixements pràctics que no es poden aprendre en un aula.
+            <br>
+            A més, l'aprenentatge per la vida també pot ser promogut a través de l'educació financera. És important que els estudiants aprenguin com gestionar el seu diners i com fer decisions financeres intel·ligents. Això els ajudarà a preparar-se per a la vida adulta i els donarà la confiança per prendre decisions financeres informades.
+            <br>
+            En resum, l'aprenentatge per la vida és un enfocament educatiu que té en compte les necessitats i les habilitats dels estudiants per a l'èxit en la vida, més que només les seves notes acadèmiques. A través de l'aprenentatge basat en projectes, la col·laboració entre les escoles i les empreses, i l'educació financera, els estudiants poden adquirir habilitats i coneixements pràctics que els ajudaran a preparar-se per a la vida adulta i per a la seva futura carrera professional. L'aprenentatge per la vida no només ajuda als estudiants a ser més preparats per al món real, sinó que també els dóna la confiança i la motivació per continuar aprenent i créixer en la vida. És important que les escoles i els educadors reconeguin la importància de l'aprenentatge per la vida i que treballin per implementar aquest enfocament educatiu en les seves aules. Així, els estudiants podran desenvolupar les habilitats i coneixements que necessiten per a l'èxit no només en la seva carrera, sinó també en la seva vida personal i social.
+
+
+            <!--收藏/取消收藏-->
+            <a href="javascript:;" class="collection block-center"
+               style="display:  none">Favorit</a>
+            <a href="javascript:;" class="collected block-center"
+               style="display: block">
+                <span class="out">Ja és favorit</span>
+                <span class="over" style="display: none">Cancel·la</span>
+            </a>
+                <form action="" class="comment_form">
+                    <div class="person_pic">
+                        <img src="../img/avatar/cat.jpg" alt="用户图标">
+                        <textarea placeholder="Comenta" class="comment_input"></textarea>
+                    </div>
+                    <input type="submit" name="" value="Envia" class="comment_sub">
+                </form>
+            <div class="comment_count">
+
+            </div>
+
+            <div class="comments">
+                <hr>
+                <div class="comment">
+                    <div class="person_pic ">
+                        <img src="../img/avatar/worm.jpg" alt="用户图标">
+                    </div>
+                    <div class="comment-content">
+                        <div class="user_name">Usuari: Jan</div>
+                        <div class="comment_text ">
+                            Bo!
+                        </div>
+                        <div class="reply_text_con">
+                            <div class="user_name2">Usuari: Pepe</div>
+                            <div class="reply_text">
+                                No m'agrada
+                            </div>
+                        </div>
+                        <div class="comment-details">
+                            <div class="comment_time ">2020-01-01 00:00:00</div>
+                            <div>
+                                <a href="javascript:;" class="comment_reply">Respon</a>
+                                <a href="javascript:;" class="comment_up has_comment_up"></a>
+                            </div>
+                        </div>
+                        <form class="reply_form">
+                            <div>
+                                <textarea class="reply_input"></textarea>
+                                <div class="sub_submit">
+                                    <input type="submit" name="" value="Envia" class="reply_sub">
+                                    <input type="reset" name="" value="Cancel·la" class="reply_cancel">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="author_card" style="width: 96%;margin-bottom: 5px;padding: 5px" data-userid="{{ author.id }}">
+        <div class="card-header">
+            <a  target="_blank" class="author_pic">
+                <img src="../img/avatar/worm.jpg"
+                        alt="author_pic">
+            </a>
+            <a target="_blank" class="author_name">User</a>
+        </div>
+        <div class="author_resume">Sense estat</div>
+        <div class="author-card-info">
+            <div class="writings"><span>Articles</span><b>2</b></div>
+            <div class="follows"><span>Fans</span><b>1</b></div>
+            <a href="javascript:;" class="focused"
+                style="display: inline-block">
+                <span class="over">Cancel·la</span>
+            </a>
+
+            <a href="javascript:;" class="focus"
+                style="display:  none">
+                Segueix
+            </a>
+        </div>
+    </div>
+    <div class="layui-footer footer" style="margin-top: 13rem;">
+        <div class="footer_links">
+            <a href="#">Sobre JAB</a>
+            <span>|</span>
+            <a href="#">Contacte</a>
+            <span>|</span>
+            <a href="#">Web</a>
+        </div>
+        <p class="copyright">
+            CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+            Telèfon:010-****888 xICP*******8x
+        </p>
+    </div>
+</body>
+
+    <script src="../js/article.js"></script>
+    <script src="../js/article_collect.js"></script>
+    <script src="../js/article_comment.js"></script>
+    <script src="../js/comment_like.js"></script>
+    <script src="../js/followed.js"></script>
+</html>
