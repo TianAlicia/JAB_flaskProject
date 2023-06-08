@@ -1,0 +1,52 @@
+{% extends 'account/base.html' %}
+
+{% block main %}
+    <div class="profile-card">
+        <h3 class="profile-card-title">{{ gettext('Seguits')}}</h3>
+        <div class="author-cards">
+            {% for followed in followed_list %}
+                <div class="author_card">
+                    <div class="card-header">
+                        <a href="#" target="_blank" class="author_pic">
+                            <img src="{{ followed.avatar_url }}" alt="author_pic">
+                        </a>
+                        <a href="#" target="_blank" class="author_name">{{ followed.nick_name }}</a>
+                    </div>
+                    <div class="author_resume">{{ followed.signature }}</div>
+                    <div class="author-card-info">
+                        <div class="writings"><span>{{ gettext('Articles') }}</span><b>{{ followed.article_list.count() }}</b></div>
+                        <div class="follows"><span>{{ gettext('Fans') }}</span><b>{{ followed.followers.count() }}</b></div>
+                        {# gettext('Només 1 seguidor') #}
+{#                        <a href="javascript:;" class="focus">{{ gettext('Segueix')}}</a>#}
+                        <a href="javascript:;" class="focused">
+                            <span class="out">{{ gettext('Seguint')}}</span>
+                            <span class="over" style="display: none">{{ gettext('Cancel·la')}}</span>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="profile-pagination">
+            <div id="test1"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_script %}
+    <script>
+        layui.use(['jquery'], function() {
+            var $ = layui.jquery;
+
+            $('.focused').on({
+                mouseover: function() {
+                    $(this).find('.out').hide();
+                    $(this).find('.over').show();
+                },
+                mouseout: function() {
+                    $(this).find('.out').show();
+                    $(this).find('.over').hide();
+                },
+            });
+        });
+    </script>
+{% endblock %}

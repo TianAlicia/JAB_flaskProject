@@ -1,4 +1,4 @@
-FLASK_APP='JAB:create_app("dev")'
+FLASK_APP='index_JAP:create_app("dev")'
 FLASK_DEBUG=True
 FLASK_RUN_HOST='127.0.0.1'
 FLASK_RUN_PORT=5000

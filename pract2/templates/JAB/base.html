@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block head_block %}
+        {% include 'JAB/includes/head_script.html' %}
+    {% endblock %}
+</head>
+<body>
+<div class="layui-header header">
+    <div class="layui-container">
+        <div class="header-demo">
+            <!-- 头部 logo -->
+            <a href="/" class="logo">
+                <img src="/static/images/logo-social.png" alt="">
+            </a>
+            {% block menu %}
+                <!-- 中间分类栏 -->
+                <ul class="menu">
+                    {% for cate in cate_list %}
+                        <li><a href="/?cid={{ cate.id }}">{{ cate.name }}</a></li>
+                    {% endfor %}
+                    {% if current_user.is_active %}
+                <li data-cid="4"><a href="/chat">Xat</a></li>
+            {% endif %}
+                </ul>
+            {% endblock %}
+            
+              <div class="search">
+                	<form action="/search" method="POST" style="line-height: 60px;">
+                        <input type="text", name="keyword" style=" width: 100px">
+                        <button class="iconfont icon-sousuo"></button>
+                    </form>
+            </div>
+            <div class="login-btn">
+                {% if current_user.is_active %}
+                    <a href="/account/base_info" class="logo">
+                        <img src="{{ current_user.avatar_url }}" onerror="this.src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';" alt="{{ current_user.nick_name }}" style="width:50px;height:50px;">
+                    </a>
+                    <a href="/logout">{{ gettext('Logout') }}</a>
+                {% else %}
+                    <a href="/login" class="login_btn">{{ gettext('Login') }}</a> /
+                    <a href="/register" class="register_btn">{{ gettext('Registre') }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--中间内容部分-->
+<div class="layui-container">
+    <!--新闻列表-->
+    <div class="layui-row main" style="margin-top: 20px">
+        <div class="layui-col-md9">
+            {% block main %}
+                {{ gettext('Inici') }}
+            {% endblock %}
+            <div id="pagination" style="text-align: center"></div>
+        </div>
+        <div class="layui-col-md3 layui-hide-xs">
+            <div class="side">
+                {% block author %}
+
+                {% endblock %}
+                <div class="rank">
+                    <div class="rank_title">
+                        <h3>{{ gettext('Articles Populars') }}</h3>
+                    </div>
+                    <div class="rank_list">
+                        {% for hot_article in hot_article_list %}
+                            <a href="/article/{{ hot_article.id }}">{{ hot_article.title }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% block foot_block %}
+    {% include 'JAB/includes/foot_script.html' %}
+{% endblock %}
+
+</body>
+</html>

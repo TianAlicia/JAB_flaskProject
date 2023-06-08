@@ -1,0 +1,140 @@
+{% extends 'account/base.html' %}
+
+{% block main %}
+    <div class="profile-card">
+        <h3 class="profile-card-title" style="margin-bottom: 20px">{{ gettext('Publica un article') }}</h3>
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{ gettext('Títol: ') }}</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required"
+                           placeholder={{ gettext('Títol') }} autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{ gettext('Categoria: ') }}</label>
+                <div class="layui-input-inline">
+                    <select name="category_id" lay-verify="required" lay-search="">
+<!--                        <option value="">elegir</option>-->
+                        {% for cate in cate_list %}
+                            <option value="{{ cate.id }}">{{ cate.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">{{ gettext('Resum: ') }}</label>
+                <div class="layui-input-block">
+                    <textarea name="digest" placeholder={{ gettext('Contingut') }}
+                              class="layui-textarea"></textarea>
+                </div>
+<!--            </div>-->
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label">sube foto：</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="text" name="image_url" class="article_img_url" style="display: none">-->
+<!--                    <button type="button" class="layui-btn" id="test1">-->
+<!--                        <i class="layui-icon">&#xe67c;</i>subir-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <img src="" alt="文章图片" class="article_img" style="display: none">-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="layui-form-item">
+                <label class="layui-form-label" for="rich_content">{{ gettext('Contingut: ') }}</label>
+                <div class="layui-input-block">
+                    <input class="input_area" id="rich_content" name="content" style="height: 700px">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">{{ gettext('Modifica') }}</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">{{ gettext('Reiniciar') }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block footer_script %}
+    {#富文本编辑器的js#}
+    <script src="/static/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script>
+        layui.use(['form', 'upload', 'jquery'], function() {
+            var form = layui.form;
+            var upload = layui.upload;
+            var laydate = layui.laydate;
+            var $ = layui.jquery;
+            // 初始化富文本编辑器
+            tinymce.init({
+                selector: '#rich_content',
+                // language: 'zh_CN', //调用放在 langs 文件夹内的语言包
+                // 工具栏上面的补丁按钮
+                plugins: [
+                    'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+                    'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                    'save table contextmenu directionality template paste textcolor',
+                    'codesample',
+                ],
+                // 工具栏的补丁按钮
+                toolbar: 'insertfile undo redo | \
+                     styleselect | \
+                     bold italic | \
+                     alignleft aligncenter alignright alignjustify | \
+                     bullist numlist outdent indent | \
+                     link image | \
+                     print preview media fullpage | \
+                     forecolor backcolor emoticons |\
+                     codesample fontsizeselect fullscreen |\
+                     imageupload',
+                //字体大小
+                fontsize_formats: '10pt 12pt 14pt 18pt 24pt 36pt',
+                //按 tab 不换行
+                nonbreaking_force_tab: true,
+                imageupload_url: '/user/submit-image',
+            });
+
+            // var uploadInst = upload.render({
+            //     elem: '#test1' //绑定元素
+            //     , url: '/account/article_img' //上传接口
+            //     , done: function(res) {
+            //         //上传完毕回调
+            //         {#console.log(res);#}
+            //         $('.article_img_url').val(res.avatar_url);
+            //         {#$('.article_img').src = res.avatar_url#}
+            //         document.querySelector('.article_img').src = res.avatar_url;
+            //
+            //         $('.article_img').show();
+            //         // 需要预览吗 ?
+            //     }
+            //     , error: function() {
+            //         //请求异常回调
+            //     },
+            // });
+            form.on('submit(formDemo)', function(form) {
+                // layui 表单监听 默认上传的文件在电脑中的地址
+                // 如果用默认的提交,就获取不到 tinymce 的 html
+                // 解决办法, 先将图片上传,然后再把地址通过ajax保存到网页字段中再次上传
+                var data = form.field;
+                var content = tinyMCE.activeEditor.getContent();
+                data['content'] = content;
+                console.log(data);
+
+                fetch('/user/posts_release', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data),
+                }).then(function(response) {
+                    return response.json();
+                }).then(function(ret) {
+                    console.log(ret);
+                    console.log(ret.message);
+                    location.reload();
+                });
+
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

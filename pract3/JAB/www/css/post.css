@@ -1,0 +1,57 @@
+/* Estil del contingut del post */
+.post-content {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    margin: 20px 0;
+  }
+  
+  /* Estil de la imatge destacada */
+  .post-image {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Estil del títol del post */
+  .post-title {
+    font-family: Georgia, serif;
+    font-size: 24px;
+    line-height: 1.2;
+    color: #444;
+    margin: 0;
+  }
+  
+  /* Estil de la data d'actualització */
+  .post-date {
+    display: block;
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 20px;
+  }
+  
+  /* Estil del nom de l'autor */
+  .author-name {
+    font-weight: bold;
+  }
+  
+  /* Estil de la imatge de l'autor */
+  .author-image {
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* Estil de la informació de l'autor */
+  .post-author {
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 20px;
+  }
+  
+  

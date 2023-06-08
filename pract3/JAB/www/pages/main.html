@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>JAB</title>
+    <link rel="stylesheet" href="../css/edit.css">
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="shortcut icon" href="../img/social-ico.png">
+    <script src="../js/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div class="layui-header header">
+    <div class="layui-container">
+        <div class="header-demo">
+            <!-- 头部 logo -->
+            <a href="#" class="logo">
+                <img src="../img/logo-social.png" alt="Logo JAB">
+            </a>
+            <ul class="menu">
+                <li><a class="hide-on-mobile" href="#?cid=1">Educació</a></li>
+                <li><a class="hide-on-mobile" href="#?cid=2">Tecnologia</a></li>
+                <li><a class="hide-on-mobile" href="#?cid=3">Cultura</a></li>
+                <li data-cid="4"><a href="../pages/chat.html">Xat</a></li>
+            </ul>
+            
+              <div class="search">
+                <form action="/search" method="POST">
+                    <input type="text", name="keyword" style=" width: 100px">
+                    <button class="iconfont icon-sousuo"></button>
+                </form>
+            </div>
+            <div class="login-btn">
+                <a href="../pages/profile.html" class="logo">
+                    <img src="../img/avatar/cat.jpg" alt="Foto de perfil" style="width:50px;height:50px;">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-container">
+    <div class="layui-row main" style="margin-top: 20px">
+        <div class="layui-col-md9">
+            <div class="articles">
+                <div id="articleContainer"></div>
+            </div>    
+            <div id="pagination" style="text-align: center"></div>
+        </div>
+        <div class="layui-col-md3 layui-hide-xs">
+            <div class="side">
+                <div class="rank">
+                    <div class="rank_title">
+                        <h3>Articles Populars</h3>
+                    </div>
+                    <div class="rank_list">
+                        <a class="truncate" href="../pages/article.html" author="Mia Johnson"><b><span class="rank_num"></b></span>Més enllà de la taula de classe: La transformació de l'aprenentatge a través de la tecnologia</a>
+                        <a class="truncate" href="../pages/article.html" author="Ethan Campbell"><b><span class="rank_num"></b></span>Aprenentatge personalitzat: Descobrint el teu camí únic cap a l'èxit</a>
+                        <a class="truncate" href="../pages/article.html" author="Olivia Parker"><b><span class="rank_num"></b></span>Reimaginar la formació professional: Creant noves oportunitats per al creixement laboral</a>
+                        <a class="truncate" href="../pages/article.html" author="Emma Brown"><b><span class="rank_num"></b></span>Aprenentatge per la vida: Preparant-se per al món real més enllà dels llibres de text</a>
+                        <a class="truncate" href="../pages/article.html" author="Benjamin White"><b><span class="rank_num"></b></span>La formació del futur: Navegant en un món digital en constant evolució</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="layui-footer footer" style="margin-top: 13rem;">
+    <div class="footer_links">
+        <a href="#">Sobre JAB</a>
+        <span>|</span>
+        <a href="#">Contacte</a>
+        <span>|</span>
+        <a href="#">Web</a>
+    </div>
+    <p class="copyright">
+        CopyRight © 2023 JoanAliciaBernat All Rights Reserved<br>
+        Telèfon:010-****888 xICP*******8x
+    </p>
+</div>
+
+</body>
+</html>
+
+<script src="../js/main.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/layui.js"></script>
+<script>
+    var titles = [
+        "Més enllà de la taula de classe: La transformació de l'aprenentatge a través de la tecnologia", 
+        "Aprenentatge personalitzat: Descobrint el teu camí únic cap a l'èxit", 
+        "Reimaginar la formació professional: Creant noves oportunitats per al creixement laboral", 
+        "Aprenentatge per la vida: Preparant-se per al món real més enllà dels llibres de text", 
+        "La formació del futur: Navegant en un món digital en constant evolució"];
+    var autors = [
+        "Mia Johnson", 
+        "Ethan Campbell", 
+        "Olivia Parker", 
+        "Emma Brown", 
+        "Benjamin White"];
+    var avatars = [
+        "avatar3.png", 
+        "avatar2.png", 
+        "avatar8.png", 
+        "avatar6.png", 
+        "avatar7.png"];
+    var dates = [
+        "2023-05-09 08:00:00", 
+        "2023-05-09 09:15:00", 
+        "2023-05-09 10:30:00", 
+        "2023-05-09 1:45:00", 
+        "2023-05-09 13:00:00"];
+    var articles = [
+        "article1.html", 
+        "article2.html", 
+        "article3.html", 
+        "article4.html", 
+        "article5.html"];
+    for (var i = 0; i <= 4; i++) {
+      var articleDiv = document.createElement("div");
+      articleDiv.className = "articles";
+
+      var innerHTML = `
+        <div class="layui-card article">
+          <div class="layui-card-header">
+            <a href="#" class="news_pic">
+              <img src="../img/article.jpg">
+            </a>
+          </div>
+          <div class="layui-card-body">
+            <a href="../pages/${articles[i]}" class="trucate news_title">${truncateText(titles[i], 40)}</a>
+            <div class="author_info">
+              <div class="author">
+                <img src="../img//avatar/${avatars[i]}" alt="author">
+                <a href="#">${autors[i]}</a>
+              </div>
+              <div class="time">${dates[i]}</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      articleDiv.innerHTML = innerHTML;
+      articleContainer.appendChild(articleDiv);
+
+      function truncateText(text, maxLength) {
+        if (text.length > maxLength) {
+            return text.slice(0, maxLength) + '...';
+        }
+        return text;
+        }
+    }
+</script>
+<script>
+    layui.use('laypage', function() {
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'pagination' //注意，这里的 test1 是 ID，不用加 # 号
+            , count: {{paginate.total}} //数据总数，从服务端得到
+            , curr: {{ paginate.page }}
+            , limit: {{ paginate.per_page}},
+                prev: 'Anterior', // 上一页的显示文本
+                next : 'Següent'
+            , jump: function(obj, first) {
+                // obj包含了当前分页的所有参数，比如：
+                //首次不执行
+                if (!first) {
+                    //do something
+                    let searchParams = new URLSearchParams(location.search);
+                    searchParams.set('page', obj.curr);
+                    // 更新 url 调用浏览器默认的方式请求后端
+                    location.search = searchParams.toString();
+                    // ajax 进行请求  动态更新 jquery 修改页面
+                }
+            },
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('.rank_list .truncate').each(function(index) {
+          $(this).find('.rank_num').text(index + 1 + ". ");
+        });
+      });
+</script>
