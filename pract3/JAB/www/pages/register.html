@@ -24,37 +24,37 @@
         <div class="title">JAB</div>
     </div>
     <div class="layui-form-item">
-        <input name="nickname" type="text" lay-verify="required" placeholder="Usuari:" value="" hover
+        <input id="nickname" name="nickname" type="text" lay-verify="required" placeholder="Usuari:" value="" hover
                class="layui-input"
                autocomplete="off"/>
     </div>
     <div class="layui-form-item">
-        <input name="password" type="password" lay-verify="required" placeholder="Contransenya:" value="" hover
+        <input id="password" name="password" type="password" lay-verify="required" placeholder="Contransenya:" value="" hover
                class="layui-input"/>
     </div>
     <div class="layui-form-item">
-        <input name="mobile" type="text" lay-verify="required" placeholder="Mòvil:" value="" hover
+        <input id="mobile" name="mobile" type="text" lay-verify="required" placeholder="Mòvil:" value="" hover
                class="layui-input"/>
     </div>
     <div class="layui-form-item">
-        <input placeholder="Codi de verificació:" name="captcha" lay-verify="required"
+        <input id="captcha" placeholder="Codi de verificació:" name="captcha" lay-verify="required"
                hover class="code layui-input layui-input-inline"/>
         <img src="../img/admin/getCaptcha.png" class="codeImage" id="captchaImage"/>
     </div>
     <div class="layui-form-item">
-        <input name="Email" type="text" lay-verify="required" placeholder="Email:" value="" hover
+        <input id="email" name="Email" type="text" lay-verify="required" placeholder="Email:" value="" hover
                class="code layui-input layui-input-inline"
                autocomplete="off"/>
         <div class="layui-form-mid layui-word-aux"><a href="javascript:;" class="send_sms">Codi de verificació: </a>
         </div>
     </div>
     <div class="layui-form-item">
-        <input name="invitation_code" type="text" lay-verify="required" placeholder="Codi" value=""
+        <input id="invitationCode" name="invitation_code" type="text" lay-verify="required" placeholder="Codi" value=""
                hover class="layui-input" autocomplete="off"/>
     </div>
 
     <div class="layui-form-item">
-        <button class="layui-btn" lay-submit lay-filter="register">
+        <button class="layui-btn" lay-submit lay-filter="register" onclick="register()">
             Registrar-se
         </button>
     </div>
@@ -82,10 +82,32 @@
 <script src="../js/layui.js"></script>
 <script src="../js/register.js"></script>
 <script>
-    
+    function register() {
+      var nickname = document.getElementById('nickname').value;
+      var password = document.getElementById('password').value;
+      var mobile = document.getElementById('mobile').value;
+      var captcha = document.getElementById('captcha').value;
+      var email = document.getElementById('email').value;
+      var invitationCode = document.getElementById('invitationCode').value;
+  
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://10.10.10.10', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+  
+      var data = JSON.stringify({
+        nickname: nickname,
+        password: password,
+        mobile: mobile,
+        captcha: captcha,
+        email: email,
+        invitationCode: invitationCode
+      });
+  
+      xhr.send(data);
 
-</script>
-<!--<script src="/static/js/main.js"></script>-->
-<!--<script src="/static/js/bbs/register.js"></script>-->
+      window.location.href = "main.html";
+    }
+  </script>
+  
 </body>
 </html>

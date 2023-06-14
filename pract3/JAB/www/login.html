@@ -21,13 +21,13 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <input name="username" type="text" placeholder="Nom d'usuari:" hover class="layui-input"/>
+        <input id="username" name="username" type="text" placeholder="Nom d'usuari:" hover class="layui-input"/>
     </div>
     <div class="layui-form-item">
-        <input name="password" type="password" placeholder="Contrasenya:" hover class="layui-input"/>
+        <input id="password" name="password" type="password" placeholder="Contrasenya:" hover class="layui-input"/>
     </div>
     <div class="layui-form-item">
-        <button class="layui-btn" lay-submit lay-filter="login" onclick="window.location.href = 'pages/main.html'">
+        <button class="layui-btn" lay-submit lay-filter="login" onclick="login()">
             Login
         </button>
     </div>
@@ -53,7 +53,24 @@
 </div>
 
 <script src="js/layui.js"></script>
-<script src="js/login.js"></script>
 <script src="js/main.js"></script>
+
+<script>
+    function login() {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+  
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "http://10.10.10.10", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+  
+      var data = JSON.stringify({ "username": username, "password": password });
+ 
+      xhr.send(data);
+
+      window.location.href = "pages/main.html";
+    }
+</script>
+  
 </body>
 </html>
