@@ -90,6 +90,7 @@
 <script src="../js/index.js"></script>
 <script src="../js/layui.js"></script>
 <script>
+    llistaArticles();
     var titles = [
         "Més enllà de la taula de classe: La transformació de l'aprenentatge a través de la tecnologia", 
         "Aprenentatge personalitzat: Descobrint el teu camí únic cap a l'èxit", 
@@ -132,7 +133,7 @@
             </a>
           </div>
           <div class="layui-card-body">
-            <a href="../pages/${articles[i]}" class="trucate news_title">${truncateText(titles[i], 40)}</a>
+            <a href="../pages/${articles[i]}" class="trucate news_title" onclick="getArticle(event, '${articles[i]}')">${truncateText(titles[i], 40)}</a>
             <div class="author_info">
               <div class="author">
                 <img src="../img/avatar/${avatars[i]}" alt="author">
@@ -146,37 +147,68 @@
 
       articleDiv.innerHTML = innerHTML;
       articleContainer.appendChild(articleDiv);
+    }
 
-      function truncateText(text, maxLength) {
+    function truncateText(text, maxLength) {
         if (text.length > maxLength) {
             return text.slice(0, maxLength) + '...';
         }
         return text;
-        }
     }
+
+    function getArticle(event, article_id) {
+        event.preventDefault();
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://10.10.10.10", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        var data = JSON.stringify({"article": article_id});
+
+        xhr.send(data);
+
+        window.location.href = "../pages/" + article_id;
+    }
+
+    function llistaArticles() {
+        var data = JSON.stringify({ "get_articles": true });
+
+        fetch("http://127.0.0.1", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: data
+        }).catch(function(error) {
+            console.log("Error en realitzar la sol·licitud POST:", error);
+        });
+    }
+
 </script>
+
+
 <script>
     layui.use('laypage', function() {
         var laypage = layui.laypage;
 
-        //执行一个laypage实例
+        // Executa una instància de laypage
         laypage.render({
-            elem: 'pagination' //注意，这里的 test1 是 ID，不用加 # 号
-            , count: {{paginate.total}} //数据总数，从服务端得到
-            , curr: {{ paginate.page }}
-            , limit: {{ paginate.per_page}},
-                prev: 'Anterior', // 上一页的显示文本
-                next : 'Següent'
-            , jump: function(obj, first) {
-                // obj包含了当前分页的所有参数，比如：
-                //首次不执行
+            elem: 'pagination', // Atenció, aquí 'test1' és l'ID, no cal afegir el símbol #
+            count: {{paginate.total}}, // Total de dades, obtingut des del servidor
+            curr: {paginate.page},
+            limit: {{paginate.per_page}},
+            prev: 'Anterior', // Text per mostrar la pàgina anterior
+            next: 'Següent',
+            jump: function(obj, first) {
+                // obj conté tots els paràmetres de la paginació actual, per exemple:
+                // No s'executa la primera vegada
                 if (!first) {
-                    //do something
+                    // Fes alguna cosa
                     let searchParams = new URLSearchParams(location.search);
                     searchParams.set('page', obj.curr);
-                    // 更新 url 调用浏览器默认的方式请求后端
+                    // Actualitza la URL per cridar la forma per defecte del navegador per sol·licitar el backend
                     location.search = searchParams.toString();
-                    // ajax 进行请求  动态更新 jquery 修改页面
+                    // Ajax per fer la sol·licitud i actualitzar dinàmicament la pàgina amb jQuery
                 }
             },
         });
